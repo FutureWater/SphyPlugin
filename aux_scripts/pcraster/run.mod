@@ -1,0 +1,1 @@
+"E:/amelia/SPHY_demo/SPHY-3.0-test/input/slope.map" = slope("E:/amelia/SPHY_demo/SPHY-3.0-test/input/dem.map")
