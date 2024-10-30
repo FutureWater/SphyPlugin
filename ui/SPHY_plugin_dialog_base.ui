@@ -66,7 +66,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>0</number>
+    <number>1</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -1524,7 +1524,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>9</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -4192,8 +4192,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>500</x>
-     <y>225</y>
+     <x>123</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4208,8 +4208,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>490</x>
-     <y>389</y>
+     <x>123</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4224,8 +4224,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>345</x>
-     <y>112</y>
+     <x>113</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>408</x>
@@ -4240,8 +4240,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>253</y>
+     <x>494</x>
+     <y>309</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4256,8 +4256,8 @@ time-series</string>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>640</y>
+     <x>60</x>
+     <y>662</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4272,8 +4272,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>170</y>
+     <x>73</x>
+     <y>191</y>
     </hint>
     <hint type="destinationlabel">
      <x>214</x>
@@ -4288,8 +4288,8 @@ time-series</string>
    <slot>createInitMaps()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>132</x>
-     <y>608</y>
+     <x>113</x>
+     <y>393</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4320,8 +4320,8 @@ time-series</string>
    <slot>createStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>432</y>
+     <x>92</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -4336,8 +4336,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>476</x>
-     <y>164</y>
+     <x>492</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4352,8 +4352,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>172</y>
+     <x>73</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4368,8 +4368,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>500</x>
-     <y>253</y>
+     <x>123</x>
+     <y>233</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4384,8 +4384,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>502</x>
-     <y>332</y>
+     <x>494</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4400,8 +4400,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>232</x>
-     <y>223</y>
+     <x>224</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4416,8 +4416,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>55</x>
-     <y>231</y>
+     <x>59</x>
+     <y>261</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4432,8 +4432,8 @@ time-series</string>
    <slot>updateStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>501</x>
-     <y>147</y>
+     <x>113</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4448,8 +4448,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>69</x>
-     <y>197</y>
+     <x>73</x>
+     <y>226</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4464,8 +4464,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>149</y>
+     <x>113</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4480,8 +4480,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>490</x>
-     <y>361</y>
+     <x>123</x>
+     <y>369</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4497,7 +4497,7 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>109</x>
-     <y>251</y>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4512,8 +4512,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>126</y>
+     <x>56</x>
+     <y>156</y>
     </hint>
     <hint type="destinationlabel">
      <x>107</x>
@@ -4528,8 +4528,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>491</x>
-     <y>124</y>
+     <x>113</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4544,8 +4544,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>500</x>
-     <y>128</y>
+     <x>492</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4560,8 +4560,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>51</x>
-     <y>301</y>
+     <x>55</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4576,8 +4576,8 @@ time-series</string>
    <slot>delineate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>441</y>
+     <x>113</x>
+     <y>253</y>
     </hint>
     <hint type="destinationlabel">
      <x>459</x>
@@ -4592,8 +4592,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>175</x>
-     <y>225</y>
+     <x>167</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4608,8 +4608,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>575</y>
+     <x>82</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4640,8 +4640,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>453</x>
-     <y>486</y>
+     <x>473</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>526</x>
@@ -4656,8 +4656,8 @@ time-series</string>
    <slot>createClone()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>99</x>
-     <y>517</y>
+     <x>104</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -4672,12 +4672,60 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>167</y>
+     <x>82</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>-6</x>
      <y>185</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectSphyPathButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updatePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>455</x>
+     <y>145</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>485</x>
+     <y>44</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectInputPathButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updatePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>462</x>
+     <y>188</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>107</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>selectOutputPathButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updatePath()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>227</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>160</y>
     </hint>
    </hints>
   </connection>

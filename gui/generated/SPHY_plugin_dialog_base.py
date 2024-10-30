@@ -1942,9 +1942,9 @@ class Ui_SphyPluginDialog(object):
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(SphyPluginDialog)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         self.Tab.setCurrentIndex(0)
-        self.tab_3.setCurrentIndex(0)
+        self.tab_3.setCurrentIndex(9)
         self.newButton.clicked.connect(SphyPluginDialog.createNewProject) # type: ignore
         self.openButton.clicked.connect(SphyPluginDialog.openProject) # type: ignore
         self.saveAsButton.clicked.connect(SphyPluginDialog.saveAsProject) # type: ignore
@@ -1979,6 +1979,9 @@ class Ui_SphyPluginDialog(object):
         self.calculateAreaPropsButton.clicked.connect(SphyPluginDialog.recreateArea) # type: ignore
         self.createModelCloneButton.clicked.connect(SphyPluginDialog.createClone) # type: ignore
         self.precDBRadioButton.toggled['bool'].connect(SphyPluginDialog.updateForcing) # type: ignore
+        self.selectSphyPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
+        self.selectInputPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
+        self.selectOutputPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SphyPluginDialog)
 
     def retranslateUi(self, SphyPluginDialog):

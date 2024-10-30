@@ -163,6 +163,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         #-Trigger the PYthon console in order to let the print statements work in the thread subprocessing part
         iface.actionShowPythonDialog().trigger()
         iface.actionShowPythonDialog().trigger()
+
+        #- self.exitDate is used to check whether it needs to update the configfile after dates has been changed. This value is always True
+        #- except when a new project is created or a project is openened, because then it already reads the date from the config, so updating the 
+        #- config is then not required
+        self.exitDate = False        
         
         """
         If QGIS is loaded, check if there is a recent SPHY preprocessor config file in the registry
@@ -178,18 +183,29 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.projectDir = os.path.dirname(self.currentConfigFileName) + '/'
             self.currentProject = True
             self.Tab.setEnabled(1)
-            #self.Tab.setEnabled(self, 3, False)
+
+            ## MODEL PART 
+
+            self.sphyLocationPath = self.settings.value("sphyPreProcessPlugin/sphypath")
+            if self.sphyLocationPath is None:
+                self.sphyLocationPath = "./"
+            
+            # -----------
+            
             self.initGuiConfigMap()
             self.saveAsButton.setDisabled(0)
+            
         except:
             self.currentProject = False
             self.Tab.setEnabled(0)
             self.projectDir = './'
             self.databasePath = './'
             self.resultsPath = './'
+            self.sphyLocationPath = "./"
+
             self.saveAsButton.setDisabled(1)
             
-        #self.saveButton.setDisabled(1)
+        self.sphyPathLineEdit.setText(self.sphyLocationPath)
         
         #-Detect and set coordinate systems
         self.mapCrs = iface.mapCanvas().mapSettings().destinationCrs()
@@ -214,7 +230,27 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.configDict = {'databaseLineEdit':('GENERAL', 'Database_dir'), 'resultsLineEdit':('GENERAL', 'Results_dir'),\
                            'utmSpinBox': ('GENERAL', 'utmZoneNr'),'startDateEdit': ('GENERAL', ('startyear', 'startmonth', 'startday')), 'endDateEdit': ('GENERAL', \
                            ('endyear', 'endmonth', 'endday')), 'outletsLineEdit' : ('DELINEATION', 'outlets_shp'), 'clipMaskCheckBox' : ('DELINEATION', 'clip'),\
-                           'createSubBasinCheckBox' : ('DELINEATION', 'subbasins'), 'stationsLineEdit' : ('STATIONS', 'stations_shp')}
+                           'createSubBasinCheckBox' : ('DELINEATION', 'subbasins'), 'stationsLineEdit' : ('STATIONS', 'stations_shp'),
+                           
+                           "inputPathLineEdit": ("DIRS", "inputdir"),"outputPathLineEdit": ("DIRS", "outputdir"),
+                             "startDateEdit": ("TIMING", ("startyear", "startmonth", "startday")),
+                             "endDateEdit": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ("GENERAL", "mask"),
+                             "demMapLineEdit": ("GENERAL","dem"), "slopeMapLineEdit": ("GENERAL", "slope"),
+                             "subbasinMapLineEdit": ("GENERAL", "sub"), "stationsMapLineEdit": ("GENERAL", "locations"),
+                             "precMapSeriesLineEdit": ("CLIMATE", "Prec"), "avgTempMapSeriesLineEdit": ("CLIMATE", "Tair"),
+                             "maxTempMapSeriesLineEdit": ("ETREF", "Tmax"), "minTempMapSeriesLineEdit": ("ETREF", "Tmin"),
+                             "latitudeZonesMapLineEdit": ("ETREF", "Lat"), "solarConstantDoubleSpinBox": ("ETREF", "Gsc"),
+                             "rootFieldCapLineEdit": ("SOIL", "RootFieldMap"), "rootSatLineEdit": ("SOIL", "RootSatMap"),
+                             "rootPermWiltLineEdit": ("SOIL", "RootDryMap"), "rootWiltLineEdit": ("SOIL", "RootWiltMap"),
+                             "rootSatCondLineEdit": ("SOIL", "RootKsat"), "subFieldCapLineEdit": ("SOIL", "SubFieldMap"),
+                             "subSatLineEdit": ("SOIL", "SubSatMap"), "subSatCondLineEdit": ("SOIL", "SubKsat"),
+                             "maxCapRiseSpinBox": ("SOILPARS", "CapRiseMax"), "landUseLineEdit": ("LANDUSE", "LandUse"),
+                             "kcTableLineEdit": ("LANDUSE", "CropFac"), "initGlacFracLineEdit": ("GLACIER_INIT", "GlacFrac"),
+                             "cIFracLineEdit": ("GLACIER", "GlacFracCI"), "dBFracLineEdit": ("GLACIER", "GlacFracDB"),
+                             "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
+                           
+                           }
+        
         self.setGui()
         #####-Dictionary for UTM coordinate system
         self.configRadioDict = {'utmNRadioButton': ('GENERAL', 'utmZoneStr'), 'utmSRadioButton': ('GENERAL', 'utmZoneStr')}
@@ -233,13 +269,39 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'Sub_Ksat': 'sub_ksat.map', 'LandUse': 'landuse.map', 'Latitudes': 'latitude.map'}
         #-glacier and routing maps are only created if these modules are turned on. Snow and groundwater modules don't require the creation of maps, but are implemented for possible
         # future developments. The Gui doesn't do anything with these two modules yet.
-        self.glacierMaps = {'Glaciers Table': 'glaciers.csv'} #╔{'GlacFrac': 'glacfrac.map', 'GlacFracCI': 'glac_cleanice.map', 'GlacFracDB': 'glac_debris.map'}
+        self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Tlapse table': 'tlapse.csv'} #╔{'GlacFrac': 'glacfrac.map', 'GlacFracCI': 'glac_cleanice.map', 'GlacFracDB': 'glac_debris.map'}
         self.routingMaps = {'LDD': 'ldd.map', 'Outlets': 'outlets.map', 'Rivers': 'river.map', 'AccuFlux': 'accuflux.map', 'Sub-basins': 'subbasins.map'}
         self.setModulesDict()
         #-Dictionary for the Meteorological forcing Tab
         self.forcingDict = {'FlagCheckBox': 'FLAG', 'DBRadioButton': 'DB', 'LocFileLineEdit': 'LocFile', 'DataFileLineEdit': 'DataFile'}        
         self.setForcingDict()
-    
+
+        ## MODEL PART
+
+        # set the dictionary for the reporting options
+        self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
+                           "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
+                           "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
+                           "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
+                           "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
+                           "Routed total runoff [m3/s]": "qallratot"}
+        
+        items = self.reportDict.keys()
+        # check if items already exist. If items already exist, then items don't need to be added again
+        if self.reportListWidget.item(0) is None:
+            self.reportListWidget.addItems(items)
+            self.reportListWidget.sortItems()
+        # set the first item in the list as being the current item
+        self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
+        self.setReportGui()
+
+        # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
+        self.setOutputDict()
+        
+        # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
+        self.setVisListWidgets()
+
+
     #-Set the GUI with the correct values (obtained from config file)
     def setGui(self):
         for key in self.configDict:
@@ -251,6 +313,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 #self.setGui(widget, module, pars[0], pars[1], pars[2])
                 widget.setDate(QtCore.QDate(self.currentConfig.getint(module, pars[0]),self.currentConfig.getint(module, pars[1]),self.currentConfig.getint(module, pars[2])))
                 #self.updateDate()
+
+            elif module == "TIMING" and (pars[0] == "startyear" or pars[0] == "endyear"): 
+                #self.setGui(widget, module, pars[0], pars[1], pars[2])
+                widget.setDate(QtCore.QDate(self.currentConfig.getint(module, pars[0]),self.currentConfig.getint(module, pars[1]),self.currentConfig.getint(module, pars[2])))
+
             else:
                 if isinstance(widget, QtWidgets.QLineEdit):
                     widget.setText(self.currentConfig.get(module, pars))
@@ -285,6 +352,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                         widget.setText(self.stationsShp)
                     else:
                         self.stationsShp = False
+
+                ## MODEL PART
+                # define the variables self.inputPath and self.outputPath
+                elif widget == self.inputPathLineEdit:
+                    self.inputPath = os.path.join(self.sphyLocationPath, self.currentConfig.get(module, pars))
+                elif widget == self.outputPathLineEdit:
+                    self.outputPath = os.path.join(self.sphyLocationPath, self.currentConfig.get(module, pars))
+
         #-initialize the enddate and startdate for processing forcing data
         self.enddate = datetime.date(QtCore.QDate.year(self.endDateEdit.date()),QtCore.QDate.month(self.endDateEdit.date()),QtCore.QDate.day(self.endDateEdit.date()))
         self.startdate = datetime.date(QtCore.QDate.year(self.startDateEdit.date()),QtCore.QDate.month(self.startDateEdit.date()),QtCore.QDate.day(self.startDateEdit.date()))
@@ -419,12 +494,39 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             if tempname:
                 self.resultsLineEdit.setText(tempname.replace('\\', '/') + '/')
                 self.updateConfig('GENERAL', 'Results_dir', tempname.replace('\\', '/') + '/')
-        elif sender == 'pcrasterBinFolderButton':
-            tempname = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select the PCRaster bin folder', self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
-            if os.path.isfile(os.path.join(tempname, 'pcrcalc.exe')) == False:
-                QtWidgets.QMessageBox.warning(self, 'PCRaster bin path error', 'PCRaster is not found in the specified folder. \nSelect a different folder.')
+
+        ## MODEL PART
+
+        elif sender == "selectSphyPathButton":
+            tempname = QtWidgets.QFileDialog.getExistingDirectory(self, "Select path where sphy.py is located", self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
+            if os.path.isfile(os.path.join(tempname, "sphy.py")) == False:
+                mes = QtGui.QMessageBox.warning(self, "SPHY model path error", "Error: sphy.py is not found in the specified folder. \nSelect a differnt folder.")
             else:
-                self.updateConfig('GENERAL', 'Pcraster_dir', tempname.replace('\\', '/') + '/')
+                self.sphyLocationPath = tempname
+                self.sphyPathLineEdit.setText((self.sphyLocationPath + "\\").replace("\\","/"))
+                # update also the in and output folders because sphy.py path has been modifed
+                self.updateConfig("DIRS", "inputdir", (os.path.relpath(self.inputPath, self.sphyLocationPath)).replace("\\","/") + "/")
+                self.updateConfig("DIRS", "outputdir", (os.path.relpath(self.outputPath, self.sphyLocationPath)).replace("\\","/") + "/")
+                self.saveProject()
+
+        elif sender == "selectInputPathButton":
+            tempname = QtWidgets.QFileDialog.getExistingDirectory(self, "Select path were the model input is located", self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
+            if tempname:
+                self.inputPath = tempname
+                self.inputPathLineEdit.setText((self.inputPath + "\\").replace("\\","/"))
+                self.updateConfig("DIRS", "inputdir", (os.path.relpath(self.inputPath, self.sphyLocationPath)).replace("\\","/") + "/")
+        elif sender == "selectOutputPathButton":
+            tempname = QtWidgets.QFileDialog.getExistingDirectory(self, "Select path were the model output should be written", self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
+            if tempname:
+                self.outputPath = tempname
+                self.outputPathLineEdit.setText((self.outputPath + "\\").replace("\\","/"))
+                self.updateConfig("DIRS", "outputdir", (os.path.relpath(self.outputPath, self.sphyLocationPath)).replace("\\","/") + "/")
+
+
+
+
+
+
         self.saveProject()
 
     #-Update the config file        
@@ -1434,7 +1536,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             newproject = True
         # check if a new project needs/can be created based on the criteria tested above    
         if newproject:
-            self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "preprocess_config_template.cfg"))
+            self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "plugin_config_template.cfg"))
             # clear project canvas
             #qgsProject = QgsProject.instance()
             #qgsProject.clear()
@@ -1521,4 +1623,133 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         if self.currentProject:
             self.saveAsButton.setEnabled(1)
 #             self.saveButton.setEnabled(flag) 
+
+
+
+    ### MODEL functions ----------------------------
+
+    # Initialize the Reporting options in the GUI based on the config file reporting settings    
+    def setReportGui(self):
+        widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
+        item = self.reportListWidget.currentItem()
+        key = item.text()
+        par = self.reportDict[key]
+        tssoutput = (self.currentConfig.get("REPORTING", par + "_tsoutput")).split(",")
+        mapitems = self.currentConfig.get("REPORTING", par + "_mapoutput").split(",")
+
+        # update the map reporting checkboxes
+        for w in widgets:
+            w.setChecked(0)
+        for map in mapitems:
+            if map == "D":
+                self.dailyMapReportCheckBox.setChecked(1)
+            elif map == "M":
+                self.monthlyMapReportCheckBox.setChecked(1)
+            elif map == "Y":
+                self.annualMapReportCheckBox.setChecked(1)
+        # update the tss reporting checkbox
+        if tssoutput[0] == "D":
+            self.dailyTSSReportCheckBox.setChecked(1)
+        else:
+            self.dailyTSSReportCheckBox.setChecked(0)
+        
+    def setOutputDict(self):
+        self.outputFileNameDict = {}
+        self.outputLegendDict = {}
+        for key in self.reportDict:
+            item = self.reportDict[key] # legend name
+            fname = self.currentConfig.get("REPORTING", item + "_fname") # filename
+            mapoutput = self.currentConfig.get("REPORTING", item + "_mapoutput") # mapoutput
+            tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # mapoutput
+            # continue with next loop item if no reporting is done for this item
+            if mapoutput == "NONE" and tsoutput == "NONE":
+                continue
+            
+            self.outputFileNameDict.setdefault(fname, [])
+            self.outputFileNameDict[fname].append(key)
+            self.outputLegendDict.setdefault(key, [])
+            self.outputLegendDict[key].append(fname)
+            if "m3/s" in key:
+                 # append a flag of 1 that indicates that it needs to be converted for the M and Y maps
+                self.outputFileNameDict[fname].append(1)
+                self.outputLegendDict[key].append(1)
+        if self.currentConfig.getint("REPORTING", "mm_rep_flag") == 0: # if no reporting of sub-basin average mm fluxes is required then they don't need to be added to the dictionary
+            return
+        # add the subbasin average tss files to the dictionaries
+        self.outputFileNameDict.setdefault("ETaSubBasinTSS", [])
+        self.outputFileNameDict["ETaSubBasinTSS"].append("Basin avg. ETa [mm]")
+        self.outputFileNameDict.setdefault("PrecSubBasinTSS", [])
+        self.outputFileNameDict["PrecSubBasinTSS"].append("Basin avg. precipitation [mm]")
+        self.outputFileNameDict.setdefault("GMeltSubBasinTSS", [])
+        self.outputFileNameDict["GMeltSubBasinTSS"].append("Basin avg. glacier melt [mm]")
+        self.outputFileNameDict.setdefault("QSNOWSubBasinTSS", [])
+        self.outputFileNameDict["QSNOWSubBasinTSS"].append("Basin avg. snow runoff [mm]")
+        self.outputFileNameDict.setdefault("QRAINSubBasinTSS", [])
+        self.outputFileNameDict["QRAINSubBasinTSS"].append("Basin avg. rain runoff [mm]")
+        self.outputFileNameDict.setdefault("QGLACSubBasinTSS", [])
+        self.outputFileNameDict["QGLACSubBasinTSS"].append("Basin avg. glacier runoff [mm]")
+        self.outputFileNameDict.setdefault("QBASFSubBasinTSS", [])
+        self.outputFileNameDict["QBASFSubBasinTSS"].append("Basin avg. baseflow runoff [mm]")
+        self.outputFileNameDict.setdefault("QTOTSubBasinTSS", [])
+        self.outputFileNameDict["QTOTSubBasinTSS"].append("Basin avg. total runoff [mm]")
+        self.outputLegendDict.setdefault("Basin avg. ETa [mm]", [])
+        self.outputLegendDict["Basin avg. ETa [mm]"].append("ETaSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. precipitation [mm]", [])
+        self.outputLegendDict["Basin avg. precipitation [mm]"].append("PrecSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. glacier melt [mm]", [])
+        self.outputLegendDict["Basin avg. glacier melt [mm]"].append("GMeltSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. snow runoff [mm]", [])
+        self.outputLegendDict["Basin avg. snow runoff [mm]"].append("QSNOWSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. rain runoff [mm]", [])
+        self.outputLegendDict["Basin avg. rain runoff [mm]"].append("QRAINSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. glacier runoff [mm]", [])
+        self.outputLegendDict["Basin avg. glacier runoff [mm]"].append("QGLACSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. baseflow runoff [mm]", [])
+        self.outputLegendDict["Basin avg. baseflow runoff [mm]"].append("QBASFSubBasinTSS")
+        self.outputLegendDict.setdefault("Basin avg. total runoff [mm]", [])
+        self.outputLegendDict["Basin avg. total runoff [mm]"].append("QTOTSubBasinTSS")
+        
+        
+    # function to add the daily time-series csv files and spatial maps to the visualization tab list widgets
+    def setVisListWidgets(self):  
+        self.timeSeriesListWidget.clear()
+        self.dMapSeriesListWidget.clear()
+        self.mMapSeriesListWidget.clear()
+        self.yMapSeriesListWidget.clear()
+        #if self.timeSeriesListWidget.item(0) is None:
+        for root, dirs, files in os.walk(self.outputPath):
+            for file in files:
+                if file.endswith('.csv'):
+                    shortfile = file.split(".csv")[0]
+                    try:
+                        shortfile = shortfile.split("DTS")[0]
+                    except:
+                        pass
+                    try:
+                        legend = self.outputFileNameDict[shortfile]
+                        self.timeSeriesListWidget.addItem(legend[0])
+                    except:
+                        pass
+                elif file.endswith('.map'):
+                    shortfile = file.split(".map")[0]
+                    shortfile = shortfile.split("_")
+                    try:
+                        legend = self.outputFileNameDict[shortfile[0]][0]
+                        if len(shortfile[1]) == 4: # it concerns an annual map
+                            self.yMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
+                        elif len(shortfile[1]) == 7: # it concerns a monthly map)
+                            self.mMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
+                        else:
+                            self.dMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
+                    except:
+                        pass
+        self.timeSeriesListWidget.sortItems()
+        self.dMapSeriesListWidget.sortItems()
+        self.mMapSeriesListWidget.sortItems()
+        self.yMapSeriesListWidget.sortItems()
+        # set the first item in the list as being the current item
+        self.timeSeriesListWidget.setCurrentItem(self.timeSeriesListWidget.item(0))
+        self.dMapSeriesListWidget.setCurrentItem(self.dMapSeriesListWidget.item(0))
+        self.mMapSeriesListWidget.setCurrentItem(self.mMapSeriesListWidget.item(0))
+        self.yMapSeriesListWidget.setCurrentItem(self.yMapSeriesListWidget.item(0))
             
