@@ -202,6 +202,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.databasePath = './'
             self.resultsPath = './'
             self.sphyLocationPath = "./"
+            self.inputPath = "./"
+            self.outputPath = './'
 
             self.saveAsButton.setDisabled(1)
             
@@ -227,16 +229,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     #-Initialize the GUI
     def initGuiConfigMap(self):
         #####-Dictionary for General settings Tab and Basin delineation Tab
-        self.configDict = {'databaseLineEdit':('GENERAL', 'Database_dir'), 'resultsLineEdit':('GENERAL', 'Results_dir'),\
+        self.configDict = {'databaseLineEdit':('DIRS', 'Database_dir'), 'resultsLineEdit':('DIRS', 'Results_dir'),\
                            'utmSpinBox': ('GENERAL', 'utmZoneNr'),'startDateEdit': ('GENERAL', ('startyear', 'startmonth', 'startday')), 'endDateEdit': ('GENERAL', \
                            ('endyear', 'endmonth', 'endday')), 'outletsLineEdit' : ('DELINEATION', 'outlets_shp'), 'clipMaskCheckBox' : ('DELINEATION', 'clip'),\
-                           'createSubBasinCheckBox' : ('DELINEATION', 'subbasins'), 'stationsLineEdit' : ('STATIONS', 'stations_shp'),
-                           
+                           'createSubBasinCheckBox' : ('DELINEATION', 'subbasins'), 'stationsLineEdit' : ('STATIONS', 'stations_shp'),\
                            "inputPathLineEdit": ("DIRS", "inputdir"),"outputPathLineEdit": ("DIRS", "outputdir"),
                              "startDateEdit": ("TIMING", ("startyear", "startmonth", "startday")),
-                             "endDateEdit": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ("GENERAL", "mask"),
-                             "demMapLineEdit": ("GENERAL","dem"), "slopeMapLineEdit": ("GENERAL", "slope"),
-                             "subbasinMapLineEdit": ("GENERAL", "sub"), "stationsMapLineEdit": ("GENERAL", "locations"),
+                             "endDateEdit": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ("MAPS", "mask"),
+                             "demMapLineEdit": ("MAPS","dem"), "slopeMapLineEdit": ("MAPS", "slope"),
+                             "subbasinMapLineEdit": ("MAPS", "sub"), "stationsMapLineEdit": ("MAPS", "locations"),
                              "precMapSeriesLineEdit": ("CLIMATE", "Prec"), "avgTempMapSeriesLineEdit": ("CLIMATE", "Tair"),
                              "maxTempMapSeriesLineEdit": ("ETREF", "Tmax"), "minTempMapSeriesLineEdit": ("ETREF", "Tmin"),
                              "latitudeZonesMapLineEdit": ("ETREF", "Lat"), "solarConstantDoubleSpinBox": ("ETREF", "Gsc"),
@@ -245,11 +246,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                              "rootSatCondLineEdit": ("SOIL", "RootKsat"), "subFieldCapLineEdit": ("SOIL", "SubFieldMap"),
                              "subSatLineEdit": ("SOIL", "SubSatMap"), "subSatCondLineEdit": ("SOIL", "SubKsat"),
                              "maxCapRiseSpinBox": ("SOILPARS", "CapRiseMax"), "landUseLineEdit": ("LANDUSE", "LandUse"),
-                             "kcTableLineEdit": ("LANDUSE", "CropFac"), "initGlacFracLineEdit": ("GLACIER_INIT", "GlacFrac"),
-                             "cIFracLineEdit": ("GLACIER", "GlacFracCI"), "dBFracLineEdit": ("GLACIER", "GlacFracDB"),
-                             "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
+                             "kcTableLineEdit": ("LANDUSE", "CropFac")}
+                             
+                             
+                            # Glaciers part to be discussed                             
+                            #  , "initGlacFracLineEdit": ("GLACIER_INIT", "GlacFrac"),
+                            #  "cIFracLineEdit": ("GLACIER", "GlacFracCI"), "dBFracLineEdit": ("GLACIER", "GlacFracDB"),
+                            #  "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
                            
-                           }
+                           
         
         self.setGui()
         #####-Dictionary for UTM coordinate system
@@ -261,8 +266,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                                'yminLineEdit': ('AREA', 'ymin'), 'columnsLineEdit': ('AREA', 'cols'), 'rowsLineEdit': ('AREA', 'rows'), 'cloneLineEdit': ('AREA', 'clone_grid')}
         self.setAreaDict()
         #####-Dictionary for Modules Tab
-        self.configModulesDict = {'glacierModCheckBox': ('MODULES', 'glacier'), 'snowModCheckBox': ('MODULES', 'snow'), 'groundwaterModCheckBox': ('MODULES', 'groundwater'),\
-                                  'routingModCheckBox': ('MODULES', 'routing')}
+        self.configModulesDict = {'glacierModCheckBox': ('PREPOCMODULES', 'glacier'), 'snowModCheckBox': ('PREPOCMODULES', 'snow'), 'groundwaterModCheckBox': ('PREPOCMODULES', 'groundwater'),\
+                                  'routingModCheckBox': ('PREPOCMODULES', 'routing')}
         #-general maps are always created in the "Create initial maps" Tab 
         self.generalMaps = {'DEM': 'dem.map', 'Slope': 'slope.map', 'Root_field': 'root_field.map', 'Root_sat': 'root_sat.map',\
                             'Root_dry': 'root_dry.map', 'Root_wilt': 'root_wilt.map', 'Root_Ksat': 'root_ksat.map', 'Sub_field': 'sub_field.map', 'Sub_sat': 'sub_sat.map',\
@@ -278,28 +283,28 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         ## MODEL PART
 
-        # set the dictionary for the reporting options
-        self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
-                           "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
-                           "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
-                           "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
-                           "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-                           "Routed total runoff [m3/s]": "qallratot"}
+        # # set the dictionary for the reporting options
+        # self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
+        #                    "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
+        #                    "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
+        #                    "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
+        #                    "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
+        #                    "Routed total runoff [m3/s]": "qallratot"}
         
-        items = self.reportDict.keys()
-        # check if items already exist. If items already exist, then items don't need to be added again
-        if self.reportListWidget.item(0) is None:
-            self.reportListWidget.addItems(items)
-            self.reportListWidget.sortItems()
-        # set the first item in the list as being the current item
-        self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
-        self.setReportGui()
+        # items = self.reportDict.keys()
+        # # check if items already exist. If items already exist, then items don't need to be added again
+        # if self.reportListWidget.item(0) is None:
+        #     self.reportListWidget.addItems(items)
+        #     self.reportListWidget.sortItems()
+        # # set the first item in the list as being the current item
+        # self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
+        # self.setReportGui()
 
-        # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
-        self.setOutputDict()
+        # # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
+        # self.setOutputDict()
         
-        # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
-        self.setVisListWidgets()
+        # # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
+        # self.setVisListWidgets()
 
 
     #-Set the GUI with the correct values (obtained from config file)
@@ -328,6 +333,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     widget.setValue(self.currentConfig.getfloat(module, pars))
                 elif isinstance(widget, QtWidgets.QSpinBox):
                     widget.setValue(self.currentConfig.getint(module, pars))
+
+                # I suspect this part is never reached, beacuse most widgets are line edits, (just after else)
                 # define the variables self.databasePath and self.resultsPath and pcraster bin path. Set the database metadata config file as well.
                 if widget == self.databaseLineEdit:
                     self.databasePath = self.currentConfig.get(module, pars)
@@ -486,14 +493,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             tempname = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select the database folder for your area of interest', self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
             if tempname and os.path.isfile(os.path.join(tempname, 'metadata.cfg')):
                 self.databaseLineEdit.setText(tempname.replace('\\', '/') + '/')
-                self.updateConfig('GENERAL', 'Database_dir', tempname.replace('\\', '/') + '/')
+                self.updateConfig('DIRS', 'Database_dir', tempname.replace('\\', '/') + '/')
             else:
-                iface.messageBar().pushMessage('Error:', 'No database found in the specified folder.\nSelect a different folder.' , QgsMessageBar.CRITICAL, 10)
+                iface.messageBar().pushCritical('Error:', 'No database found in the specified folder.\nSelect a different folder.')
         elif sender == 'resultsFolderButton':
             tempname = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select the folder where processed model input should be written', self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
             if tempname:
                 self.resultsLineEdit.setText(tempname.replace('\\', '/') + '/')
-                self.updateConfig('GENERAL', 'Results_dir', tempname.replace('\\', '/') + '/')
+                self.updateConfig('DIRS', 'Results_dir', tempname.replace('\\', '/') + '/')
 
         ## MODEL PART
 
@@ -622,7 +629,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             #-Update the config for the area settings 
             self.updateAreaConfig()
         else:
-            iface.messageBar().pushMessage('Error:', 'UTM zone is not valid for selected area. Select a different area.', QgsMessageBar.CRITICAL, 10)
+            iface.messageBar().pushCritical('Error:', 'UTM zone is not valid for selected area. Select a different area.')
             #-deactivate the lineedit and groupbox for area properties
             self.updateConfig('AREA', 'clone_shp', '')
         self.saveProject()
@@ -917,7 +924,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         # %% 6. CREATING ROUTING MAPS ------------------------------------------------------------
         print('6. CREATING ROUTING MAPS')
-        if self.currentConfig.getint('MODULES', 'routing') == 1:
+        if self.currentConfig.getint('PREPOCMODULES', 'routing') == 1:
 
             ### LDD map #######
             command = self.pcrasterModelFile('"' + os.path.join(self.resultsPath, self.routingMaps['LDD']) + '"'\
@@ -976,7 +983,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 
         # %% 7. CREATING GLACIER MAPS ------------------------------------------------------------
         print('CREATING GLACIER MAPS')
-        if self.currentConfig.getint('MODULES', 'glacier') == 1:
+        if self.currentConfig.getint('PREPOCMODULES', 'glacier') == 1:
             print('Running glaciers model')
             processing.run("model:glaciers_model", 
                            {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
