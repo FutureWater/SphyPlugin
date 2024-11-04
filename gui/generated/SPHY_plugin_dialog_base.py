@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SphyPluginDialog(object):
     def setupUi(self, SphyPluginDialog):
         SphyPluginDialog.setObjectName("SphyPluginDialog")
-        SphyPluginDialog.resize(522, 762)
+        SphyPluginDialog.resize(521, 761)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(":/plugins/SphyPreProcess/images/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         SphyPluginDialog.setWindowIcon(icon)
@@ -1960,7 +1960,6 @@ class Ui_SphyPluginDialog(object):
         self.resultsFolderButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
         self.clipMaskCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateDelineation) # type: ignore
         self.precDataToolButton.clicked.connect(SphyPluginDialog.updateForcing) # type: ignore
-        self.endDateEdit.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
         self.utmNRadioButton.toggled['bool'].connect(SphyPluginDialog.changeCRS) # type: ignore
         self.routingModCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateModules) # type: ignore
         self.selectStationsButton.clicked.connect(SphyPluginDialog.updateStations) # type: ignore
@@ -1985,54 +1984,15 @@ class Ui_SphyPluginDialog(object):
         self.startDateEdit_2.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
         self.endDateEdit_2.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
         self.crsSpinBox.valueChanged['int'].connect(SphyPluginDialog.changeCRS) # type: ignore
-        self.selectCloneMapFileButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectDemMapFileButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectSlopeMapFileButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectSubbasinMapFileButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectStationsMapFileButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectPrecMapSeriesButton.clicked.connect(SphyPluginDialog.updateMapSeries) # type: ignore
-        self.selectAvgTempMapSeriesButton.clicked.connect(SphyPluginDialog.updateMapSeries) # type: ignore
-        self.selectMaxTempMapSeriesButton.clicked.connect(SphyPluginDialog.updateMapSeries) # type: ignore
-        self.selectMinTempMapSeriesButton.clicked.connect(SphyPluginDialog.updateMapSeries) # type: ignore
-        self.selectLatitudeZonesMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.solarConstantDoubleSpinBox.valueChanged['double'].connect(SphyPluginDialog.updateValue) # type: ignore
-        self.selectRootFieldCapMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectRootSatMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectRootPermWiltMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectRootWiltMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectRootSatCondMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectSubFieldCapMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectSubSatMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectSubSatCondMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.rootDepthSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.rootDepthMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.rootDepthSpinBox.valueChanged['int'].connect(SphyPluginDialog.updateValue) # type: ignore
-        self.selectRootDepthMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.maxCapRiseSpinBox.valueChanged['int'].connect(SphyPluginDialog.updateValue) # type: ignore
-        self.subDepthSpinBox.valueChanged['int'].connect(SphyPluginDialog.updateValue) # type: ignore
-        self.selectSubDepthMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.subDepthSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.subDepthMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwDepthSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwDepthMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwDepthSpinBox.valueChanged['int'].connect(SphyPluginDialog.updateValue) # type: ignore
-        self.selectGwDepthMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.gwSatSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwSatMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwInitSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.gwInitMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.baseThreshSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.baseThreshMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.deltaGwSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.deltaGwMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.alphaGwSingleRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.alphaGwMapRadioButton.toggled['bool'].connect(SphyPluginDialog.updateRadioValueMap) # type: ignore
-        self.selectGwSatMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectGwInitMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectBaseThreshMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectDeltaGwMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.selectAlphaGwMapButton.clicked.connect(SphyPluginDialog.updateMap) # type: ignore
-        self.gwSatSpinBox.valueChanged['int'].connect(SphyPluginDialog.updateValue) # type: ignore
+        self.dailyMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
+        self.monthlyMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
+        self.annualMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
+        self.dailyTSSReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
+        self.mmRepFlagCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
+        self.reportListWidget.itemSelectionChanged.connect(SphyPluginDialog.setReportGui) # type: ignore
+        self.selectPythonExeButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
+        self.runModelButton.clicked.connect(SphyPluginDialog.runModel) # type: ignore
+        self.showTimeSeriesButton.clicked.connect(SphyPluginDialog.showTimeSeries) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SphyPluginDialog)
 
     def retranslateUi(self, SphyPluginDialog):

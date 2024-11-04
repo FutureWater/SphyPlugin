@@ -1,1 +1,1 @@
-"E:/amelia/SPHY_demo/SPHY-3.0/forcing/prec0000.191" = if("E:/amelia/SPHY_demo/SPHY-3.0/clone.map", 3600 * 24 * "E:/amelia/SPHY_demo/SPHY-3.0/temp.map")
+"C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/forcing/prec0000.001" = if("C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/clone.map", 3600 * 24 * "C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/temp.map")

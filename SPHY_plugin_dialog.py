@@ -26,6 +26,8 @@ from future import standard_library
 standard_library.install_aliases()
 from builtins import str
 from builtins import range
+from functools import partial
+
 __author__ = "Wilco Terink"
 __copyright__ = "Wilco Terink"
 __license__ = "GPL"
@@ -225,6 +227,202 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.processLog2TextEdit.clear()
         self.processLog3TextEdit.clear()
         self.processLog4TextEdit.clear()
+
+        # Buttons that cannot be modified from the UI because functions have parameters
+        # Catchment settings: Clone, DEM, Slope, Sub-basins, Stations
+        self.selectCloneMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "mask", "Clone", "Input", "General", 0))
+        self.selectDemMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "dem", "DEM", "Input", "General", 0))
+        self.selectSlopeMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "slope", "Slope", "Input", "General", 0))
+        self.selectSubbasinMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "sub", "Sub-basin", "Input", "General", 0))
+        self.selectStationsMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "locations", "Stations", "Input", "General", 0, True))
+        
+        """
+        Climate tab: meteorological forcing map-series, meteorological parameters
+        """
+        # Meteorological forcing map-series
+        self.selectPrecMapSeriesButton.clicked.connect(partial(self.updateMapSeries, "CLIMATE", "Prec", "precipitation"))
+        self.selectAvgTempMapSeriesButton.clicked.connect(partial(self.updateMapSeries, "CLIMATE", "Tair", "average daily temperature"))
+        self.selectMaxTempMapSeriesButton.clicked.connect(partial(self.updateMapSeries, "ETREF", "Tmax", "maximum daily temperature"))
+        self.selectMinTempMapSeriesButton.clicked.connect(partial(self.updateMapSeries, "ETREF", "Tmin", "minimum daily temperature"))
+        
+        # Meteorological parameters
+        self.selectLatitudeZonesMapButton.clicked.connect(partial(self.updateMap, "ETREF", "lat", "latitude zones", "Input", "Climate", 1))
+        self.solarConstantDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ETREF", "Gsc"))
+        
+        """
+        Soils tab: rootzone and subzone maps, and parameters
+        """
+        # Rootzone physical maps
+        self.selectRootFieldCapMapButton.clicked.connect(partial(self.updateMap,"SOIL", "RootFieldMap", "rootzone field capacity", "Input", "Soils", 2))
+        self.selectRootSatMapButton.clicked.connect(partial(self.updateMap,"SOIL", "RootSatMap", "rootzone saturated content", "Input", "Soils", 2))
+        self.selectRootPermWiltMapButton.clicked.connect(partial(self.updateMap, "SOIL", "RootDryMap", "rootzone permanent wilting point", "Input", "Soils", 2))
+        self.selectRootWiltMapButton.clicked.connect(partial(self.updateMap, "SOIL", "RootWiltMap", "rootzone wilting point", "Input", "Soils", 2))
+        self.selectRootSatCondMapButton.clicked.connect(partial(self.updateMap, "SOIL", "RootKsat", "rootzone saturated hydraulic conductivity", "Input", "Soils", 2))
+        
+        # Subzone physical maps
+        self.selectSubFieldCapMapButton.clicked.connect(partial(self.updateMap, "SOIL", "SubFieldMap", "subzone field capacity", "Input", "Soils", 2))
+        self.selectSubSatMapButton.clicked.connect(partial(self.updateMap, "SOIL", "SubSatMap", "subzone saturated content", "Input", "Soils", 2))
+        self.selectSubSatCondMapButton.clicked.connect(partial(self.updateMap, "SOIL", "SubKsat", "subzone saturated hydraulic conductivity", "Input", "Soils", 2))
+
+        # Rootzone parameters
+        self.rootDepthSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SOILPARS", "RootDepthFlat", "rootDepthSpinBox"))
+        self.rootDepthMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SOILPARS", "RootDepthFlat", "rootDepthLineEdit"))
+        self.rootDepthSpinBox.valueChanged.connect(partial(self.updateValue, "SOILPARS", "RootDepthFlat"))
+        self.selectRootDepthMapButton.clicked.connect(partial(self.updateMap, "SOILPARS", "RootDepthFlat", "rootzone thickness", "Input", "Soils", 2))
+        
+        # Subzone parameters
+        self.subDepthSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SOILPARS", "SubDepthFlat", "subDepthSpinBox"))
+        self.subDepthMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SOILPARS", "SubDepthFlat", "subDepthLineEdit"))
+        self.subDepthSpinBox.valueChanged.connect(partial(self.updateValue, "SOILPARS", "SubDepthFlat"))
+        self.selectSubDepthMapButton.clicked.connect(partial(self.updateMap, "SOILPARS", "SubDepthFlat", "subzone thickness", "Input", "Soils", 2))
+        self.maxCapRiseSpinBox.valueChanged.connect(partial(self.updateValue, "SOILPARS", "CapRiseMax"))
+        
+        """
+        Groundwater tab: layer thickness, saturated content, initial storage, basethreshold, deltaGw, alphaGw
+        """
+        # Groundwater layer thickness
+        self.gwDepthSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "GwDepth", "gwDepthSpinBox"))
+        self.gwDepthMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "GwDepth", "gwDepthLineEdit"))
+        self.gwDepthSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_PARS", "GwDepth"))
+        self.selectGwDepthMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_PARS", "GwDepth", "groundwater layer thickness", "Input", "Groundwater", 3))
+        
+        # Groundwater saturated contents
+        self.gwSatSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "GwSat", "gwSatSpinBox"))
+        self.gwSatMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "GwSat", "gwSatLineEdit"))
+        self.gwSatSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_PARS", "GwSat"))
+        self.selectGwSatMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_PARS", "GwSat", "groundwater saturated content", "Input", "Groundwater", 3))
+        
+        # Groundwater initial storage
+        self.gwInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_INIT", "Gw", "gwInitSpinBox"))
+        self.gwInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_INIT", "Gw", "gwInitLineEdit"))
+        self.gwInitSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_INIT", "Gw"))
+        self.selectGwInitMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_INIT", "Gw", "initial groundwater storage", "Input", "Groundwater", 3))
+        
+        # Baseflow threshold
+        self.baseThreshSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "BaseThresh", "baseThreshSpinBox"))
+        self.baseThreshMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "BaseThresh", "baseThreshLineEdit"))
+        self.baseThreshSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_PARS", "BaseThresh"))
+        self.selectBaseThreshMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_PARS", "BaseThresh", "baseflow threshold", "Input", "Groundwater", 3))
+        
+        # DeltaGw
+        self.deltaGwSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "deltaGw", "deltaGwSpinBox"))
+        self.deltaGwMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "deltaGw", "deltaGwLineEdit"))
+        self.deltaGwSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_PARS", "deltaGw"))
+        self.selectDeltaGwMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_PARS", "deltaGw", "groundwater recharge delay time", "Input", "Groundwater", 3))
+        
+        # alphaGw
+        self.alphaGwSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "alphaGw", "alphaGwDoubleSpinBox"))
+        self.alphaGwMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GROUNDW_PARS", "alphaGw", "alphaGwLineEdit"))
+        self.alphaGwDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "GROUNDW_PARS", "alphaGw"))
+        self.selectAlphaGwMapButton.clicked.connect(partial(self.updateMap, "GROUNDW_PARS", "alphaGw", "alphGw", "Input", "Groundwater", 3))
+        
+        """
+        Landuse tab: Land use map and Kc-table
+        """ 
+        self.selectLandUseMapButton.clicked.connect(partial(self.updateMap, "LANDUSE", "LandUse", "landuse map", "Input", "Land-use", 4))
+        self.selectKcTableButton.clicked.connect(partial(self.updateTable, "LANDUSE", "CropFac", "crop coefficients"))
+        
+        """
+        Glaciers tab: fraction maps and degree-day-factors
+        """
+        # Glacier fraction maps
+        self.selectInitGlacFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER_INIT", "GlacFrac" , "initial glacier fraction", "Input", "Glaciers", 5))
+        self.selectCIFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracCI" , "clean ice covered glacier fraction", "Input", "Glaciers", 5))
+        self.selectDBFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracDB" , "debris-covered glacier fraction", "Input", "Glaciers", 5))
+        # Glacier runoff fraction
+        self.glacRoFracSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "GlacF", "glacRoFracDoubleSpinBox"))
+        self.glacRoFracMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "GlacF", "glacRoFracLineEdit"))
+        self.glacRoFracDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "GLACIER", "GlacF"))
+        self.selectGlacRoFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacF", "glacier runoff fraction", "Input", "Glaciers", 5))
+        # DDFDG
+        self.DDFDGSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "DDFDG", "DDFDGDoubleSpinBox"))
+        self.DDFDGMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "DDFDG", "DDFDGLineEdit"))
+        self.DDFDGDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "GLACIER", "DDFDG"))
+        self.selectDDFDGMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "DDFDG", "debris covered glacier degree-day-factor", "Input", "Glaciers", 5))
+        # DDFG
+        self.DDFGSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "DDFG", "DDFGDoubleSpinBox"))
+        self.DDFGMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "DDFG", "DDFGLineEdit"))
+        self.DDFGDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "GLACIER", "DDFG"))
+        self.selectDDFGMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "DDFG", "clean-ice glacier degree-day-factor", "Input", "Glaciers", 5))        
+
+        """
+        Snow tab
+        """
+        # SnowIni
+        self.snowIniSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW_INIT", "SnowIni", "snowIniSpinBox"))
+        self.snowIniMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW_INIT", "SnowIni", "snowIniLineEdit"))
+        self.snowIniSpinBox.valueChanged.connect(partial(self.updateValue, "SNOW_INIT", "SnowIni"))
+        self.selectSnowIniMapButton.clicked.connect(partial(self.updateMap, "SNOW_INIT", "SnowIni", "initial snow storage", "Input", "Snow", 6))
+        
+        # SnowWatStore
+        self.sWatStoreSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW_INIT", "SnowWatStore", "sWatStoreSpinBox"))
+        self.sWatStoreMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW_INIT", "SnowWatStore", "sWatStoreLineEdit"))
+        self.sWatStoreSpinBox.valueChanged.connect(partial(self.updateValue, "SNOW_INIT", "SnowWatStore"))
+        self.selectSWatStoreMapButton.clicked.connect(partial(self.updateMap, "SNOW_INIT", "SnowWatStore", "initial snow water storage", "Input", "Snow", 6))
+        
+        # SnowSC
+        self.snowSCSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW", "SnowSC", "snowSCDoubleSpinBox"))
+        self.snowSCMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW", "SnowSC", "snowSCLineEdit"))
+        self.snowSCDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "SNOW", "SnowSC"))
+        self.selectSnowSCMapButton.clicked.connect(partial(self.updateMap, "SNOW", "SnowSC", "snow pack capacity", "Input", "Snow", 6))
+        
+        # DDFS
+        self.DDFSSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW", "DDFS", "DDFSDoubleSpinBox"))
+        self.DDFSMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "SNOW", "DDFS", "DDFSLineEdit"))
+        self.DDFSDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "SNOW", "DDFS"))
+        self.selectDDFSMapButton.clicked.connect(partial(self.updateMap, "SNOW", "DDFS", "snow degree-day-factor", "Input", "Snow", 6))
+        
+        # Tcrit
+        self.tcritDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "SNOW", "TCrit"))
+        
+        """
+        Routing tab
+        """
+        # Recession coefficient (kx)
+        self.kxSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUTING", "kx", "kxDoubleSpinBox"))
+        self.kxMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUTING", "kx", "kxLineEdit"))
+        self.kxDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUTING", "kx"))
+        self.selectKxMapButton.clicked.connect(partial(self.updateMap, "ROUTING", "kx", "routing recession coefficient", "Input", "Routing", 7))
+        
+        # Flow direction
+        self.selecFlowDirMapButton.clicked.connect(partial(self.updateMap, "ROUTING", "flowdir", "flow direction", "Input", "Routing", 7))
+        
+        # Total initial runoff
+        self.qraInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "QRA_init", "qraInitDoubleSpinBox"))
+        self.qraInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "QRA_init", "qraInitLineEdit"))
+        self.qraInitDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUT_INIT", "QRA_init"))
+        self.selectQraInitMapButton.clicked.connect(partial(self.updateMap, "ROUT_INIT", "QRA_init", "initial total routed runoff", "Input", "ROUTING", 7))
+        
+        # Initial routed rainfall runoff
+        self.rainRaInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "RainRA_init", "rainRaInitDoubleSpinBox"))
+        self.rainRaInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "RainRA_init", "rainRaInitLineEdit"))
+        self.rainRaInitDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUT_INIT", "RainRA_init"))
+        self.selectRainRaInitMapButton.clicked.connect(partial(self.updateMap, "ROUT_INIT", "RainRA_init", "initial routed rainfall runoff", "Input", "ROUTING", 7))
+        
+        # Initial routed baseflow runoff
+        self.basRaInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "BaseRA_init", "basRaInitDoubleSpinBox"))
+        self.basRaInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "BaseRA_init", "basRaInitLineEdit"))
+        self.basRaInitDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUT_INIT", "BaseRA_init"))
+        self.selectBasRaInitMapButton.clicked.connect(partial(self.updateMap, "ROUT_INIT", "BaseRA_init", "initial routed rainfall runoff", "Input", "ROUTING", 7))
+        
+        # Initial routed snow runoff
+        self.snowRaInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "SnowRA_init", "snowRaInitDoubleSpinBox"))
+        self.snowRaInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "SnowRA_init", "snowRaInitLineEdit"))
+        self.snowRaInitDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUT_INIT", "SnowRA_init"))
+        self.selectSnowRaInitMapButton.clicked.connect(partial(self.updateMap, "ROUT_INIT", "SnowRA_init", "initial routed snow runoff", "Input", "ROUTING", 7))
+        
+        # Initial routed glacier runoff
+        self.glacRaInitSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "GlacRA_init", "glacRaInitDoubleSpinBox"))
+        self.glacRaInitMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "ROUT_INIT", "GlacRA_init", "glacRaInitLineEdit"))
+        self.glacRaInitDoubleSpinBox.valueChanged.connect(partial(self.updateValue, "ROUT_INIT", "GlacRA_init"))
+        self.selectGlacRaInitMapButton.clicked.connect(partial(self.updateMap, "ROUT_INIT", "GlacRA_init", "initial routed glacier runoff", "Input", "ROUTING", 7))
+
+        """Visualization """
+        self.showTimeSeriesButton.clicked.connect(self.showTimeSeries)
+        self.showDMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Daily", 2))
+        self.showMMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Monthly", 1))
+        self.showYMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Annual", 0))
+
         
     #-Initialize the GUI
     def initGuiConfigMap(self):
@@ -507,7 +705,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         elif sender == "selectSphyPathButton":
             tempname = QtWidgets.QFileDialog.getExistingDirectory(self, "Select path where sphy.py is located", self.projectDir, QtWidgets.QFileDialog.ShowDirsOnly)
             if os.path.isfile(os.path.join(tempname, "sphy.py")) == False:
-                mes = QtGui.QMessageBox.warning(self, "SPHY model path error", "Error: sphy.py is not found in the specified folder. \nSelect a differnt folder.")
+                mes = QtWidgets.QMessageBox.warning(self, "SPHY model path error", "Error: sphy.py is not found in the specified folder. \nSelect a differnt folder.")
             else:
                 self.sphyLocationPath = tempname
                 self.sphyPathLineEdit.setText((self.sphyLocationPath + "\\").replace("\\","/"))
@@ -1633,7 +1831,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
 
 
-    ### MODEL functions ----------------------------
+    ############################################ MODEL functions ################################################################################################
 
     # Initialize the Reporting options in the GUI based on the config file reporting settings    
     def setReportGui(self):
@@ -1760,3 +1958,512 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.mMapSeriesListWidget.setCurrentItem(self.mMapSeriesListWidget.item(0))
         self.yMapSeriesListWidget.setCurrentItem(self.yMapSeriesListWidget.item(0))
             
+
+
+    # function that emits a point that is linked to the plotGraph function        
+    def showTimeSeries(self):
+        # create a maptool to select a point feature from the canvas
+        if not self.featFinder:
+            from MapTools import FeatureFinder
+            self.featFinder = FeatureFinder(self.iface.mapCanvas())
+            self.featFinder.setAction( None )
+            #self.featFinder.setAction( self.action )
+            QtCore.QObject.connect(self.featFinder, QtCore.SIGNAL( "pointEmitted" ), self.plotGraph)
+        # enable the maptool and set a message in the status bar 
+        self.featFinder.startCapture()
+        self.iface.mainWindow().statusBar().showMessage( u"Click on a point feature in canvas" )
+    
+    # plot a time-series graph from a csv file
+    def plotGraph(self, point):
+        layer = self.iface.activeLayer()
+        if not layer or layer.type() != QgsMapLayer.VectorLayer or layer.geometryType() != QGis.Point:
+            QtWidgets.QMessageBox.information(self.iface.mainWindow(), "Time Series Viewer", u"Select a vector layer and try again.")
+            self.iface.mainWindow().statusBar().clearMessage()
+            return
+
+        # get the id of the point feature under the mouse click
+        from .MapTools import FeatureFinder
+        fid = FeatureFinder.findAtPoint(layer, point, canvas=self.iface.mapCanvas(), onlyTheClosestOne=True, onlyIds=True)
+        if fid is None:
+            QtWidgets.QMessageBox.information(self.iface.mainWindow(), "Time Series Viewer", u"No point in the active layer has been selected")
+            self.showTimeSeries()
+            return
+        #fid = fid + 1 # somehow fid starts with zero.
+        # get the correct station id from the features
+        features = layer.getFeatures()
+        for feat in features:
+            if feat.id()==fid:
+                stationId = feat[0]
+                fid = int(stationId)
+                break
+        
+        self.iface.mainWindow().statusBar().clearMessage()
+        
+        # get the item that returns the correct ylabel from the ylabelDictionary
+        legenditem = (self.timeSeriesListWidget.currentItem()).text()
+        filename = self.outputLegendDict[legenditem][0]
+        if "SubBasinTSS" in filename:
+            filename = filename + ".csv"
+        else:
+            filename = filename + "DTS.csv"
+            
+        f = open(self.outputPath + filename, "r")
+        x = []  # date vector
+        y = []  # value vector
+        for row in f:
+            date = row.split(",")[0]
+            date = datetime.datetime.strptime(date, ("%Y-%m-%d"))
+            mdate = mdates.date2num(date) # convert to matlab format
+            x.append(mdate)
+            y.append(row.split(",")[fid])
+        f.close()
+        
+        fig = plt.figure(facecolor="white")
+        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        plt.plot(x,y)
+        plt.xlim(x[0],x[-1])
+        plt.ylabel(legenditem)
+        plt.title("Location ID %d" %fid)
+        plt.gcf().autofmt_xdate()
+        plt.grid()
+        plt.show()
+		
+		
+#         mywindow = QWidget() 
+#         self.canvas = FigureCanvas(fig)
+#         self.canvas.setParent(mywindow)
+#         self.canvas.setFocusPolicy(QtCore.Qt.StrongFocus)
+#         self.canvas.setFocus()
+#         self.toolbar = NavigationToolbar(self.canvas, mywindow)
+#         
+#         vbox = QtWidgets.QVBoxLayout(mywindow)
+#         vbox.addWidget(self.canvas)
+#         vbox.addWidget(self.toolbar)
+#         mywindow.setLayout(vbox)
+# 
+#         QWidget.set
+
+    # function that show a output map in the canvas
+    def showOutputMap(self, group, groupPos):
+        # read old registry projection settings and set to useGlobal for this function
+        oldProjection = self.settings.value( "/Projections/defaultBehaviour")
+        self.settings.setValue( "/Projections/defaultBehaviour", "useGlobal" )
+        ##    
+        # define the filename and legend text
+        if group == "Daily":
+            legendtext = self.dMapSeriesListWidget.currentItem().text()
+        elif group == "Monthly":
+            legendtext = self.mMapSeriesListWidget.currentItem().text()
+        else:
+            legendtext = self.yMapSeriesListWidget.currentItem().text()
+        legenditem = legendtext.split(", ")[0]
+        date = legendtext.split(", ")[1]
+        filename = self.outputLegendDict[legenditem][0]
+        filename = "%s%s%s%s" %(filename, "_", date, ".map")
+
+        layer = QgsRasterLayer(self.outputPath + filename, legendtext)
+        # set the layer CRS
+        layer.setCrs( QgsCoordinateReferenceSystem(self.userCRS, QgsCoordinateReferenceSystem.EpsgCrsId) )
+        # Restore old projection settings in registry
+        self.settings.setValue( "/Projections/defaultBehaviour", oldProjection)
+        iface.messageBar().popWidget()
+        
+        # register the layer
+        QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+        # Loop through the childs in the layertreeroot and create a headgroup, and layer if
+        # they don't exist yet. Otherwise remove existing layer, and insert new layer
+        headgroup = "Output"
+        headgroup_exists = False
+        group_exists = False
+        root = QgsProject.instance().layerTreeRoot()
+        for child in root.children():
+            if isinstance(child, QgsLayerTreeGroup):
+                if child.name() == headgroup:  
+                    headgroup_exists = True
+                    headgroupRef = child
+                    break
+        if headgroup_exists:
+            for child in headgroupRef.children():
+                if isinstance(child, QgsLayerTreeGroup): 
+                    if child.name() == group:
+                        group_exists = True
+                        groupRef = child
+                        break
+            if group_exists:
+                for l in groupRef.findLayers():
+                    if l.layerName() == legendtext:
+                        groupRef.removeChildNode(l)
+                #groupRef.addLayer(layer)
+                groupRef.insertLayer(0, layer)
+            else:
+                groupRef = headgroupRef.insertGroup(groupPos, group)
+                #groupRef.addLayer(layer)
+                groupRef.insertLayer(0, layer)
+        else:
+            headgroupRef = root.insertGroup(1, headgroup)
+            groupRef = headgroupRef.insertGroup(groupPos, group)
+            #groupRef.addLayer(layer)
+            groupRef.insertLayer(0, layer)
+        self.updateSaveButtons(1)             
+
+        
+       
+    # Update the reporting options in the config file depending on the checkboxes that are
+    # checked or unchecked in the Gui
+    def updateReportCheckBox(self, state):
+        sender = self.sender()
+        # if mm RepFlagCheckbox is checked or unchecked:
+        if sender == self.mmRepFlagCheckBox:
+            if state == QtCore.Qt.Unchecked:
+                self.updateConfig("REPORTING", "mm_rep_FLAG", 0)
+            else:
+                self.updateConfig("REPORTING", "mm_rep_FLAG", 1)
+        else:
+            item = self.reportListWidget.currentItem()
+            key = item.text()
+            par = self.reportDict[key]
+            # if mm dailyTSSReportCheckbox is checked or unchecked:    
+            if sender == self.dailyTSSReportCheckBox:
+                if state == QtCore.Qt.Unchecked:
+                    self.updateConfig("REPORTING", par + "_tsoutput", "NONE")
+                else:
+                    self.updateConfig("REPORTING", par + "_tsoutput", "D")
+            # else do something with the map reporting (D, M, or Y) checked or unchecked
+            else:
+                widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
+                repOpt = widgets[sender]
+                mapitems = (self.currentConfig.get("REPORTING", par + "_mapoutput")).split(",")
+                if state == QtCore.Qt.Unchecked and repOpt in mapitems:
+                    mapitems.remove(repOpt)
+                    if mapitems == []:
+                        self.updateConfig("REPORTING", par + "_mapoutput", "NONE")
+                        return
+                elif state == QtCore.Qt.Checked:
+        
+                    if "NONE" in mapitems:
+                        self.updateConfig("REPORTING", par + "_mapoutput", repOpt)
+                        return
+                    elif repOpt not in mapitems:
+                        mapitems.append(repOpt)
+                reportString = ""
+                for map in mapitems:
+                    if map is not mapitems[-1]:
+                        reportString = reportString + map + ","
+                    else:
+                        reportString = reportString + map
+                self.updateConfig("REPORTING", par + "_mapoutput", reportString)
+    
+    # Function to run the model          
+    def runModel(self):
+        self.updateDate()
+        self.saveProject()
+        # clean the modelrunlogtext window
+        self.modelRunLogTextEdit.clear()
+        # clean the list items from the tss list widget in the visualization tab
+        #self.timeSeriesListWidget.clear()
+        # disable the visualization tab during model run
+        self.tab.setTabEnabled(10, False)
+        # create the most recent output dictionary based on the reporting settings
+        self.setOutputDict()
+
+        
+        # set the batchfile settings
+        disk = (self.sphyLocationPath).split(":")[0] + ":"
+        sphydir = self.sphyLocationPath + "/"
+        pcrpath = self.pcrBinPath
+        pyexe = self.pythonExe
+        sphycommand = sphydir + "sphy.py"
+        batchfile = sphydir + "runModel.bat"
+         
+        # copy the project cfg to config to be used with sphy.py
+        shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
+        
+        # make a batch file to execute
+        f = open(batchfile, "w")
+        f.write(disk + "\n")
+        f.write("cd " + sphydir + "\n")
+        f.write("set PATH=" + pcrpath + "\n")
+        f.write(pyexe + " " + sphycommand)
+        f.close()
+        
+        # create a new worker instance
+        worker = ModelWorker(batchfile, self.timeSteps)
+        
+        # kill the worker (model run) if model
+        self.cancelModelRunButton.clicked.connect(worker.kill)
+        
+        # start the worker in a new thread
+        thread = QtCore.QThread(self)
+        worker.moveToThread(thread)
+
+        # listeners        
+        worker.finished.connect(self.modelWorkerFinished)
+        worker.error.connect(self.WorkerError)
+        worker.cmdProgress.connect(self.modelWorkerListener)
+        
+        # progressbar
+        worker.progBar.connect(self.modelRunProgressBar.setValue)
+
+        thread.started.connect(worker.run)
+        thread.start()
+        self.thread = thread
+        self.worker = worker
+
+        
+    def modelWorkerFinished(self, process):
+        # clean up the worker and thread
+        self.thread.quit()
+        self.thread.wait()
+        if process is None:
+            self.modelRunLogTextEdit.append("Model run was unsuccesfully because of one of these reasons:\n\
+            - model run was cancelled by the user, or\n\
+            - model input or parameters are missing/incorrect, or\n\
+            - environmental settings are incorrect, or\n\
+            a combination of these reasons.")
+            # set the progress bar to 0%
+            self.modelRunProgressBar.setValue(0)
+        else:
+            self.modelRunLogTextEdit.append("Model run was succesfully!")
+            
+            # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
+            # list widget in the visualize tab
+            self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
+            for root, dirs, files in os.walk(self.outputPath):
+                for file in files:
+                    if file.endswith('.tss'):
+                        self.convertTSS(file)
+            
+            # Loop over all the map files and convert and rename to correct units and suitable name
+            # start a worker instance to convert the map files
+            worker = convertMapWorker(self.startdate, self.timeSteps, self.outputPath, self.outputFileNameDict, self.pcrBinPath)
+            # start the worker in a new thread
+            thread = QtCore.QThread(self)
+            worker.moveToThread(thread)
+             # listeners 
+            worker.cmdProgress.connect(self.convertMapWorkerListener)
+            worker.finished.connect(self.convertMapWorkerFinished)
+            worker.error.connect(self.WorkerError)
+             
+            thread.started.connect(worker.run)
+            thread.start()
+            self.thread = thread
+            self.worker = worker
+             
+
+#             self.convertMAP()
+#             self.modelRunLogTextEdit.append("Converting files completed!")
+            
+#             # set the progress bar to 100%
+#             self.modelRunProgressBar.setValue(100)
+#             time.sleep(1)
+#             self.modelRunProgressBar.setValue(0)
+
+        # add the daily time-series csv files to the list widget in the visualization tab and enable tab again            
+#         self.setVisListWidgets()
+#         self.tab.setTabEnabled(10, True)
+        
+    
+    # function that is launched whenever the model is unable to run
+    def WorkerError(self, e, exception_string):
+        QgsMessageLog.logMessage('Worker thread raised an exception:\n'.format(exception_string), level=QgsMessageLog.CRITICAL)
+    
+    # function that parses model cmd line output to the text widget in the run model tab    
+    def modelWorkerListener(self, line):
+        self.modelRunLogTextEdit.append(line)
+    
+    # function that parses ... info to the text widget in the model run tab during model output map conversion/renaming    
+    def convertMapWorkerListener(self, line):
+        self.modelRunLogTextEdit.append(line)
+     
+    # function that is launched when converting of model output maps  is finished
+    def convertMapWorkerFinished(self, finished):
+        self.thread.quit()
+        self.thread.wait()
+        if finished:
+            self.modelRunLogTextEdit.append("Converting model output maps completed!")
+            self.modelRunProgressBar.setValue(100)
+        else:
+            self.modelRunLogTextEdit.append("Converting model output maps unsuccessfully!!")
+
+        self.setVisListWidgets()
+        self.tab.setTabEnabled(10, True)
+        time.sleep(1)
+        self.modelRunProgressBar.setValue(0)
+    
+    # function that is used to convert the tss to a more suitable csv file, containing only a date column, and
+    # data column for each location    
+    def convertTSS(self, fileName):
+        date = self.startdate
+        with open(self.outputPath + fileName, "rb") as csvfile:
+            r = csv.reader(csvfile, delimiter=' ', quoting=csv.QUOTE_NONE)
+            for row in r:
+                if row[0]=="timestep":
+                    break
+            # loop over lines until it finds the first record number with data and determine the number of stations
+            stations = -1            
+            for row in r:
+                stations+=1            
+                if len(row)>1:
+                    break
+            #-read the first data record
+            line = []
+            for i in row:
+                if i is not"":
+                    line.append(i)
+            # write the first record to a temporary file
+            f = open(self.outputPath + "tempdata", "w")
+            f.write("%s," %(date.strftime("%Y-%m-%d")))
+            for s in range(1, stations):
+                f.write("%f," %float(line[s]))
+            if stations == 1:
+                f.write("%f\n" %float(line[1]))
+            else:
+                f.write("%f\n" %float(line[s+1]))        
+            # write the remaining records    
+            for row in r:
+                date = date + datetime.timedelta(days=1)
+                f.write("%s," %(date.strftime("%Y-%m-%d")))
+                line = []
+                for i in row:
+                    if i is not "":
+                        line.append(i)
+                for s in range(1, stations):
+                    f.write("%f," %float(line[s]))
+                if stations == 1:
+                    f.write("%f\n" %float(line[1]))
+                else:
+                    f.write("%f\n" %float(line[s+1]))        
+            f.close()    
+        outFileName = fileName.split(".tss")[0] + ".csv"
+        shutil.move(self.outputPath + "tempdata", self.outputPath + outFileName)
+        os.remove(self.outputPath + fileName)
+        
+    # function that disables/enables Widgets, and updates the config value
+    def updateRadioValueMap(self, module, par, widget, enabled):
+        if enabled:
+            widget = eval("self." + widget)
+            if isinstance(widget, QtWidgets.QDoubleSpinBox) or isinstance(widget, QtWidgets.QSpinBox):
+                value = widget.value()
+            elif isinstance(widget, QtWidgets.QLineEdit):
+                value = widget.text()
+            self.updateConfig(module, par, value)    
+            self.initGuiConfigMap()
+
+    # update single value (e.g. from spinbox)     
+    def updateValue(self, module, par):
+        sender = self.sender().objectName()
+        value = eval("self." + sender + ".value()")
+        self.updateConfig(module, par, value)
+        
+    # update a *.tbl file (e.g. for the crop factors)
+    def updateTable(self, module, par, name):
+        file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" table", self.inputPath,"*.tbl"))[0]).replace("\\","/")
+        if file:
+            file = os.path.relpath(file, self.inputPath).replace("\\","/")
+            self.updateConfig(module, par, file)
+            self.initGuiConfigMap()
+        
+            
+    
+    # update map-series (e.g. precipitation time-series)
+    def updateMapSeries(self, module, par, name):
+        file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" map-series", self.inputPath,"*.001"))[0]).replace("\\","/")
+        if file:
+            file = os.path.relpath(file, self.inputPath).replace("\\","/")
+            file = file.rstrip(".001")
+            self.updateConfig(module, par, file)
+            self.initGuiConfigMap()
+        
+    # function that is called when a select map or value button is clicked. It then updates the map canvas with the map,
+    # updates the GUI with a map name or value, and updates the settings in the config
+    def updateMap(self, module, par, name, headgroup, group, groupPos, point=False):
+        file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" map", self.inputPath,"*.map"))[0]).replace("\\","/")
+        if file:
+            # if group=GENERAL, then each new map needs to be inserted on position 1 (after locations shape file)
+            # else, new map can be inserted at position zero.
+            if group == "General":
+                mapPos = 1
+            else:
+                mapPos = 0
+            # read old registry projection settings and set to useGlobal for this function
+            oldProjection = self.settings.value( "/Projections/defaultBehaviour")
+            self.settings.setValue( "/Projections/defaultBehaviour", "useGlobal" )
+            ##    
+            layername = (os.path.relpath(file, self.inputPath)).split("/")
+            value = layername[-1]
+            layername = value.split(".map")
+            layername = layername[0]
+            headgroup_exists = False
+            group_exists = False
+            layer_exists = False
+            if point:
+                locationsfile = (self.inputPath).replace("\\","/") + "locations.shp"
+                processing.runalg("saga:gridvaluestopoints", file, None, True, 0,locationsfile)
+                
+                layer = QgsVectorLayer(locationsfile, layername, "ogr")
+                # set the correct IDs in the first column, and finally remove the fourth column
+                layer.startEditing()
+                iter = layer.getFeatures()
+                for feature in iter:
+                    feature[0] = feature[3]
+                    layer.updateFeature(feature)
+                layer.deleteAttribute(3)
+                layer.commitChanges()
+            else:
+                layer = QgsRasterLayer(file, layername)
+#                 layer.setDrawingStyle("SingleBandPseudoColor")
+#                 layer.ColorShadingAlgorithm(QgsRasterLayer.ColorRampShader)
+                
+            # set the layer CRS
+            layer.setCrs( QgsCoordinateReferenceSystem(self.userCRS, QgsCoordinateReferenceSystem.EpsgCrsId) )
+            # Restore old projection settings in registry
+            self.settings.setValue( "/Projections/defaultBehaviour", oldProjection)
+            iface.messageBar().popWidget()
+
+
+            # Register the layer    
+            QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+            # Loop through the childs in the layertreeroot and create headgroup, group, and layer if
+            # they don't exist yet. Otherwise remove existing layer, and insert new layer
+            root = QgsProject.instance().layerTreeRoot()
+            for child in root.children():
+                if isinstance(child, QgsLayerTreeGroup):
+                    if child.name() == headgroup:  
+                        headgroup_exists = True
+                        headgroupRef = child
+                        break
+            if headgroup_exists:
+                for child in headgroupRef.children():
+                    if isinstance(child, QgsLayerTreeGroup): 
+                        if child.name() == group:
+                            group_exists = True
+                            groupRef = child
+                            break
+                if group_exists:
+                    for l in groupRef.findLayers():
+                        if l.layerName() == layername:
+                            groupRef.removeChildNode(l)
+                    if point:
+                        groupRef.insertLayer(0, layer)
+                    else:
+                        #groupRef.addLayer(layer)
+                        groupRef.insertLayer(mapPos,layer)
+                else:
+                    groupRef = headgroupRef.insertGroup(groupPos, group)
+                    #groupRef = headgroupRef.addGroup(group)
+                    if point:
+                        groupRef.insertLayer(0, layer)
+                    else:
+                        #groupRef.addLayer(layer)
+                        groupRef.insertLayer(mapPos,layer)
+            else:
+                headgroupRef = root.insertGroup(0, headgroup)
+                groupRef = headgroupRef.insertGroup(groupPos, group)
+                #groupRef = headgroupRef.addGroup(group)
+                if point:
+                    groupRef.insertLayer(0, layer)
+                else:
+                    #groupRef.addLayer(layer)
+                    groupRef.insertLayer(mapPos,layer)
+            self.updateConfig(module, par, value)
+            self.initGuiConfigMap()    
