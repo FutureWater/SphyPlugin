@@ -1524,7 +1524,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1660,7 +1660,7 @@ button to identify the corresponding UTM zone for your model area.</string>
              </widget>
             </item>
             <item>
-             <widget class="QDateEdit" name="startDateEdit_2">
+             <widget class="QDateEdit" name="startDateEdit_m">
               <property name="displayFormat">
                <string>dd-MMM-yyyy</string>
               </property>
@@ -1677,7 +1677,7 @@ button to identify the corresponding UTM zone for your model area.</string>
              </widget>
             </item>
             <item>
-             <widget class="QDateEdit" name="endDateEdit_2">
+             <widget class="QDateEdit" name="endDateEdit_m">
               <property name="displayFormat">
                <string>dd-MMM-yyyy</string>
               </property>
@@ -4234,30 +4234,14 @@ time-series</string>
    </hints>
   </connection>
   <connection>
-   <sender>startDateEdit</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateDate()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>415</x>
-     <y>302</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>502</x>
-     <y>290</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>forcingToolButton</sender>
    <signal>clicked()</signal>
    <receiver>SphyPluginDialog</receiver>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>72</x>
-     <y>662</y>
+     <x>78</x>
+     <y>640</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4272,8 +4256,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>191</y>
+     <x>71</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>214</x>
@@ -4304,7 +4288,7 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
+     <x>62</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -4320,7 +4304,7 @@ time-series</string>
    <slot>createStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
+     <x>106</x>
      <y>211</y>
     </hint>
     <hint type="destinationlabel">
@@ -4336,8 +4320,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>185</y>
+     <x>110</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4352,7 +4336,7 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>75</x>
+     <x>87</x>
      <y>111</y>
     </hint>
     <hint type="destinationlabel">
@@ -4384,8 +4368,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>223</x>
-     <y>250</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4400,8 +4384,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>71</x>
-     <y>261</y>
+     <x>77</x>
+     <y>239</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4432,8 +4416,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>226</y>
+     <x>91</x>
+     <y>204</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4481,7 +4465,7 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>111</x>
-     <y>280</y>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4496,8 +4480,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>68</x>
-     <y>156</y>
+     <x>74</x>
+     <y>134</y>
     </hint>
     <hint type="destinationlabel">
      <x>107</x>
@@ -4528,8 +4512,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>469</x>
-     <y>150</y>
+     <x>110</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4544,8 +4528,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>67</x>
-     <y>330</y>
+     <x>73</x>
+     <y>308</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4576,8 +4560,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>168</x>
-     <y>253</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4592,8 +4576,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>604</y>
+     <x>100</x>
+     <y>582</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4624,8 +4608,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>521</y>
+     <x>121</x>
+     <y>506</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4656,8 +4640,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>200</y>
+     <x>90</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4672,8 +4656,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>153</y>
+     <x>488</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4710,54 +4694,6 @@ time-series</string>
     <hint type="destinationlabel">
      <x>502</x>
      <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>startDateEdit_2</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateDate()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>247</x>
-     <y>484</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>502</x>
-     <y>413</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>endDateEdit_2</sender>
-   <signal>dateChanged(QDate)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateDate()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>479</x>
-     <y>484</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>502</x>
-     <y>470</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>crsSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>changeCRS()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>363</x>
-     <y>338</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>502</x>
-     <y>331</y>
     </hint>
    </hints>
   </connection>
@@ -4864,8 +4800,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>114</x>
-     <y>134</y>
+     <x>112</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4880,8 +4816,8 @@ time-series</string>
    <slot>runModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>157</x>
-     <y>134</y>
+     <x>156</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4896,12 +4832,92 @@ time-series</string>
    <slot>showTimeSeries()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>417</x>
-     <y>256</y>
+     <x>103</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
      <y>599</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startDateEdit_m</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateDateModel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>225</x>
+     <y>492</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>524</x>
+     <y>441</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endDateEdit_m</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateDateModel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>424</x>
+     <y>500</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>526</x>
+     <y>514</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>startDateEdit</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateDate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>401</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>524</x>
+     <y>252</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>endDateEdit</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateDate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>342</x>
+     <y>211</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>523</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>crsSpinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>changeModelCRS()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>385</x>
+     <y>341</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>521</x>
+     <y>309</y>
     </hint>
    </hints>
   </connection>
@@ -4936,5 +4952,7 @@ time-series</string>
   <slot>runModel()</slot>
   <slot>showTimeSeries()</slot>
   <slot>showOutputMap()</slot>
+  <slot>updateDateModel()</slot>
+  <slot>changeModelCRS()</slot>
  </slots>
 </ui>

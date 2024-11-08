@@ -686,17 +686,17 @@ class Ui_SphyPluginDialog(object):
         self.startDateLabel_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.startDateLabel_2.setObjectName("startDateLabel_2")
         self.horizontalLayout_24.addWidget(self.startDateLabel_2)
-        self.startDateEdit_2 = QtWidgets.QDateEdit(self.periodSimulationGroupBox)
-        self.startDateEdit_2.setObjectName("startDateEdit_2")
-        self.horizontalLayout_24.addWidget(self.startDateEdit_2)
+        self.startDateEdit_m = QtWidgets.QDateEdit(self.periodSimulationGroupBox)
+        self.startDateEdit_m.setObjectName("startDateEdit_m")
+        self.horizontalLayout_24.addWidget(self.startDateEdit_m)
         self.endDateLabel_2 = QtWidgets.QLabel(self.periodSimulationGroupBox)
         self.endDateLabel_2.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.endDateLabel_2.setObjectName("endDateLabel_2")
         self.horizontalLayout_24.addWidget(self.endDateLabel_2)
-        self.endDateEdit_2 = QtWidgets.QDateEdit(self.periodSimulationGroupBox)
-        self.endDateEdit_2.setDate(QtCore.QDate(2005, 12, 31))
-        self.endDateEdit_2.setObjectName("endDateEdit_2")
-        self.horizontalLayout_24.addWidget(self.endDateEdit_2)
+        self.endDateEdit_m = QtWidgets.QDateEdit(self.periodSimulationGroupBox)
+        self.endDateEdit_m.setDate(QtCore.QDate(2005, 12, 31))
+        self.endDateEdit_m.setObjectName("endDateEdit_m")
+        self.horizontalLayout_24.addWidget(self.endDateEdit_m)
         self.horizontalLayout_85.addLayout(self.horizontalLayout_24)
         self.verticalLayout_4.addWidget(self.periodSimulationGroupBox)
         self.catchmentSettingsGroupBox = QtWidgets.QGroupBox(self.generalSettingsTab)
@@ -1944,14 +1944,13 @@ class Ui_SphyPluginDialog(object):
         self.retranslateUi(SphyPluginDialog)
         self.tabWidget.setCurrentIndex(1)
         self.Tab.setCurrentIndex(0)
-        self.tab_3.setCurrentIndex(3)
+        self.tab_3.setCurrentIndex(0)
         self.newButton.clicked.connect(SphyPluginDialog.createNewProject) # type: ignore
         self.openButton.clicked.connect(SphyPluginDialog.openProject) # type: ignore
         self.saveAsButton.clicked.connect(SphyPluginDialog.saveAsProject) # type: ignore
         self.precLocToolButton.clicked.connect(SphyPluginDialog.updateForcing) # type: ignore
         self.tempDataToolButton.clicked.connect(SphyPluginDialog.updateForcing) # type: ignore
         self.tempFlagCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateForcing) # type: ignore
-        self.startDateEdit.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
         self.forcingToolButton.clicked.connect(SphyPluginDialog.createForcing) # type: ignore
         self.snowModCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateModules) # type: ignore
         self.createInitialMapsToolButton.clicked.connect(SphyPluginDialog.createInitMaps) # type: ignore
@@ -1981,9 +1980,6 @@ class Ui_SphyPluginDialog(object):
         self.selectSphyPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
         self.selectInputPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
         self.selectOutputPathButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
-        self.startDateEdit_2.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
-        self.endDateEdit_2.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
-        self.crsSpinBox.valueChanged['int'].connect(SphyPluginDialog.changeCRS) # type: ignore
         self.dailyMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
         self.monthlyMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
         self.annualMapReportCheckBox.stateChanged['int'].connect(SphyPluginDialog.updateReportCheckBox) # type: ignore
@@ -1993,6 +1989,11 @@ class Ui_SphyPluginDialog(object):
         self.selectPythonExeButton.clicked.connect(SphyPluginDialog.updatePath) # type: ignore
         self.runModelButton.clicked.connect(SphyPluginDialog.runModel) # type: ignore
         self.showTimeSeriesButton.clicked.connect(SphyPluginDialog.showTimeSeries) # type: ignore
+        self.startDateEdit_m.dateChanged['QDate'].connect(SphyPluginDialog.updateDateModel) # type: ignore
+        self.endDateEdit_m.dateChanged['QDate'].connect(SphyPluginDialog.updateDateModel) # type: ignore
+        self.startDateEdit.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
+        self.endDateEdit.dateChanged['QDate'].connect(SphyPluginDialog.updateDate) # type: ignore
+        self.crsSpinBox.valueChanged['int'].connect(SphyPluginDialog.changeModelCRS) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(SphyPluginDialog)
 
     def retranslateUi(self, SphyPluginDialog):
@@ -2092,9 +2093,9 @@ class Ui_SphyPluginDialog(object):
         self.crsLabel.setText(_translate("SphyPluginDialog", "EPSG:"))
         self.periodSimulationGroupBox.setTitle(_translate("SphyPluginDialog", "Period of simulation"))
         self.startDateLabel_2.setText(_translate("SphyPluginDialog", "Start date"))
-        self.startDateEdit_2.setDisplayFormat(_translate("SphyPluginDialog", "dd-MMM-yyyy"))
+        self.startDateEdit_m.setDisplayFormat(_translate("SphyPluginDialog", "dd-MMM-yyyy"))
         self.endDateLabel_2.setText(_translate("SphyPluginDialog", "End date"))
-        self.endDateEdit_2.setDisplayFormat(_translate("SphyPluginDialog", "dd-MMM-yyyy"))
+        self.endDateEdit_m.setDisplayFormat(_translate("SphyPluginDialog", "dd-MMM-yyyy"))
         self.catchmentSettingsGroupBox.setTitle(_translate("SphyPluginDialog", "Catchment settings"))
         self.cloneMapLabel.setText(_translate("SphyPluginDialog", "Clone map"))
         self.selectCloneMapFileButton.setText(_translate("SphyPluginDialog", "Select map"))

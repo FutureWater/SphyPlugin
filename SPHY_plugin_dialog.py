@@ -69,6 +69,9 @@ from qgis.core import QgsProcessingParameterFeatureSink
 from qgis.core import QgsCoordinateReferenceSystem
 from qgis.core import QgsExpression
 import processing
+import shutil
+import subprocess
+import traceback
 
 
 from SphyPlugin.gui.generated.SPHY_plugin_dialog_base import Ui_SphyPluginDialog
@@ -216,9 +219,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         try:
             crs = self.lookupUTM(self.currentConfig.getint('GENERAL', 'utmZoneNr'), self.currentConfig.get('GENERAL', 'utmZoneStr'))
             self.userCRS = QgsCoordinateReferenceSystem("EPSG:" + str(crs))
+
+            # try to read crs
+            self.crs = self.settings.value("sphyplugin/crs")
+            if self.crs is None:
+                self.crs = 4326  # set to default EPSG 4326 WGS84 
         except:
             self.userCRS = self.mapCrs
-        
+
         """ Basin delineation Tab """
         self.delineateButton.setEnabled(1)
                 
@@ -230,11 +238,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         # Buttons that cannot be modified from the UI because functions have parameters
         # Catchment settings: Clone, DEM, Slope, Sub-basins, Stations
-        self.selectCloneMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "mask", "Clone", "Input", "General", 0))
-        self.selectDemMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "dem", "DEM", "Input", "General", 0))
-        self.selectSlopeMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "slope", "Slope", "Input", "General", 0))
-        self.selectSubbasinMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "sub", "Sub-basin", "Input", "General", 0))
-        self.selectStationsMapFileButton.clicked.connect(partial(self.updateMap, "GENERAL", "locations", "Stations", "Input", "General", 0, True))
+        self.selectCloneMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "mask", "Clone", "Input", "General", 0))
+        self.selectDemMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "dem", "DEM", "Input", "General", 0))
+        self.selectSlopeMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "slope", "Slope", "Input", "General", 0))
+        self.selectSubbasinMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "sub", "Sub-basin", "Input", "General", 0))
+        self.selectStationsMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "locations", "Stations", "Input", "General", 0, True))
         
         """
         Climate tab: meteorological forcing map-series, meteorological parameters
@@ -432,10 +440,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                            ('endyear', 'endmonth', 'endday')), 'outletsLineEdit' : ('DELINEATION', 'outlets_shp'), 'clipMaskCheckBox' : ('DELINEATION', 'clip'),\
                            'createSubBasinCheckBox' : ('DELINEATION', 'subbasins'), 'stationsLineEdit' : ('STATIONS', 'stations_shp'),\
                            "inputPathLineEdit": ("DIRS", "inputdir"),"outputPathLineEdit": ("DIRS", "outputdir"),
-                             "startDateEdit": ("TIMING", ("startyear", "startmonth", "startday")),
-                             "endDateEdit": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ("MAPS", "mask"),
-                             "demMapLineEdit": ("MAPS","dem"), "slopeMapLineEdit": ("MAPS", "slope"),
-                             "subbasinMapLineEdit": ("MAPS", "sub"), "stationsMapLineEdit": ("MAPS", "locations"),
+                             "startDateEdit_m": ("TIMING", ("startyear", "startmonth", "startday")),
+                             "endDateEdit_m": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ('GENERAL', "mask"),
+                             "demMapLineEdit": ('GENERAL',"dem"), "slopeMapLineEdit": ('GENERAL', "slope"),
+                             "subbasinMapLineEdit": ('GENERAL', "sub"), "stationsMapLineEdit": ('GENERAL', "locations"),
                              "precMapSeriesLineEdit": ("CLIMATE", "Prec"), "avgTempMapSeriesLineEdit": ("CLIMATE", "Tair"),
                              "maxTempMapSeriesLineEdit": ("ETREF", "Tmax"), "minTempMapSeriesLineEdit": ("ETREF", "Tmin"),
                              "latitudeZonesMapLineEdit": ("ETREF", "Lat"), "solarConstantDoubleSpinBox": ("ETREF", "Gsc"),
@@ -458,6 +466,32 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         #####-Dictionary for UTM coordinate system
         self.configRadioDict = {'utmNRadioButton': ('GENERAL', 'utmZoneStr'), 'utmSRadioButton': ('GENERAL', 'utmZoneStr')}
         self.setRadioGui()
+
+        # set the dictionary for the GUI radio buttons, corresponding to either a lineedit (map file) or spinbox (single value)
+        self.ModelconfigRadioDict = {"rootDepthLineEdit": ("SOILPARS", "RootDepthFlat",("rootDepthMapRadioButton", "selectRootDepthMapButton"),("rootDepthSingleRadioButton", "rootDepthSpinBox")),
+                                "subDepthLineEdit": ("SOILPARS", "SubDepthFlat",("subDepthMapRadioButton", "selectSubDepthMapButton"),("subDepthSingleRadioButton", "subDepthSpinBox")),
+                                "gwDepthLineEdit": ("GROUNDW_PARS", "GwDepth",("gwDepthMapRadioButton", "selectGwDepthMapButton"), ("gwDepthSingleRadioButton", "gwDepthSpinBox")),
+                                "gwSatLineEdit": ("GROUNDW_PARS", "GwSat",("gwSatMapRadioButton", "selectGwSatMapButton"), ("gwSatSingleRadioButton", "gwSatSpinBox")),
+                                "gwInitLineEdit": ("GROUNDW_INIT", "Gw",("gwInitMapRadioButton", "selectGwInitMapButton"), ("gwInitSingleRadioButton", "gwInitSpinBox")),
+                                "baseThreshLineEdit": ("GROUNDW_PARS", "BaseThresh",("baseThreshMapRadioButton", "selectBaseThreshMapButton"), ("baseThreshSingleRadioButton", "baseThreshSpinBox")),
+                                "deltaGwLineEdit": ("GROUNDW_PARS", "deltaGw",("deltaGwMapRadioButton", "selectDeltaGwMapButton"), ("deltaGwSingleRadioButton", "deltaGwSpinBox")),
+                                "alphaGwLineEdit": ("GROUNDW_PARS", "alphaGw",("alphaGwMapRadioButton", "selectAlphaGwMapButton"), ("alphaGwSingleRadioButton", "alphaGwDoubleSpinBox")),
+                                "glacRoFracLineEdit": ("GLACIER", "GlacF",("glacRoFracMapRadioButton", "selectGlacRoFracMapButton"), ("glacRoFracSingleRadioButton", "glacRoFracDoubleSpinBox")),
+                                "DDFDGLineEdit": ("GLACIER", "DDFDG",("DDFDGMapRadioButton", "selectDDFDGMapButton"), ("DDFDGSingleRadioButton", "DDFDGDoubleSpinBox")),
+                                "DDFGLineEdit": ("GLACIER", "DDFG",("DDFGMapRadioButton", "selectDDFGMapButton"), ("DDFGSingleRadioButton", "DDFGDoubleSpinBox")),
+                                "snowIniLineEdit": ("SNOW_INIT", "SnowIni",("snowIniMapRadioButton", "selectSnowIniMapButton"), ("snowIniSingleRadioButton", "snowIniSpinBox")),
+                                "sWatStoreLineEdit": ("SNOW_INIT", "SnowWatStore",("sWatStoreMapRadioButton", "selectSWatStoreMapButton"), ("sWatStoreSingleRadioButton", "sWatStoreSpinBox")),
+                                "snowSCLineEdit": ("SNOW", "SnowSC",("snowSCMapRadioButton", "selectSnowSCMapButton"), ("snowSCSingleRadioButton", "snowSCDoubleSpinBox")),
+                                "DDFSLineEdit": ("SNOW", "DDFS",("DDFSMapRadioButton", "selectDDFSMapButton"), ("DDFSSingleRadioButton", "DDFSDoubleSpinBox")),
+                                "kxLineEdit": ("ROUTING", "kx",("kxMapRadioButton", "selectKxMapButton"), ("kxSingleRadioButton", "kxDoubleSpinBox")),
+                                "qraInitLineEdit": ("ROUT_INIT", "QRA_init",("qraInitMapRadioButton", "selectQraInitMapButton"), ("qraInitSingleRadioButton", "qraInitDoubleSpinBox")),
+                                "rainRaInitLineEdit": ("ROUT_INIT", "RainRA_init",("rainRaInitMapRadioButton", "selectRainRaInitMapButton"), ("rainRaInitSingleRadioButton", "rainRaInitDoubleSpinBox")),
+                                "basRaInitLineEdit": ("ROUT_INIT", "BaseRA_init",("basRaInitMapRadioButton", "selectBasRaInitMapButton"), ("basRaInitSingleRadioButton", "basRaInitDoubleSpinBox")),
+                                "snowRaInitLineEdit": ("ROUT_INIT", "SnowRA_init",("snowRaInitMapRadioButton", "selectSnowRaInitMapButton"), ("snowRaInitSingleRadioButton", "snowRaInitDoubleSpinBox")),
+                                "glacRaInitLineEdit": ("ROUT_INIT", "GlacRA_init",("glacRaInitMapRadioButton", "selectGlacRaInitMapButton"), ("glacRaInitSingleRadioButton", "glacRaInitDoubleSpinBox"))}
+        
+        self.setRadioModelGui()
+
         #####-Dictionary for Area selection Tab        
         self.configAreaDict = {'selectedAreaMapLineEdit': ('AREA', 'clone_shp'), 'spatialResolutionSpinBox': ('AREA', 'resolution'), 'numberCellsLineEdit': ('AREA', 'cells'),\
                                'areaSizeLineEdit': ('AREA', 'area'),'xminLineEdit': ('AREA', 'xmin'),'xmaxLineEdit': ('AREA', 'xmax'),'ymaxLineEdit': ('AREA', 'ymax'),\
@@ -568,7 +602,12 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         #-initialize the enddate and startdate for processing forcing data
         self.enddate = datetime.date(QtCore.QDate.year(self.endDateEdit.date()),QtCore.QDate.month(self.endDateEdit.date()),QtCore.QDate.day(self.endDateEdit.date()))
         self.startdate = datetime.date(QtCore.QDate.year(self.startDateEdit.date()),QtCore.QDate.month(self.startDateEdit.date()),QtCore.QDate.day(self.startDateEdit.date()))
-                
+
+        #-initialize the enddate and startdate for processing forcing data
+        self.enddatem = datetime.date(QtCore.QDate.year(self.endDateEdit_m.date()),QtCore.QDate.month(self.endDateEdit_m.date()),QtCore.QDate.day(self.endDateEdit_m.date()))
+        self.startdatem = datetime.date(QtCore.QDate.year(self.startDateEdit_m.date()),QtCore.QDate.month(self.startDateEdit_m.date()),QtCore.QDate.day(self.startDateEdit_m.date()))
+
+
     #-Set the GUI radio buttons (obtained from config file)
     def setRadioGui(self):
         for key in self.configRadioDict:
@@ -580,6 +619,46 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 self.utmNRadioButton.setChecked(1)
             elif key == 'utmSRadioButton' and utmStr == 'S':
                 self.utmSRadioButton.setChecked(1)
+
+
+    # set the Gui values for the radio button related fields        
+    def setRadioModelGui(self):
+        for key in self.ModelconfigRadioDict:
+            v = self.ModelconfigRadioDict[key]
+            module = v[0]
+            par = v[1]
+            # the map widgets
+            mapWidgets = v[2]
+            mapRadioButton = eval("self." + mapWidgets[0])
+            mapSelectButton = eval("self." + mapWidgets[1])
+            lineEdit = eval("self." + key)
+            # the value widgets
+            valueWidgets = v[3]
+            valueRadioButton = eval("self." + valueWidgets[0])
+            valueSpinBox = eval("self." + valueWidgets[1])
+            # first try if a float can be extracted from the config
+            try:
+                value = self.currentConfig.getfloat(module, par)
+                valueRadioButton.setChecked(1)
+                valueSpinBox.setValue(value)
+                valueSpinBox.setEnabled(1)
+                mapSelectButton.setEnabled(0)
+                lineEdit.setEnabled(0)
+            except:
+                try: # then try to extract a integer from the config
+                    value = self.currentConfig.getint(module, par)
+                    valueRadioButton.setChecked(1)
+                    valueSpinBox.setValue(value)
+                    valueSpinBox.setEnabled(1)
+                    mapSelectButton.setEnabled(0)
+                    lineEdit.setEnabled(0)
+                except: # then it should be a map file
+                    lineEdit.setText(self.currentConfig.get(module, par))
+                    mapRadioButton.setChecked(1)
+                    lineEdit.setEnabled(1)
+                    mapSelectButton.setEnabled(1)
+                    valueSpinBox.setEnabled(0)
+
                 
     #-Set the GUI for the Area selection (obtained from config file)
     def setAreaDict(self):
@@ -1575,9 +1654,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 self.updateConfig('GENERAL', 'utmZoneStr', 'N')
             else:
                 self.updateConfig('GENERAL', 'utmZoneStr', 'S')
-        crs = self.lookupUTM(self.currentConfig.getint('GENERAL', 'utmZoneNr'), self.currentConfig.get('GENERAL', 'utmZoneStr'))
+        crs = self.lookupUTM(self.currentConfig.getint('GENERAL', 'utmzonenr'), self.currentConfig.get('GENERAL', 'utmzonestr'))
         self.userCRS = QgsCoordinateReferenceSystem("EPSG:" + str(crs))
         self.saveProject()  #-if this causes hanging, then remove this line
+
+
+        # update crs    
+    def changeModelCRS(self):
+        self.crs = self.crsSpinBox.value()
+        self.settings.setValue("sphyplugin/crs", self.crs)
 
     #-function to lookup the WGS84 / UTM zone from the sqlite database in QGIS
     def lookupUTM(self, utmNr, utmStr):
@@ -1613,6 +1698,31 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateConfig("GENERAL", "endday", QtCore.QDate.day(enddate))
         self.saveProject()
         
+    # validate start and enddate and set in config        
+    def updateDateModel(self):
+#         if self.exitDate: # don't execute this function if GUI is initialized during new project or open project creation.
+#             return
+        # validate if simulation settings are ok
+        startdatem = self.startDateEdit_m.date()
+        enddatem = self.endDateEdit_m.date()
+        if startdatem >= enddatem:
+            QtWidgets.QMessageBox.warning(self, "Date error", "End date should be larger than start date")
+            if self.sender().objectName() == "startDateEdit_m":
+                enddatem = QtCore.QDate(startdatem).addDays(1)
+                self.endDateEdit_m.setDate(enddatem)
+            else:
+                startdatem = QtCore.QDate(enddatem).addDays(-1)
+                self.startDateEdit_m.setDate(startdatem)
+        self.updateConfig("TIMING", "startyear", QtCore.QDate.year(startdatem))
+        self.updateConfig("TIMING", "startmonth", QtCore.QDate.month(startdatem))
+        self.updateConfig("TIMING", "startday", QtCore.QDate.day(startdatem))
+        self.updateConfig("TIMING", "endyear", QtCore.QDate.year(enddatem))
+        self.updateConfig("TIMING", "endmonth", QtCore.QDate.month(enddatem))
+        self.updateConfig("TIMING", "endday", QtCore.QDate.day(enddatem))
+        #self.timeSteps = ((self.enddatem - self.startdatem).days + 1) ## have to fix this
+        self.saveProject()
+
+
     ############### DELETE AND ADD LAYERS FROM CANVAS AND DISK #############
     
     #-Add a shapefile or raster layer to the canvas (specified by name and type = vector or raster)
@@ -2063,13 +2173,13 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         layer = QgsRasterLayer(self.outputPath + filename, legendtext)
         # set the layer CRS
-        layer.setCrs( QgsCoordinateReferenceSystem(self.userCRS, QgsCoordinateReferenceSystem.EpsgCrsId) )
+        layer.setCrs(QgsCoordinateReferenceSystem(self.userCRS))
         # Restore old projection settings in registry
         self.settings.setValue( "/Projections/defaultBehaviour", oldProjection)
         iface.messageBar().popWidget()
         
         # register the layer
-        QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+        QgsProject.instance().addMapLayer(layer, False)
         # Loop through the childs in the layertreeroot and create a headgroup, and layer if
         # they don't exist yet. Otherwise remove existing layer, and insert new layer
         headgroup = "Output"
@@ -2162,17 +2272,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # clean the list items from the tss list widget in the visualization tab
         #self.timeSeriesListWidget.clear()
         # disable the visualization tab during model run
-        self.tab.setTabEnabled(10, False)
+        self.tab.setEnabled(10)
         # create the most recent output dictionary based on the reporting settings
-        self.setOutputDict()
+        #self.setOutputDict()
 
         
         # set the batchfile settings
         disk = (self.sphyLocationPath).split(":")[0] + ":"
         sphydir = self.sphyLocationPath + "/"
-        pcrpath = self.pcrBinPath
-        pyexe = self.pythonExe
-        sphycommand = sphydir + "sphy.py"
+        sphycommand = sphydir + "sphy.py" + " " + "sphy_config.cfg"
         batchfile = sphydir + "runModel.bat"
          
         # copy the project cfg to config to be used with sphy.py
@@ -2182,12 +2290,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         f = open(batchfile, "w")
         f.write(disk + "\n")
         f.write("cd " + sphydir + "\n")
-        f.write("set PATH=" + pcrpath + "\n")
-        f.write(pyexe + " " + sphycommand)
+        f.write('python' + " " + sphycommand)
         f.close()
         
         # create a new worker instance
-        worker = ModelWorker(batchfile, self.timeSteps)
+        worker = ModelWorker(batchfile, 31) #self.timeSteps)
         
         # kill the worker (model run) if model
         self.cancelModelRunButton.clicked.connect(worker.kill)
@@ -2225,29 +2332,31 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         else:
             self.modelRunLogTextEdit.append("Model run was succesfully!")
             
-            # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
-            # list widget in the visualize tab
-            self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
-            for root, dirs, files in os.walk(self.outputPath):
-                for file in files:
-                    if file.endswith('.tss'):
-                        self.convertTSS(file)
+            # Commented by me ---------------------------
+            # # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
+            # # list widget in the visualize tab
+            # self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
+            # for root, dirs, files in os.walk(self.outputPath):
+            #     for file in files:
+            #         if file.endswith('.tss'):
+            #             self.convertTSS(file)
             
-            # Loop over all the map files and convert and rename to correct units and suitable name
-            # start a worker instance to convert the map files
-            worker = convertMapWorker(self.startdate, self.timeSteps, self.outputPath, self.outputFileNameDict, self.pcrBinPath)
-            # start the worker in a new thread
-            thread = QtCore.QThread(self)
-            worker.moveToThread(thread)
-             # listeners 
-            worker.cmdProgress.connect(self.convertMapWorkerListener)
-            worker.finished.connect(self.convertMapWorkerFinished)
-            worker.error.connect(self.WorkerError)
+            # # Loop over all the map files and convert and rename to correct units and suitable name
+            # # start a worker instance to convert the map files
+            # worker = convertMapWorker(self.startdatem, self.timeSteps, self.outputPath, self.outputFileNameDict, self.pcrBinPath)
+            # # start the worker in a new thread
+            # thread = QtCore.QThread(self)
+            # worker.moveToThread(thread)
+            #  # listeners 
+            # worker.cmdProgress.connect(self.convertMapWorkerListener)
+            # worker.finished.connect(self.convertMapWorkerFinished)
+            # worker.error.connect(self.WorkerError)
              
-            thread.started.connect(worker.run)
-            thread.start()
-            self.thread = thread
-            self.worker = worker
+            # thread.started.connect(worker.run)
+            # thread.start()
+            # self.thread = thread
+            # self.worker = worker
+            # --------------------------------------------------------------------------------------------
              
 
 #             self.convertMAP()
@@ -2293,7 +2402,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     # function that is used to convert the tss to a more suitable csv file, containing only a date column, and
     # data column for each location    
     def convertTSS(self, fileName):
-        date = self.startdate
+        date = self.startdatem
         with open(self.outputPath + fileName, "rb") as csvfile:
             r = csv.reader(csvfile, delimiter=' ', quoting=csv.QUOTE_NONE)
             for row in r:
@@ -2363,8 +2472,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.updateConfig(module, par, file)
             self.initGuiConfigMap()
         
-            
-    
     # update map-series (e.g. precipitation time-series)
     def updateMapSeries(self, module, par, name):
         file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" map-series", self.inputPath,"*.001"))[0]).replace("\\","/")
@@ -2415,14 +2522,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 #                 layer.ColorShadingAlgorithm(QgsRasterLayer.ColorRampShader)
                 
             # set the layer CRS
-            layer.setCrs( QgsCoordinateReferenceSystem(self.userCRS, QgsCoordinateReferenceSystem.EpsgCrsId) )
+            layer.setCrs(QgsCoordinateReferenceSystem(self.userCRS))
             # Restore old projection settings in registry
             self.settings.setValue( "/Projections/defaultBehaviour", oldProjection)
             iface.messageBar().popWidget()
 
 
             # Register the layer    
-            QgsMapLayerRegistry.instance().addMapLayer(layer, False)
+            QgsProject.instance().addMapLayer(layer, False)
             # Loop through the childs in the layertreeroot and create headgroup, group, and layer if
             # they don't exist yet. Otherwise remove existing layer, and insert new layer
             root = QgsProject.instance().layerTreeRoot()
@@ -2441,7 +2548,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             break
                 if group_exists:
                     for l in groupRef.findLayers():
-                        if l.layerName() == layername:
+                        if l.name() == layername:
                             groupRef.removeChildNode(l)
                     if point:
                         groupRef.insertLayer(0, layer)
@@ -2467,3 +2574,60 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     groupRef.insertLayer(mapPos,layer)
             self.updateConfig(module, par, value)
             self.initGuiConfigMap()    
+
+
+# worker class to run the model in a thread
+class ModelWorker(QtCore.QObject):
+    '''Example worker'''
+    def __init__(self, filename, ts):
+        QtCore.QObject.__init__(self)
+        self.filename = filename
+        self.killed = False
+        self.process = None
+        self.steps = ts + 55  # is approx. the number of cmd lines shown before model time steps start
+    def run(self):
+        try:
+            if not self.killed:
+                self.process = subprocess.Popen(
+                    self.filename,
+                    shell=True,
+                    stdout=subprocess.PIPE,
+                    stdin=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,
+                    universal_newlines=False
+                    )
+                  
+                proc = self.process.stdout
+                progress_count = 0  
+                for line in iter(proc.readline, b''):
+                    line = line.decode("utf-8")  # Decode bytes to string
+                    progress_count += 1
+                    # terminate the model run if there is an error in the path settings of pcraster bin and python exe,
+                    # or if the user cancels the model run
+                    if "Traceback" in line or self.killed:
+                        self.process = None
+                        break
+                    self.progBar.emit(progress_count / float(str(self.steps)) * 100)
+                    self.cmdProgress.emit(line)
+ 
+        except Exception as e:
+
+            # forward the exception upstream
+            error_message = traceback.format_exc()
+            self.error.emit(e, error_message)  # Convert `e` to string for compatibility
+            #self.error.emit(e, traceback.format_exc())
+
+        finally: 
+            self.finished.emit(self.process)
+    
+    def kill(self):
+        self.killed = True
+        if self.process:
+            self.process.kill()
+         
+    finished = QtCore.pyqtSignal(object)
+    error = QtCore.pyqtSignal(Exception, basestring)
+    cmdProgress = QtCore.pyqtSignal(object)
+    progBar = QtCore.pyqtSignal(float)
+
+  

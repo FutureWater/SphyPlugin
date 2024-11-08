@@ -1,1 +1,1 @@
-"C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/forcing/prec0000.001" = if("C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/clone.map", 3600 * 24 * "C:/Users/AmeliaFernándezRodri/Downloads/SPHY-3.0-test/input/temp.map")
+"C:/Users/SPHY-3.0-test/input/stations.map" = nominal("C:/Users/SPHY-3.0-test/input/temp.map")
