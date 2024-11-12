@@ -498,8 +498,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                                'yminLineEdit': ('AREA', 'ymin'), 'columnsLineEdit': ('AREA', 'cols'), 'rowsLineEdit': ('AREA', 'rows'), 'cloneLineEdit': ('AREA', 'clone_grid')}
         self.setAreaDict()
         #####-Dictionary for Modules Tab
-        self.configModulesDict = {'glacierModCheckBox': ('PREPOCMODULES', 'glacier'), 'snowModCheckBox': ('PREPOCMODULES', 'snow'), 'groundwaterModCheckBox': ('PREPOCMODULES', 'groundwater'),\
-                                  'routingModCheckBox': ('PREPOCMODULES', 'routing')}
+        self.configModulesDict = {'glacierModCheckBox': ('PREPOCMODULES', 'glacier'),\
+                                  'routingModCheckBox': ('PREPOCMODULES', 'routing'),'glaciersGroupBox': ('MODULES', 'GlacFLAG'),'snowGroupBox': ('MODULES', 'SnowFLAG')}
         #-general maps are always created in the "Create initial maps" Tab 
         self.generalMaps = {'DEM': 'dem.map', 'Slope': 'slope.map', 'Root_field': 'root_field.map', 'Root_sat': 'root_sat.map',\
                             'Root_dry': 'root_dry.map', 'Root_wilt': 'root_wilt.map', 'Root_Ksat': 'root_ksat.map', 'Sub_field': 'sub_field.map', 'Sub_sat': 'sub_sat.map',\
