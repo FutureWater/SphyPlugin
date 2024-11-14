@@ -101,7 +101,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <property name="tabBarAutoHide">
       <bool>false</bool>
@@ -1496,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1588,32 +1588,6 @@ button to identify the corresponding UTM zone for your model area.</string>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="coordinateSystemGroupBox_2">
-         <property name="title">
-          <string>Coordinate system</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
-           <widget class="QLabel" name="crsLabel">
-            <property name="text">
-             <string>EPSG:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="crsSpinBox">
-            <property name="maximum">
-             <number>1000000000</number>
-            </property>
-            <property name="value">
-             <number>4326</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <widget class="QGroupBox" name="periodSimulationGroupBox">
          <property name="title">
           <string>Period of simulation</string>
@@ -1621,6 +1595,16 @@ button to identify the corresponding UTM zone for your model area.</string>
          <layout class="QHBoxLayout" name="horizontalLayout_85">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Spin up years</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinupyearSpinBox"/>
+            </item>
             <item>
              <widget class="QLabel" name="startDateLabel_2">
               <property name="text">
@@ -1797,6 +1781,32 @@ button to identify the corresponding UTM zone for your model area.</string>
              </widget>
             </item>
            </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="coordinateSystemGroupBox_2">
+         <property name="title">
+          <string>Coordinate system</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="crsLabel">
+            <property name="text">
+             <string>EPSG:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="crsSpinBox">
+            <property name="maximum">
+             <number>1000000000</number>
+            </property>
+            <property name="value">
+             <number>4326</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -4754,8 +4764,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>126</y>
+     <x>448</x>
+     <y>152</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4770,8 +4780,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>121</y>
+     <x>463</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4786,8 +4796,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>116</y>
+     <x>455</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4802,8 +4812,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>317</x>
-     <y>163</y>
+     <x>321</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4818,8 +4828,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>335</x>
-     <y>186</y>
+     <x>339</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4834,8 +4844,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>209</y>
+     <x>325</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4850,8 +4860,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>331</x>
-     <y>253</y>
+     <x>335</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4898,8 +4908,8 @@ time-series</string>
    <slot>runModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>156</x>
-     <y>132</y>
+     <x>50</x>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4914,8 +4924,8 @@ time-series</string>
    <slot>showTimeSeries()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>117</x>
-     <y>274</y>
+     <x>103</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4930,8 +4940,8 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>50</x>
-     <y>136</y>
+     <x>285</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4946,8 +4956,8 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>136</y>
+     <x>480</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>526</x>
@@ -4994,8 +5004,8 @@ time-series</string>
    <slot>changeModelCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>84</x>
-     <y>130</y>
+     <x>335</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>521</x>
@@ -5010,8 +5020,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>197</x>
-     <y>112</y>
+     <x>94</x>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
      <x>48</x>

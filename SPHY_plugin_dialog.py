@@ -243,6 +243,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.selectSlopeMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "slope", "Slope", "Input", "General", 0))
         self.selectSubbasinMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "sub", "Sub-basin", "Input", "General", 0))
         self.selectStationsMapFileButton.clicked.connect(partial(self.updateMap, 'GENERAL', "locations", "Stations", "Input", "General", 0, True))
+        self.spinupyearSpinBox.valueChanged.connect(partial(self.updateValue, "TIMING", "spinupyears"))
+
         
         """
         Climate tab: meteorological forcing map-series, meteorological parameters
@@ -805,10 +807,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 self.outputPath = tempname
                 self.outputPathLineEdit.setText((self.outputPath + "\\").replace("\\","/"))
                 self.updateConfig("DIRS", "outputdir", (os.path.relpath(self.outputPath, self.sphyLocationPath)).replace("\\","/") + "/")
-
-
-
-
 
 
         self.saveProject()
@@ -2457,12 +2455,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 value = widget.text()
             self.updateConfig(module, par, value)    
             self.initGuiConfigMap()
+            self.saveProject()
 
     # update single value (e.g. from spinbox)     
     def updateValue(self, module, par):
         sender = self.sender().objectName()
         value = eval("self." + sender + ".value()")
         self.updateConfig(module, par, value)
+        self.saveProject()
         
     # update a *.tbl file (e.g. for the crop factors)
     def updateTable(self, module, par, name):
@@ -2471,6 +2471,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             file = os.path.relpath(file, self.inputPath).replace("\\","/")
             self.updateConfig(module, par, file)
             self.initGuiConfigMap()
+            self.saveProject()
         
     # update map-series (e.g. precipitation time-series)
     def updateMapSeries(self, module, par, name):
@@ -2480,6 +2481,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             file = file.rstrip(".001")
             self.updateConfig(module, par, file)
             self.initGuiConfigMap()
+            self.saveProject()
         
     # function that is called when a select map or value button is clicked. It then updates the map canvas with the map,
     # updates the GUI with a map name or value, and updates the settings in the config
@@ -2496,7 +2498,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             oldProjection = self.settings.value( "/Projections/defaultBehaviour")
             self.settings.setValue( "/Projections/defaultBehaviour", "useGlobal" )
             ##    
-            layername = (os.path.relpath(file, self.inputPath)).split("/")
+            
+            layername = (os.path.relpath(file, self.inputPath)).split("\\")
             value = layername[-1]
             layername = value.split(".map")
             layername = layername[0]
@@ -2504,18 +2507,19 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             group_exists = False
             layer_exists = False
             if point:
-                locationsfile = (self.inputPath).replace("\\","/") + "locations.shp"
-                processing.runalg("saga:gridvaluestopoints", file, None, True, 0,locationsfile)
+                #locationsfile = (self.inputPath).replace("\\","/") + "locations.shp"
+                locationsfile = (self.sphyLocationPath).replace("\\","/") + "/stations.shp"
+                #processing.run("saga:gridvaluestopoints", file, None, True, 0,locationsfile)
                 
                 layer = QgsVectorLayer(locationsfile, layername, "ogr")
                 # set the correct IDs in the first column, and finally remove the fourth column
-                layer.startEditing()
-                iter = layer.getFeatures()
-                for feature in iter:
-                    feature[0] = feature[3]
-                    layer.updateFeature(feature)
-                layer.deleteAttribute(3)
-                layer.commitChanges()
+                # layer.startEditing()
+                # iter = layer.getFeatures()
+                # for feature in iter:
+                #     feature[0] = feature[3]
+                #     layer.updateFeature(feature)
+                # layer.deleteAttribute(3)
+                # layer.commitChanges()
             else:
                 layer = QgsRasterLayer(file, layername)
 #                 layer.setDrawingStyle("SingleBandPseudoColor")
@@ -2573,7 +2577,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     #groupRef.addLayer(layer)
                     groupRef.insertLayer(mapPos,layer)
             self.updateConfig(module, par, value)
-            self.initGuiConfigMap()    
+            self.initGuiConfigMap()   
+            self.saveProject() 
 
 
 # worker class to run the model in a thread
