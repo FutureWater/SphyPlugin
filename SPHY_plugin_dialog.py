@@ -50,7 +50,7 @@ __date__ ='1 January 2017'
 
 """
 
-import os, subprocess, configparser, sqlite3, datetime, math, glob, time, processing
+import os, subprocess, configparser, sqlite3, datetime, math, glob, time, processing, csv, calendar
 
 from qgis.PyQt import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal
@@ -72,6 +72,10 @@ import processing
 import shutil
 import subprocess
 import traceback
+import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
+
+
 
 
 from SphyPlugin.gui.generated.SPHY_plugin_dialog_base import Ui_SphyPluginDialog
@@ -213,6 +217,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.saveAsButton.setDisabled(1)
             
         self.sphyPathLineEdit.setText(self.sphyLocationPath)
+        self.featFinder = None
+        self.map_canvas = iface.mapCanvas()
+        self.point_tool = None
         
         #-Detect and set coordinate systems
         self.mapCrs = iface.mapCanvas().mapSettings().destinationCrs()
@@ -517,28 +524,28 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         ## MODEL PART
 
-        # # set the dictionary for the reporting options
-        # self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
-        #                    "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
-        #                    "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
-        #                    "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
-        #                    "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-        #                    "Routed total runoff [m3/s]": "qallratot"}
+        # set the dictionary for the reporting options
+        self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
+                           "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
+                           "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
+                           "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
+                           "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
+                           "Routed total runoff [m3/s]": "qallratot"}
         
-        # items = self.reportDict.keys()
-        # # check if items already exist. If items already exist, then items don't need to be added again
-        # if self.reportListWidget.item(0) is None:
-        #     self.reportListWidget.addItems(items)
-        #     self.reportListWidget.sortItems()
-        # # set the first item in the list as being the current item
-        # self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
-        # self.setReportGui()
+        items = self.reportDict.keys()
+        # check if items already exist. If items already exist, then items don't need to be added again
+        if self.reportListWidget.item(0) is None:
+            self.reportListWidget.addItems(items)
+            self.reportListWidget.sortItems()
+        # set the first item in the list as being the current item
+        self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
+        self.setReportGui() 
 
-        # # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
-        # self.setOutputDict()
+        # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
+        self.setOutputDict()
         
-        # # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
-        # self.setVisListWidgets()
+        # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
+        self.setVisListWidgets()
 
 
     #-Set the GUI with the correct values (obtained from config file)
@@ -1703,6 +1710,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # validate if simulation settings are ok
         startdatem = self.startDateEdit_m.date()
         enddatem = self.endDateEdit_m.date()
+        
+        self.startdatem = datetime.date(QtCore.QDate.year(startdatem),QtCore.QDate.month(startdatem),QtCore.QDate.day(startdatem))
+        self.enddatem = datetime.date(QtCore.QDate.year(enddatem),QtCore.QDate.month(enddatem),QtCore.QDate.day(enddatem))
+
         if startdatem >= enddatem:
             QtWidgets.QMessageBox.warning(self, "Date error", "End date should be larger than start date")
             if self.sender().objectName() == "startDateEdit_m":
@@ -1717,7 +1728,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateConfig("TIMING", "endyear", QtCore.QDate.year(enddatem))
         self.updateConfig("TIMING", "endmonth", QtCore.QDate.month(enddatem))
         self.updateConfig("TIMING", "endday", QtCore.QDate.day(enddatem))
-        #self.timeSteps = ((self.enddatem - self.startdatem).days + 1) ## have to fix this
+        self.timeSteps = int((self.enddatem - self.startdatem).days + 1) 
         self.saveProject()
 
 
@@ -2068,88 +2079,98 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             
 
 
-    # function that emits a point that is linked to the plotGraph function        
     def showTimeSeries(self):
-        # create a maptool to select a point feature from the canvas
-        if not self.featFinder:
-            from MapTools import FeatureFinder
-            self.featFinder = FeatureFinder(self.iface.mapCanvas())
-            self.featFinder.setAction( None )
-            #self.featFinder.setAction( self.action )
-            QtCore.QObject.connect(self.featFinder, QtCore.SIGNAL( "pointEmitted" ), self.plotGraph)
-        # enable the maptool and set a message in the status bar 
-        self.featFinder.startCapture()
-        self.iface.mainWindow().statusBar().showMessage( u"Click on a point feature in canvas" )
-    
-    # plot a time-series graph from a csv file
-    def plotGraph(self, point):
-        layer = self.iface.activeLayer()
-        if not layer or layer.type() != QgsMapLayer.VectorLayer or layer.geometryType() != QGis.Point:
-            QtWidgets.QMessageBox.information(self.iface.mainWindow(), "Time Series Viewer", u"Select a vector layer and try again.")
-            self.iface.mainWindow().statusBar().clearMessage()
+        if not self.point_tool:
+            # Create a map tool to select a point feature from the canvas
+            self.point_tool = QgsMapToolEmitPoint(self.map_canvas)
+            self.point_tool.canvasClicked.connect(self.handlePointClicked)
+
+        # Enable the map tool and set a message in the status bar
+        self.map_canvas.setMapTool(self.point_tool)
+        iface.mainWindow().statusBar().showMessage("Click on a point feature in the canvas")
+
+    def handlePointClicked(self, point, button):
+        # Get the active layer
+        layer = iface.activeLayer()
+        if not layer or not isinstance(layer, QgsVectorLayer) or layer.geometryType() != QgsWkbTypes.PointGeometry:
+            QMessageBox.warning(None, "Time Series Viewer", "Select a vector point layer and try again.")
+            iface.mainWindow().statusBar().clearMessage()
             return
 
-        # get the id of the point feature under the mouse click
-        from .MapTools import FeatureFinder
-        fid = FeatureFinder.findAtPoint(layer, point, canvas=self.iface.mapCanvas(), onlyTheClosestOne=True, onlyIds=True)
-        if fid is None:
-            QtWidgets.QMessageBox.information(self.iface.mainWindow(), "Time Series Viewer", u"No point in the active layer has been selected")
-            self.showTimeSeries()
-            return
-        #fid = fid + 1 # somehow fid starts with zero.
-        # get the correct station id from the features
-        features = layer.getFeatures()
-        for feat in features:
-            if feat.id()==fid:
-                stationId = feat[0]
-                fid = int(stationId)
-                break
-        
-        self.iface.mainWindow().statusBar().clearMessage()
-        
-        # get the item that returns the correct ylabel from the ylabelDictionary
-        legenditem = (self.timeSeriesListWidget.currentItem()).text()
-        filename = self.outputLegendDict[legenditem][0]
-        if "SubBasinTSS" in filename:
-            filename = filename + ".csv"
+        # Search for the nearest feature to the clicked point
+        closest_feature = None
+        closest_distance = float('inf')
+        point_geom = QgsGeometry.fromPointXY(point)
+
+        for feature in layer.getFeatures():
+            feature_geom = feature.geometry()
+            if feature_geom:
+                distance = point_geom.distance(feature_geom)
+                if distance < closest_distance:
+                    closest_feature = feature
+                    closest_distance = distance
+
+        if closest_feature:
+            self.plotGraph(closest_feature.id())
         else:
-            filename = filename + "DTS.csv"
-            
-        f = open(self.outputPath + filename, "r")
-        x = []  # date vector
-        y = []  # value vector
-        for row in f:
-            date = row.split(",")[0]
-            date = datetime.datetime.strptime(date, ("%Y-%m-%d"))
-            mdate = mdates.date2num(date) # convert to matlab format
-            x.append(mdate)
-            y.append(row.split(",")[fid])
-        f.close()
-        
-        fig = plt.figure(facecolor="white")
-        plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
-        plt.plot(x,y)
-        plt.xlim(x[0],x[-1])
-        plt.ylabel(legenditem)
-        plt.title("Location ID %d" %fid)
-        plt.gcf().autofmt_xdate()
-        plt.grid()
-        plt.show()
-		
-		
-#         mywindow = QWidget() 
-#         self.canvas = FigureCanvas(fig)
-#         self.canvas.setParent(mywindow)
-#         self.canvas.setFocusPolicy(QtCore.Qt.StrongFocus)
-#         self.canvas.setFocus()
-#         self.toolbar = NavigationToolbar(self.canvas, mywindow)
-#         
-#         vbox = QtWidgets.QVBoxLayout(mywindow)
-#         vbox.addWidget(self.canvas)
-#         vbox.addWidget(self.toolbar)
-#         mywindow.setLayout(vbox)
-# 
-#         QWidget.set
+            QMessageBox.warning(None, "Time Series Viewer", "No feature found near the clicked point.")
+            self.showTimeSeries()
+
+
+    def plotGraph(self, feature_id):
+        layer = iface.activeLayer()
+        if not layer:
+            QMessageBox.information(None, "Time Series Viewer", "No active layer found.")
+            return
+
+        # Retrieve station ID (modify as per your data structure)
+        station_id = None
+        for feature in layer.getFeatures():
+            if feature.id() == feature_id:
+                station_id = feature[0]  # Adjust index or key to get station ID
+                break
+
+        if station_id is None:
+            QMessageBox.information(None, "Time Series Viewer", "Could not determine station ID.")
+            return
+
+        # Plot the time series from the CSV
+        legenditem = self.timeSeriesListWidget.currentItem().text()  # Adjust if needed
+        filename = self.outputLegendDict.get(legenditem, [None])[0]
+
+        if not filename:
+            QMessageBox.information(None, "Time Series Viewer", "No file associated with the selected legend item.")
+            return
+
+        if "SubBasinTSS" in filename:
+            filename += ".csv"
+        else:
+            filename += "DTS.csv"
+
+        file_path = self.outputPath + filename
+        try:
+            with open(file_path, "r") as f:
+                x = []  # date vector
+                y = []  # value vector
+                for row in f:
+                    columns = row.split(",")
+                    date = datetime.datetime.strptime(columns[0], "%Y-%m-%d")
+                    mdate = mdates.date2num(date)  # convert to matplotlib format
+                    x.append(mdate)
+                    y.append(float(columns[station_id]))
+
+            fig = plt.figure(facecolor="white")
+            plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+            plt.plot(x, y)
+            plt.xlim(x[0], x[-1])
+            plt.ylabel(legenditem)
+            plt.title(f"Location ID {station_id}")
+            plt.gcf().autofmt_xdate()
+            plt.grid()
+            plt.show()
+
+        except Exception as e:
+            QMessageBox.warning(None, "Error", f"Failed to plot the time series: {e}")
 
     # function that show a output map in the canvas
     def showOutputMap(self, group, groupPos):
@@ -2292,7 +2313,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         f.close()
         
         # create a new worker instance
-        worker = ModelWorker(batchfile, 31) #self.timeSteps)
+        worker = ModelWorker(batchfile,self.timeSteps)
         
         # kill the worker (model run) if model
         self.cancelModelRunButton.clicked.connect(worker.kill)
@@ -2331,29 +2352,30 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.modelRunLogTextEdit.append("Model run was succesfully!")
             
             # Commented by me ---------------------------
-            # # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
-            # # list widget in the visualize tab
-            # self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
-            # for root, dirs, files in os.walk(self.outputPath):
-            #     for file in files:
-            #         if file.endswith('.tss'):
-            #             self.convertTSS(file)
-            
-            # # Loop over all the map files and convert and rename to correct units and suitable name
-            # # start a worker instance to convert the map files
-            # worker = convertMapWorker(self.startdatem, self.timeSteps, self.outputPath, self.outputFileNameDict, self.pcrBinPath)
-            # # start the worker in a new thread
-            # thread = QtCore.QThread(self)
-            # worker.moveToThread(thread)
-            #  # listeners 
-            # worker.cmdProgress.connect(self.convertMapWorkerListener)
-            # worker.finished.connect(self.convertMapWorkerFinished)
-            # worker.error.connect(self.WorkerError)
+            # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
+            # list widget in the visualize tab
+            self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
+            for root, dirs, files in os.walk(self.outputPath):
+                for file in files:
+                    if file.endswith('.tss'):
+                        self.convertTSS(file)
+
+            self.modelRunLogTextEdit.append("Converting Map files...")
+            # Loop over all the map files and convert and rename to correct units and suitable name
+            # start a worker instance to convert the map files
+            worker = convertMapWorker(self.startdatem, self.timeSteps, self.outputPath, self.outputFileNameDict)
+            # start the worker in a new thread
+            thread = QtCore.QThread(self)
+            worker.moveToThread(thread)
+             # listeners 
+            worker.cmdProgress.connect(self.convertMapWorkerListener)
+            worker.finished.connect(self.convertMapWorkerFinished)
+            worker.error.connect(self.WorkerError)
              
-            # thread.started.connect(worker.run)
-            # thread.start()
-            # self.thread = thread
-            # self.worker = worker
+            thread.started.connect(worker.run)
+            thread.start()
+            self.thread = thread
+            self.worker = worker
             # --------------------------------------------------------------------------------------------
              
 
@@ -2372,8 +2394,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     
     # function that is launched whenever the model is unable to run
     def WorkerError(self, e, exception_string):
-        QgsMessageLog.logMessage('Worker thread raised an exception:\n'.format(exception_string), level=QgsMessageLog.CRITICAL)
-    
+        iface.messageBar().pushCritical('Error:','Worker thread raised an exception:\n'.format(exception_string))
+        self.modelRunLogTextEdit.append(exception_string)
+
     # function that parses model cmd line output to the text widget in the run model tab    
     def modelWorkerListener(self, line):
         self.modelRunLogTextEdit.append(line)
@@ -2393,7 +2416,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.modelRunLogTextEdit.append("Converting model output maps unsuccessfully!!")
 
         self.setVisListWidgets()
-        self.tab.setTabEnabled(10, True)
+        self.tab.setEnabled(10)
         time.sleep(1)
         self.modelRunProgressBar.setValue(0)
     
@@ -2401,7 +2424,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     # data column for each location    
     def convertTSS(self, fileName):
         date = self.startdatem
-        with open(self.outputPath + fileName, "rb") as csvfile:
+        with open(self.outputPath + fileName, "r") as csvfile:
             r = csv.reader(csvfile, delimiter=' ', quoting=csv.QUOTE_NONE)
             for row in r:
                 if row[0]=="timestep":
@@ -2612,7 +2635,8 @@ class ModelWorker(QtCore.QObject):
                     if "Traceback" in line or self.killed:
                         self.process = None
                         break
-                    self.progBar.emit(progress_count / float(str(self.steps)) * 100)
+                    #self.progBar.emit(int(progress_count / int(str(self.steps)) * 100))
+                    #self.modelRunProgressBar.setValue(int(progress_count / int(str(self.steps)) * 100)) not working
                     self.cmdProgress.emit(line)
  
         except Exception as e:
@@ -2635,4 +2659,105 @@ class ModelWorker(QtCore.QObject):
     cmdProgress = QtCore.pyqtSignal(object)
     progBar = QtCore.pyqtSignal(float)
 
-  
+# Class for converting maps in a worker thread
+class convertMapWorker(QtCore.QObject):
+    def __init__(self, date, ts, outpath, outputFileNameDict):
+        QtCore.QObject.__init__(self)
+        self.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        self.dim = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        self.date = date
+        self.timeSteps = ts
+        self.outputPath = outpath
+        self.outputFileNameDict = outputFileNameDict
+    def run(self):
+        process = None
+        outpath = (self.outputPath).replace("\\","/")
+        os.chdir(outpath)
+        self.cmdProgress.emit("Converting the output map files. Can take some time depending on number reported ouput maps.")
+        self.cmdProgress.emit("...")
+        try:
+            for i in range(1, self.timeSteps + 1):
+                # leap year settings
+                if calendar.isleap(self.date.year):
+                    self.dim[1] = 29
+                    ydays = 366
+                else:
+                    self.dim[1] = 28
+                    ydays = 365
+                d = self.date.day
+                if d<10:
+                    dd = "0" + str(d)
+                else:
+                    dd = str(d)
+                m = self.date.month
+                if m<10:
+                    mm = "0" + str(m)
+                else:
+                    mm = str(m)
+                # pcraster extension    
+                if i<10:
+                    pcrext = '00.00'+str(i)
+                elif i<100:
+                    pcrext = '00.0'+str(i)
+                elif i<1000:
+                    pcrext = '00.'+str(i)
+                elif i<10000:
+                    nr = str(i)
+                    thous = nr[0]
+                    hund = nr[1:4]
+                    pcrext = '0'+thous+'.'+hund
+                else:
+                    nr = str(i)
+                    thous = nr[0:2]
+                    hund = nr[2:5]
+                    pcrext = ''+thous+'.'+hund
+                # loop over the output file name dictionary to check if file exists
+                for key in self.outputFileNameDict:
+                    files = glob.glob(outpath + key + "*" + pcrext)
+                    if files:
+                        for f in files:
+                            file = f.replace("\\", "/")
+                            file = file.split(outpath)[1]
+                            # check if it concerns a monthly or annual map file
+                            if key + "M" in file or key + "Y" in file:
+                                # determine if conversion of units is required
+                                try:
+                                    convertflag = self.outputFileNameDict[key][1]
+                                except:
+                                    convertflag = None
+                                # for monthly maps:
+                                if key + "M" in file:
+                                    if convertflag:
+                                        command = "pcrcalc temp.map = " + file + " / " + str(self.dim[m-1])
+                                    else:
+                                        command = "pcrcalc temp.map = " + file
+                                    outfile = key + "_" + str(self.date.year) + self.months[m-1] + ".map"
+                                # for annual maps
+                                else:
+                                    if convertflag:
+                                        command = "pcrcalc temp.map = " + file + " / " + str(ydays)
+                                    else:
+                                        command = "pcrcalc temp.map = " + file
+                                    outfile = key + "_" + str(self.date.year) + ".map"
+                                subprocess.Popen(command,shell=True).wait()
+                                shutil.move(outpath + "temp.map", outpath + outfile)
+                                os.remove(outpath + file)
+                            else:
+                                shutil.move(outpath + file, outpath + key + "_" + str(self.date.year) + mm + dd + ".map")
+                self.date = self.date + datetime.timedelta(days=1)
+                
+            process = True
+
+        except Exception as e:
+
+            # forward the exception upstream
+            error_message = traceback.format_exc()
+            self.error.emit(e, error_message)  # Convert `e` to string for compatibility
+            #self.error.emit(e, traceback.format_exc())
+
+        finally: 
+            self.finished.emit(process)
+            
+    cmdProgress = QtCore.pyqtSignal(object)
+    finished = QtCore.pyqtSignal(object)
+    error = QtCore.pyqtSignal(Exception, basestring)
