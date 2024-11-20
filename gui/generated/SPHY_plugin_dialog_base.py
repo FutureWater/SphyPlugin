@@ -1172,9 +1172,10 @@ class Ui_SphyPluginDialog(object):
         self.alphaGwSingleRadioButton.setObjectName("alphaGwSingleRadioButton")
         self.horizontalLayout_61.addWidget(self.alphaGwSingleRadioButton)
         self.alphaGwDoubleSpinBox = QtWidgets.QDoubleSpinBox(self.groupBox_15)
+        self.alphaGwDoubleSpinBox.setDecimals(3)
         self.alphaGwDoubleSpinBox.setMinimum(0.01)
         self.alphaGwDoubleSpinBox.setMaximum(1.0)
-        self.alphaGwDoubleSpinBox.setSingleStep(0.01)
+        self.alphaGwDoubleSpinBox.setSingleStep(0.001)
         self.alphaGwDoubleSpinBox.setProperty("value", 0.5)
         self.alphaGwDoubleSpinBox.setObjectName("alphaGwDoubleSpinBox")
         self.horizontalLayout_61.addWidget(self.alphaGwDoubleSpinBox)
@@ -1813,9 +1814,10 @@ class Ui_SphyPluginDialog(object):
         self.kxSingleRadioButton.setObjectName("kxSingleRadioButton")
         self.horizontalLayout_91.addWidget(self.kxSingleRadioButton)
         self.kxDoubleSpinBox = QtWidgets.QDoubleSpinBox(self.groupBox_27)
+        self.kxDoubleSpinBox.setDecimals(3)
         self.kxDoubleSpinBox.setMinimum(0.01)
         self.kxDoubleSpinBox.setMaximum(0.99)
-        self.kxDoubleSpinBox.setSingleStep(0.05)
+        self.kxDoubleSpinBox.setSingleStep(0.005)
         self.kxDoubleSpinBox.setObjectName("kxDoubleSpinBox")
         self.horizontalLayout_91.addWidget(self.kxDoubleSpinBox)
         self.verticalLayout_22.addLayout(self.horizontalLayout_91)
@@ -1997,7 +1999,7 @@ class Ui_SphyPluginDialog(object):
         self.retranslateUi(SphyPluginDialog)
         self.tabWidget.setCurrentIndex(1)
         self.Tab.setCurrentIndex(0)
-        self.tab_3.setCurrentIndex(0)
+        self.tab_3.setCurrentIndex(7)
         self.newButton.clicked.connect(SphyPluginDialog.createNewProject) # type: ignore
         self.openButton.clicked.connect(SphyPluginDialog.openProject) # type: ignore
         self.saveAsButton.clicked.connect(SphyPluginDialog.saveAsProject) # type: ignore

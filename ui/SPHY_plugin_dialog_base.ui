@@ -1496,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -2588,6 +2588,9 @@ conductivity [mm/d]</string>
                </item>
                <item>
                 <widget class="QDoubleSpinBox" name="alphaGwDoubleSpinBox">
+                 <property name="decimals">
+                  <number>3</number>
+                 </property>
                  <property name="minimum">
                   <double>0.010000000000000</double>
                  </property>
@@ -2595,7 +2598,7 @@ conductivity [mm/d]</string>
                   <double>1.000000000000000</double>
                  </property>
                  <property name="singleStep">
-                  <double>0.010000000000000</double>
+                  <double>0.001000000000000</double>
                  </property>
                  <property name="value">
                   <double>0.500000000000000</double>
@@ -3868,6 +3871,9 @@ conductivity [mm/d]</string>
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="kxDoubleSpinBox">
+              <property name="decimals">
+               <number>3</number>
+              </property>
               <property name="minimum">
                <double>0.010000000000000</double>
               </property>
@@ -3875,7 +3881,7 @@ conductivity [mm/d]</string>
                <double>0.990000000000000</double>
               </property>
               <property name="singleStep">
-               <double>0.050000000000000</double>
+               <double>0.005000000000000</double>
               </property>
              </widget>
             </item>
