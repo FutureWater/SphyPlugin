@@ -461,7 +461,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                              "rootSatCondLineEdit": ("SOIL", "RootKsat"), "subFieldCapLineEdit": ("SOIL", "SubFieldMap"),
                              "subSatLineEdit": ("SOIL", "SubSatMap"), "subSatCondLineEdit": ("SOIL", "SubKsat"),
                              "maxCapRiseSpinBox": ("SOILPARS", "CapRiseMax"), "landUseLineEdit": ("LANDUSE", "LandUse"),
-                             "kcTableLineEdit": ("LANDUSE", "CropFac")}
+                             "kcTableLineEdit": ("LANDUSE", "CropFac"), "spinupyearSpinBox": ("TIMING", "spinupyears")}
                              
                              
                             # Glaciers part to be discussed                             
@@ -530,7 +530,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                            "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
                            "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
                            "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-                           "Routed total runoff [m3/s]": "qallratot"}
+                           "Routed total runoff [m3/s]": "qallratot","Test precipitation":"Prec"}
         
         items = self.reportDict.keys()
         # check if items already exist. If items already exist, then items don't need to be added again
@@ -1984,7 +1984,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             item = self.reportDict[key] # legend name
             fname = self.currentConfig.get("REPORTING", item + "_fname") # filename
             mapoutput = self.currentConfig.get("REPORTING", item + "_mapoutput") # mapoutput
-            tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # mapoutput
+            tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # tsoutput
             # continue with next loop item if no reporting is done for this item
             if mapoutput == "NONE" and tsoutput == "NONE":
                 continue
@@ -2093,7 +2093,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # Get the active layer
         layer = iface.activeLayer()
         if not layer or not isinstance(layer, QgsVectorLayer) or layer.geometryType() != QgsWkbTypes.PointGeometry:
-            QMessageBox.warning(None, "Time Series Viewer", "Select a vector point layer and try again.")
+            QtWidgets.QMessageBox.warning(None, "Time Series Viewer", "Select a vector point layer and try again.")
             iface.mainWindow().statusBar().clearMessage()
             return
 
@@ -2113,14 +2113,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         if closest_feature:
             self.plotGraph(closest_feature.id())
         else:
-            QMessageBox.warning(None, "Time Series Viewer", "No feature found near the clicked point.")
+            QtWidgets.QMessageBox.warning(None, "Time Series Viewer", "No feature found near the clicked point.")
             self.showTimeSeries()
 
 
     def plotGraph(self, feature_id):
         layer = iface.activeLayer()
         if not layer:
-            QMessageBox.information(None, "Time Series Viewer", "No active layer found.")
+            QtWidgets.QMessageBox.information(None, "Time Series Viewer", "No active layer found.")
             return
 
         # Retrieve station ID (modify as per your data structure)
@@ -2170,7 +2170,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             plt.show()
 
         except Exception as e:
-            QMessageBox.warning(None, "Error", f"Failed to plot the time series: {e}")
+            QtWidgets.QMessageBox.warning(None, "Error", f"Failed to plot the time series: {e}")
 
     # function that show a output map in the canvas
     def showOutputMap(self, group, groupPos):
@@ -2388,8 +2388,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 #             self.modelRunProgressBar.setValue(0)
 
         # add the daily time-series csv files to the list widget in the visualization tab and enable tab again            
-#         self.setVisListWidgets()
-#         self.tab.setTabEnabled(10, True)
+        self.setVisListWidgets()
         
     
     # function that is launched whenever the model is unable to run
