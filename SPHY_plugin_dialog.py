@@ -2220,7 +2220,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                         break
             if group_exists:
                 for l in groupRef.findLayers():
-                    if l.layerName() == legendtext:
+                    if l.name() == legendtext:
                         groupRef.removeChildNode(l)
                 #groupRef.addLayer(layer)
                 groupRef.insertLayer(0, layer)
