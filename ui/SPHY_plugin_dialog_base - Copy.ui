@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
+    <width>516</width>
     <height>761</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <underline>false</underline>
+   </font>
   </property>
   <property name="windowTitle">
    <string>SPHY PLUGIN 3.0</string>
@@ -33,6 +38,7 @@
        <font>
         <weight>50</weight>
         <bold>false</bold>
+        <underline>false</underline>
        </font>
       </property>
       <property name="text">
@@ -88,6 +94,7 @@
       <font>
        <weight>50</weight>
        <bold>false</bold>
+       <underline>false</underline>
       </font>
      </property>
      <property name="autoFillBackground">
@@ -611,6 +618,7 @@ button to identify the corresponding UTM zone for your model area.</string>
         <font>
          <weight>50</weight>
          <bold>false</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="autoFillBackground">
@@ -702,6 +710,7 @@ button to identify the corresponding UTM zone for your model area.</string>
           <weight>50</weight>
           <italic>false</italic>
           <bold>false</bold>
+          <underline>false</underline>
           <stylestrategy>NoAntialias</stylestrategy>
          </font>
         </property>
@@ -857,90 +866,6 @@ button to identify the corresponding UTM zone for your model area.</string>
           <property name="flat">
            <bool>true</bool>
           </property>
-          <widget class="QCheckBox" name="glacierModCheckBox">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>35</y>
-             <width>60</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Glaciers</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="snowModCheckBox">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>70</y>
-             <width>49</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Snow</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="groundwaterModCheckBox">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>105</y>
-             <width>86</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Groundwater</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="routingModCheckBox">
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>140</y>
-             <width>60</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Routing</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="dynamicVegModCheckBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>175</y>
-             <width>118</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Dynamic vegetation</string>
-           </property>
-          </widget>
-          <widget class="QCheckBox" name="lakesModCheckBox">
-           <property name="enabled">
-            <bool>false</bool>
-           </property>
-           <property name="geometry">
-            <rect>
-             <x>10</x>
-             <y>210</y>
-             <width>50</width>
-             <height>17</height>
-            </rect>
-           </property>
-           <property name="text">
-            <string>Lakes</string>
-           </property>
-          </widget>
           <widget class="QCheckBox" name="reservorisModCheckBox">
            <property name="enabled">
             <bool>false</bool>
@@ -972,6 +897,52 @@ button to identify the corresponding UTM zone for your model area.</string>
            <property name="text">
             <string>Sediment</string>
            </property>
+          </widget>
+          <widget class="QWidget" name="layoutWidget">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>35</y>
+             <width>120</width>
+             <height>88</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_38">
+            <item>
+             <widget class="QCheckBox" name="glacierModCheckBox">
+              <property name="text">
+               <string>Glaciers</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="routingModCheckBox">
+              <property name="text">
+               <string>Routing</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="dynamicVegModCheckBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Dynamic vegetation</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QCheckBox" name="lakesModCheckBox">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string>Lakes</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -1188,6 +1159,7 @@ button to identify the corresponding UTM zone for your model area.</string>
         <font>
          <weight>50</weight>
          <bold>false</bold>
+         <underline>false</underline>
         </font>
        </property>
        <property name="text">
@@ -1524,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1616,32 +1588,6 @@ button to identify the corresponding UTM zone for your model area.</string>
         </widget>
        </item>
        <item>
-        <widget class="QGroupBox" name="coordinateSystemGroupBox_2">
-         <property name="title">
-          <string>Coordinate system</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
-           <widget class="QLabel" name="crsLabel">
-            <property name="text">
-             <string>EPSG:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="crsSpinBox">
-            <property name="maximum">
-             <number>1000000000</number>
-            </property>
-            <property name="value">
-             <number>4326</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
         <widget class="QGroupBox" name="periodSimulationGroupBox">
          <property name="title">
           <string>Period of simulation</string>
@@ -1649,6 +1595,16 @@ button to identify the corresponding UTM zone for your model area.</string>
          <layout class="QHBoxLayout" name="horizontalLayout_85">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_24">
+            <item>
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>Spin up years</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QSpinBox" name="spinupyearSpinBox"/>
+            </item>
             <item>
              <widget class="QLabel" name="startDateLabel_2">
               <property name="text">
@@ -1825,6 +1781,32 @@ button to identify the corresponding UTM zone for your model area.</string>
              </widget>
             </item>
            </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="coordinateSystemGroupBox_2">
+         <property name="title">
+          <string>Coordinate system</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="crsLabel">
+            <property name="text">
+             <string>EPSG:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="crsSpinBox">
+            <property name="maximum">
+             <number>1000000000</number>
+            </property>
+            <property name="value">
+             <number>4326</number>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -2606,6 +2588,9 @@ conductivity [mm/d]</string>
                </item>
                <item>
                 <widget class="QDoubleSpinBox" name="alphaGwDoubleSpinBox">
+                 <property name="decimals">
+                  <number>3</number>
+                 </property>
                  <property name="minimum">
                   <double>0.010000000000000</double>
                  </property>
@@ -2613,7 +2598,7 @@ conductivity [mm/d]</string>
                   <double>1.000000000000000</double>
                  </property>
                  <property name="singleStep">
-                  <double>0.010000000000000</double>
+                  <double>0.001000000000000</double>
                  </property>
                  <property name="value">
                   <double>0.500000000000000</double>
@@ -2902,278 +2887,334 @@ conductivity [mm/d]</string>
       <attribute name="title">
        <string>Glaciers</string>
       </attribute>
-      <layout class="QFormLayout" name="formLayout_17">
-       <item row="0" column="0" colspan="2">
-        <widget class="QGroupBox" name="groupBox_16">
-         <property name="title">
-          <string>Glacier fraction settings</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_12">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_65">
-            <item>
-             <widget class="QLabel" name="initGlacFracLabel">
-              <property name="text">
-               <string>Initial glacier fraction [-]</string>
-              </property>
-             </widget>
+      <widget class="QGroupBox" name="glaciersGroupBox">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>30</y>
+         <width>501</width>
+         <height>631</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <weight>75</weight>
+         <bold>true</bold>
+         <underline>false</underline>
+        </font>
+       </property>
+       <property name="autoFillBackground">
+        <bool>false</bool>
+       </property>
+       <property name="title">
+        <string>RUN GLACIERS MODULE</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="checkable">
+        <bool>true</bool>
+       </property>
+       <property name="checked">
+        <bool>false</bool>
+       </property>
+       <widget class="QGroupBox" name="groupBox_16">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>70</y>
+          <width>497</width>
+          <height>191</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+          <underline>false</underline>
+         </font>
+        </property>
+        <property name="title">
+         <string>Glacier fraction settings</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_12">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_65">
+           <item>
+            <widget class="QLabel" name="initGlacFracLabel">
+             <property name="text">
+              <string>Initial glacier fraction [-]</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="initGlacFracLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="selectInitGlacFracMapButton">
+             <property name="text">
+              <string>Select map</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_66">
+           <item>
+            <widget class="QLabel" name="cIFracLabel">
+             <property name="text">
+              <string>Clean ice glacier fraction [-]</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="cIFracLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="selectCIFracMapButton">
+             <property name="text">
+              <string>Select map</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_67">
+           <item>
+            <widget class="QLabel" name="dBFracLabel">
+             <property name="text">
+              <string>Debris covered glacier fraction [-]</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="dBFracLineEdit">
+             <property name="readOnly">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="selectDBFracMapButton">
+             <property name="text">
+              <string>Select map</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_19">
+           <property name="title">
+            <string>GlacF [spatial map or single value]</string>
+           </property>
+           <layout class="QGridLayout" name="gridLayout_7">
+            <item row="0" column="1">
+             <layout class="QHBoxLayout" name="horizontalLayout_68">
+              <item>
+               <widget class="QRadioButton" name="glacRoFracMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [-]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="glacRoFracLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectGlacRoFracMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
-            <item>
-             <widget class="QLineEdit" name="initGlacFracLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectInitGlacFracMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
+            <item row="0" column="0">
+             <layout class="QHBoxLayout" name="horizontalLayout_69">
+              <item>
+               <widget class="QRadioButton" name="glacRoFracSingleRadioButton">
+                <property name="text">
+                 <string>Single value [-]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="glacRoFracDoubleSpinBox">
+                <property name="maximum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.010000000000000</double>
+                </property>
+                <property name="value">
+                 <double>0.900000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_66">
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_17">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>270</y>
+          <width>487</width>
+          <height>304</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+          <underline>false</underline>
+         </font>
+        </property>
+        <property name="title">
+         <string>Glacier degree-day-factors</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_13">
+         <item>
+          <widget class="QGroupBox" name="groupBox_18">
+           <property name="title">
+            <string>DDFDG [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_71">
             <item>
-             <widget class="QLabel" name="cIFracLabel">
-              <property name="text">
-               <string>Clean ice glacier fraction [-]</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_70">
+              <item>
+               <widget class="QRadioButton" name="DDFDGSingleRadioButton">
+                <property name="text">
+                 <string>Single value [mm degree-1 day-1]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="DDFDGDoubleSpinBox">
+                <property name="minimum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>20.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.500000000000000</double>
+                </property>
+                <property name="value">
+                 <double>7.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLineEdit" name="cIFracLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectCIFracMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_72">
+              <item>
+               <widget class="QRadioButton" name="DDFDGMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [mm degree-1 day-1]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="DDFDGLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectDDFDGMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_67">
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_20">
+           <property name="title">
+            <string>DDFG [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_73">
             <item>
-             <widget class="QLabel" name="dBFracLabel">
-              <property name="text">
-               <string>Debris covered glacier fraction [-]</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_74">
+              <item>
+               <widget class="QRadioButton" name="DDFGSingleRadioButton">
+                <property name="text">
+                 <string>Single value [mm degree-1 day-1]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="DDFGDoubleSpinBox">
+                <property name="minimum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>20.000000000000000</double>
+                </property>
+                <property name="value">
+                 <double>7.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
             <item>
-             <widget class="QLineEdit" name="dBFracLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectDBFracMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
+             <layout class="QHBoxLayout" name="horizontalLayout_75">
+              <item>
+               <widget class="QRadioButton" name="DDFGMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [mm degree-1 day-1]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="DDFGLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectDDFGMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_19">
-            <property name="title">
-             <string>GlacF [spatial map or single value]</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_7">
-             <item row="0" column="1">
-              <layout class="QHBoxLayout" name="horizontalLayout_68">
-               <item>
-                <widget class="QRadioButton" name="glacRoFracMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [-]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="glacRoFracLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectGlacRoFracMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item row="0" column="0">
-              <layout class="QHBoxLayout" name="horizontalLayout_69">
-               <item>
-                <widget class="QRadioButton" name="glacRoFracSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [-]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="glacRoFracDoubleSpinBox">
-                 <property name="maximum">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.010000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>0.900000000000000</double>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QGroupBox" name="groupBox_17">
-         <property name="title">
-          <string>Glacier degree-day-factors</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_13">
-          <item>
-           <widget class="QGroupBox" name="groupBox_18">
-            <property name="title">
-             <string>DDFDG [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_71">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_70">
-               <item>
-                <widget class="QRadioButton" name="DDFDGSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [mm degree-1 day-1]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="DDFDGDoubleSpinBox">
-                 <property name="minimum">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>20.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.500000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>7.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_72">
-               <item>
-                <widget class="QRadioButton" name="DDFDGMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [mm degree-1 day-1]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="DDFDGLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectDDFDGMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_20">
-            <property name="title">
-             <string>DDFG [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_73">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_74">
-               <item>
-                <widget class="QRadioButton" name="DDFGSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [mm degree-1 day-1]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="DDFGDoubleSpinBox">
-                 <property name="minimum">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>20.000000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>7.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_75">
-               <item>
-                <widget class="QRadioButton" name="DDFGMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [mm degree-1 day-1]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="DDFGLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectDDFGMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
      </widget>
      <widget class="QWidget" name="snowTab">
       <attribute name="title">
@@ -3181,190 +3222,267 @@ conductivity [mm/d]</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_16">
        <item>
-        <widget class="QGroupBox" name="groupBox_21">
-         <property name="title">
-          <string>Snow storage</string>
+        <widget class="QGroupBox" name="snowGroupBox">
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>false</underline>
+          </font>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_21">
-          <item>
-           <widget class="QGroupBox" name="groupBox_22">
-            <property name="title">
-             <string>SnowIni [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_76">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_77">
-               <item>
-                <widget class="QRadioButton" name="snowIniSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [mm]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="snowIniSpinBox">
-                 <property name="maximum">
-                  <number>1000000000</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>100</number>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_78">
-               <item>
-                <widget class="QRadioButton" name="snowIniMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [mm]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="snowIniLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectSnowIniMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_23">
-            <property name="title">
-             <string>SnowWatStore [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_79">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_80">
-               <item>
-                <widget class="QRadioButton" name="sWatStoreSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [mm]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QSpinBox" name="sWatStoreSpinBox">
-                 <property name="maximum">
-                  <number>1000000000</number>
-                 </property>
-                 <property name="singleStep">
-                  <number>100</number>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_81">
-               <item>
-                <widget class="QRadioButton" name="sWatStoreMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [mm]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="sWatStoreLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectSWatStoreMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_24">
-            <property name="title">
-             <string>SnowSC [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_82">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_83">
-               <item>
-                <widget class="QRadioButton" name="snowSCSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [-]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="snowSCDoubleSpinBox">
-                 <property name="maximum">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.010000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>0.500000000000000</double>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_84">
-               <item>
-                <widget class="QRadioButton" name="snowSCMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [-]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="snowSCLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectSnowSCMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="groupBox_25">
-         <property name="title">
-          <string>Snow parameters</string>
+         <property name="autoFillBackground">
+          <bool>false</bool>
          </property>
-         <layout class="QFormLayout" name="formLayout_18">
-          <item row="1" column="0">
-           <layout class="QHBoxLayout" name="horizontalLayout_86">
+         <property name="title">
+          <string>RUN SNOW MODULE</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <widget class="QGroupBox" name="groupBox_21">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>30</y>
+            <width>487</width>
+            <height>251</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+            <underline>false</underline>
+           </font>
+          </property>
+          <property name="title">
+           <string>Snow storage</string>
+          </property>
+          <widget class="QGroupBox" name="groupBox_22">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>20</y>
+             <width>467</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>SnowIni [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_76">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_77">
+              <item>
+               <widget class="QRadioButton" name="snowIniSingleRadioButton">
+                <property name="text">
+                 <string>Single value [mm]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="snowIniSpinBox">
+                <property name="maximum">
+                 <number>1000000000</number>
+                </property>
+                <property name="singleStep">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_78">
+              <item>
+               <widget class="QRadioButton" name="snowIniMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [mm]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="snowIniLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectSnowIniMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox_23">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>90</y>
+             <width>467</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>SnowWatStore [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_79">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_80">
+              <item>
+               <widget class="QRadioButton" name="sWatStoreSingleRadioButton">
+                <property name="text">
+                 <string>Single value [mm]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="sWatStoreSpinBox">
+                <property name="maximum">
+                 <number>1000000000</number>
+                </property>
+                <property name="singleStep">
+                 <number>100</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_81">
+              <item>
+               <widget class="QRadioButton" name="sWatStoreMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [mm]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="sWatStoreLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectSWatStoreMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox_24">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>170</y>
+             <width>467</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>SnowSC [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_82">
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_83">
+              <item>
+               <widget class="QRadioButton" name="snowSCSingleRadioButton">
+                <property name="text">
+                 <string>Single value [-]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="snowSCDoubleSpinBox">
+                <property name="maximum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.010000000000000</double>
+                </property>
+                <property name="value">
+                 <double>0.500000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_84">
+              <item>
+               <widget class="QRadioButton" name="snowSCMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [-]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="snowSCLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectSnowSCMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_25">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>290</y>
+            <width>487</width>
+            <height>315</height>
+           </rect>
+          </property>
+          <property name="font">
+           <font>
+            <weight>50</weight>
+            <bold>false</bold>
+            <underline>false</underline>
+           </font>
+          </property>
+          <property name="title">
+           <string>Snow parameters</string>
+          </property>
+          <widget class="QGroupBox" name="groupBox_26">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>23</y>
+             <width>467</width>
+             <height>71</height>
+            </rect>
+           </property>
+           <property name="title">
+            <string>DDFS [spatial map or single value]</string>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_87">
             <item>
              <widget class="QLabel" name="tcritLabel">
               <property name="text">
@@ -3388,70 +3506,61 @@ conductivity [mm/d]</string>
               </property>
              </widget>
             </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_88">
+              <item>
+               <widget class="QRadioButton" name="DDFSSingleRadioButton">
+                <property name="text">
+                 <string>Single value [mm degree-1 day-1]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QDoubleSpinBox" name="DDFSDoubleSpinBox">
+                <property name="minimum">
+                 <double>1.000000000000000</double>
+                </property>
+                <property name="maximum">
+                 <double>20.000000000000000</double>
+                </property>
+                <property name="singleStep">
+                 <double>0.500000000000000</double>
+                </property>
+                <property name="value">
+                 <double>7.000000000000000</double>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_89">
+              <item>
+               <widget class="QRadioButton" name="DDFSMapRadioButton">
+                <property name="text">
+                 <string>Spatial map [-]</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="DDFSLineEdit">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QToolButton" name="selectDDFSMapButton">
+                <property name="text">
+                 <string>Select map</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
            </layout>
-          </item>
-          <item row="0" column="0" colspan="2">
-           <widget class="QGroupBox" name="groupBox_26">
-            <property name="title">
-             <string>DDFS [spatial map or single value]</string>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_87">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_88">
-               <item>
-                <widget class="QRadioButton" name="DDFSSingleRadioButton">
-                 <property name="text">
-                  <string>Single value [mm degree-1 day-1]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QDoubleSpinBox" name="DDFSDoubleSpinBox">
-                 <property name="minimum">
-                  <double>1.000000000000000</double>
-                 </property>
-                 <property name="maximum">
-                  <double>20.000000000000000</double>
-                 </property>
-                 <property name="singleStep">
-                  <double>0.500000000000000</double>
-                 </property>
-                 <property name="value">
-                  <double>7.000000000000000</double>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_89">
-               <item>
-                <widget class="QRadioButton" name="DDFSMapRadioButton">
-                 <property name="text">
-                  <string>Spatial map [-]</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="DDFSLineEdit">
-                 <property name="readOnly">
-                  <bool>true</bool>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QToolButton" name="selectDDFSMapButton">
-                 <property name="text">
-                  <string>Select map</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+          </widget>
+         </widget>
         </widget>
        </item>
       </layout>
@@ -3762,6 +3871,9 @@ conductivity [mm/d]</string>
             </item>
             <item>
              <widget class="QDoubleSpinBox" name="kxDoubleSpinBox">
+              <property name="decimals">
+               <number>3</number>
+              </property>
               <property name="minimum">
                <double>0.010000000000000</double>
               </property>
@@ -3769,7 +3881,7 @@ conductivity [mm/d]</string>
                <double>0.990000000000000</double>
               </property>
               <property name="singleStep">
-               <double>0.050000000000000</double>
+               <double>0.005000000000000</double>
               </property>
              </widget>
             </item>
@@ -3935,60 +4047,94 @@ conductivity [mm/d]</string>
        <string>Run Model</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="0" column="0">
-        <layout class="QVBoxLayout" name="verticalLayout_31">
-         <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_104">
-           <item>
-            <widget class="QLabel" name="pythonExeLabel">
-             <property name="text">
-              <string>python.exe</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QLineEdit" name="pythonExeLineEdit">
-             <property name="readOnly">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QToolButton" name="selectPythonExeButton">
-             <property name="text">
-              <string>Select python.exe</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
-         </item>
-        </layout>
-       </item>
-       <item row="0" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout_32">
-         <item>
-          <widget class="QPushButton" name="runModelButton">
-           <property name="text">
-            <string>Run model</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="cancelModelRunButton">
-           <property name="text">
-            <string>Cancel model run</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QTextEdit" name="modelRunLogTextEdit"/>
-       </item>
-       <item row="2" column="0" colspan="2">
+       <item row="3" column="0" colspan="2">
         <widget class="QProgressBar" name="modelRunProgressBar">
          <property name="value">
           <number>0</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout_32"/>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QTextEdit" name="modelRunLogTextEdit"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="runModelButton">
+         <property name="palette">
+          <palette>
+           <active>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </active>
+           <inactive>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </inactive>
+           <disabled>
+            <colorrole role="WindowText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>120</red>
+               <green>120</green>
+               <blue>120</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Button">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>85</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+           </disabled>
+          </palette>
+         </property>
+         <property name="text">
+          <string>Run model</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="cancelModelRunButton">
+         <property name="text">
+          <string>Cancel model run</string>
          </property>
         </widget>
        </item>
@@ -4192,8 +4338,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>211</y>
+     <x>492</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4208,8 +4354,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>347</y>
+     <x>482</x>
+     <y>411</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4224,8 +4370,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>364</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>408</x>
@@ -4240,28 +4386,12 @@ time-series</string>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>640</y>
+     <x>82</x>
+     <y>662</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
      <y>0</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>snowModCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateModules()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>71</x>
-     <y>169</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>214</x>
-     <y>44</y>
     </hint>
    </hints>
   </connection>
@@ -4272,8 +4402,8 @@ time-series</string>
    <slot>createInitMaps()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>371</y>
+     <x>124</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4288,8 +4418,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>62</x>
-     <y>111</y>
+     <x>76</x>
+     <y>143</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -4304,8 +4434,8 @@ time-series</string>
    <slot>createStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>106</x>
-     <y>211</y>
+     <x>110</x>
+     <y>454</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -4320,8 +4450,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>486</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4336,8 +4466,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>87</x>
-     <y>111</y>
+     <x>101</x>
+     <y>194</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4352,8 +4482,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>211</y>
+     <x>492</x>
+     <y>275</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4368,8 +4498,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>224</x>
+     <y>246</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4384,8 +4514,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>239</y>
+     <x>83</x>
+     <y>181</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4400,28 +4530,12 @@ time-series</string>
    <slot>updateStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>458</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
      <y>13</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>groundwaterModCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateModules()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>91</x>
-     <y>204</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>0</x>
-     <y>216</y>
     </hint>
    </hints>
   </connection>
@@ -4432,8 +4546,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>125</x>
+     <y>171</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4448,8 +4562,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>347</y>
+     <x>482</x>
+     <y>383</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4464,8 +4578,8 @@ time-series</string>
    <slot>showUTM()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>109</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4480,8 +4594,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>74</x>
-     <y>134</y>
+     <x>80</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
      <x>107</x>
@@ -4496,8 +4610,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>453</x>
+     <y>146</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4512,8 +4626,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>473</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4528,8 +4642,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>73</x>
-     <y>308</y>
+     <x>77</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4544,8 +4658,8 @@ time-series</string>
    <slot>delineate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>231</y>
+     <x>484</x>
+     <y>463</y>
     </hint>
     <hint type="destinationlabel">
      <x>459</x>
@@ -4560,8 +4674,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>167</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4576,8 +4690,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>100</x>
-     <y>582</y>
+     <x>104</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4608,8 +4722,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>506</y>
+     <x>426</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4640,8 +4754,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>178</y>
+     <x>92</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4656,7 +4770,7 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>488</x>
+     <x>448</x>
      <y>152</y>
     </hint>
     <hint type="destinationlabel">
@@ -4672,8 +4786,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>484</x>
-     <y>189</y>
+     <x>463</x>
+     <y>193</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4688,8 +4802,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>480</x>
-     <y>226</y>
+     <x>455</x>
+     <y>235</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4704,7 +4818,7 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>301</x>
+     <x>321</x>
      <y>132</y>
     </hint>
     <hint type="destinationlabel">
@@ -4720,7 +4834,7 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>319</x>
+     <x>339</x>
      <y>132</y>
     </hint>
     <hint type="destinationlabel">
@@ -4736,7 +4850,7 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>305</x>
+     <x>325</x>
      <y>132</y>
     </hint>
     <hint type="destinationlabel">
@@ -4752,7 +4866,7 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>315</x>
+     <x>335</x>
      <y>132</y>
     </hint>
     <hint type="destinationlabel">
@@ -4794,30 +4908,14 @@ time-series</string>
    </hints>
   </connection>
   <connection>
-   <sender>selectPythonExeButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updatePath()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>112</x>
-     <y>132</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>59</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>runModelButton</sender>
    <signal>clicked()</signal>
    <receiver>SphyPluginDialog</receiver>
    <slot>runModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>156</x>
-     <y>132</y>
+     <x>50</x>
+     <y>107</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4848,8 +4946,8 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>225</x>
-     <y>492</y>
+     <x>285</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4864,8 +4962,8 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>424</x>
-     <y>500</y>
+     <x>480</x>
+     <y>507</y>
     </hint>
     <hint type="destinationlabel">
      <x>526</x>
@@ -4880,8 +4978,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>401</x>
-     <y>211</y>
+     <x>415</x>
+     <y>309</y>
     </hint>
     <hint type="destinationlabel">
      <x>524</x>
@@ -4896,8 +4994,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>342</x>
-     <y>211</y>
+     <x>356</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>523</x>
@@ -4912,12 +5010,44 @@ time-series</string>
    <slot>changeModelCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>385</x>
-     <y>341</y>
+     <x>335</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
      <x>521</x>
      <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>snowGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateModules()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>114</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>48</x>
+     <y>20</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>glaciersGroupBox</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateModules()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>185</x>
+     <y>127</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>58</x>
+     <y>28</y>
     </hint>
    </hints>
   </connection>

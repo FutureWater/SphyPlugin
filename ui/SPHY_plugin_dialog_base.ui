@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>516</width>
-    <height>761</height>
+    <width>517</width>
+    <height>763</height>
    </rect>
   </property>
   <property name="font">
@@ -903,8 +903,8 @@ button to identify the corresponding UTM zone for your model area.</string>
             <rect>
              <x>10</x>
              <y>35</y>
-             <width>120</width>
-             <height>88</height>
+             <width>124</width>
+             <height>91</height>
             </rect>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_38">
@@ -1496,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>7</number>
+      <number>10</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -4182,96 +4182,102 @@ time-series</string>
       <widget class="QGroupBox" name="groupBox_35">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>190</y>
+         <x>0</x>
+         <y>210</y>
          <width>491</width>
-         <height>471</height>
+         <height>461</height>
         </rect>
        </property>
        <property name="title">
         <string>Map-series output</string>
        </property>
-       <widget class="QWidget" name="horizontalLayoutWidget_6">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>40</y>
-          <width>581</width>
-          <height>421</height>
-         </rect>
-        </property>
-        <layout class="QHBoxLayout" name="horizontalLayout_105">
-         <item>
-          <widget class="QGroupBox" name="groupBox_36">
-           <property name="title">
-            <string>Daily maps</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_34">
-            <item>
-             <widget class="QListWidget" name="dMapSeriesListWidget"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="showDMapSeriesButton">
-              <property name="text">
-               <string>Show daily map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_37">
-           <property name="title">
-            <string>Monthly maps</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_35">
-            <item>
-             <widget class="QListWidget" name="mMapSeriesListWidget"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="showMMapSeriesButton">
-              <property name="text">
-               <string>Show monthly map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-         <item>
-          <widget class="QGroupBox" name="groupBox_38">
-           <property name="title">
-            <string>Annual maps</string>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_36">
-            <item>
-             <widget class="QListWidget" name="yMapSeriesListWidget"/>
-            </item>
-            <item>
-             <widget class="QPushButton" name="showYMapSeriesButton">
-              <property name="text">
-               <string>Show annual map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
-         </item>
-        </layout>
-       </widget>
        <widget class="QLabel" name="label_7">
         <property name="geometry">
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>581</width>
+          <width>481</width>
           <height>31</height>
          </rect>
         </property>
         <property name="text">
          <string>Select a daily, monthly, or annual map from one of the three lists below, and click the button to show the map.</string>
         </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_37">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>160</y>
+          <width>481</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Monthly maps</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_35">
+         <item>
+          <widget class="QListWidget" name="mMapSeriesListWidget"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="showMMapSeriesButton">
+           <property name="text">
+            <string>Show monthly map</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_36">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>40</y>
+          <width>481</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Daily maps</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_34">
+         <item>
+          <widget class="QListWidget" name="dMapSeriesListWidget"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="showDMapSeriesButton">
+           <property name="text">
+            <string>Show daily map</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_38">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>290</y>
+          <width>481</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Annual maps</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_36">
+         <item>
+          <widget class="QListWidget" name="yMapSeriesListWidget"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="showYMapSeriesButton">
+           <property name="text">
+            <string>Show annual map</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>

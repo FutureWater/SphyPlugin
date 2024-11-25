@@ -197,7 +197,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
             self.sphyLocationPath = self.settings.value("sphyPreProcessPlugin/sphypath")
             if self.sphyLocationPath is None:
-                self.sphyLocationPath = "./"
+                self.sphyLocationPath = "E:/amelia/RoSPro/SPHY/sphy_rospro/SPHY-SPHY3.0/" #"./"
             
             # -----------
             
@@ -530,7 +530,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                            "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
                            "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
                            "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-                           "Routed total runoff [m3/s]": "qallratot","Test precipitation":"Prec"}
+                           "Routed total runoff [m3/s]": "qallratot"}
         
         items = self.reportDict.keys()
         # check if items already exist. If items already exist, then items don't need to be added again
