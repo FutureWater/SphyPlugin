@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_SphyPluginDialog(object):
     def setupUi(self, SphyPluginDialog):
         SphyPluginDialog.setObjectName("SphyPluginDialog")
-        SphyPluginDialog.resize(517, 763)
+        SphyPluginDialog.resize(523, 763)
         font = QtGui.QFont()
         font.setUnderline(False)
         SphyPluginDialog.setFont(font)
@@ -1993,7 +1993,7 @@ class Ui_SphyPluginDialog(object):
         self.retranslateUi(SphyPluginDialog)
         self.tabWidget.setCurrentIndex(1)
         self.Tab.setCurrentIndex(0)
-        self.tab_3.setCurrentIndex(10)
+        self.tab_3.setCurrentIndex(8)
         self.newButton.clicked.connect(SphyPluginDialog.createNewProject) # type: ignore
         self.openButton.clicked.connect(SphyPluginDialog.openProject) # type: ignore
         self.saveAsButton.clicked.connect(SphyPluginDialog.saveAsProject) # type: ignore
@@ -2308,7 +2308,7 @@ class Ui_SphyPluginDialog(object):
         self.flowDirMapLabel.setText(_translate("SphyPluginDialog", "Flow direction"))
         self.selecFlowDirMapButton.setText(_translate("SphyPluginDialog", "Select map"))
         self.tab_3.setTabText(self.tab_3.indexOf(self.routingTab), _translate("SphyPluginDialog", "Routing"))
-        self.mmRepFlagCheckBox.setText(_translate("SphyPluginDialog", "Report mm fluxes for basin averages"))
+        self.mmRepFlagCheckBox.setText(_translate("SphyPluginDialog", "Report mm fluxes for upstream area"))
         self.modelReportGroupBox.setTitle(_translate("SphyPluginDialog", "Model output settings:"))
         self.mapLabel.setText(_translate("SphyPluginDialog", "Map-series output"))
         self.dailyMapReportCheckBox.setText(_translate("SphyPluginDialog", "Daily"))

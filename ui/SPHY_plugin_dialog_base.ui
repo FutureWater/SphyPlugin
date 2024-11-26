@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>517</width>
+    <width>523</width>
     <height>763</height>
    </rect>
   </property>
@@ -1496,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>10</number>
+      <number>8</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -3966,7 +3966,7 @@ conductivity [mm/d]</string>
         </rect>
        </property>
        <property name="text">
-        <string>Report mm fluxes for basin averages</string>
+        <string>Report mm fluxes for upstream area</string>
        </property>
       </widget>
       <widget class="QGroupBox" name="modelReportGroupBox">
@@ -4344,8 +4344,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>247</y>
+     <x>121</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4360,8 +4360,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>411</y>
+     <x>121</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4376,8 +4376,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>364</x>
-     <y>143</y>
+     <x>111</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>408</x>
@@ -4392,8 +4392,8 @@ time-series</string>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>82</x>
-     <y>662</y>
+     <x>88</x>
+     <y>640</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4408,8 +4408,8 @@ time-series</string>
    <slot>createInitMaps()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>124</x>
-     <y>630</y>
+     <x>111</x>
+     <y>371</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4424,8 +4424,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>76</x>
-     <y>143</y>
+     <x>78</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -4440,8 +4440,8 @@ time-series</string>
    <slot>createStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>454</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -4456,8 +4456,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>486</x>
-     <y>186</y>
+     <x>110</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4472,8 +4472,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>101</x>
-     <y>194</y>
+     <x>103</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4488,8 +4488,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>492</x>
-     <y>275</y>
+     <x>121</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4504,8 +4504,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>224</x>
-     <y>246</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4520,8 +4520,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>181</y>
+     <x>85</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4536,8 +4536,8 @@ time-series</string>
    <slot>updateStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>458</x>
-     <y>169</y>
+     <x>111</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4552,8 +4552,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>125</x>
-     <y>171</y>
+     <x>111</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4568,8 +4568,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>482</x>
-     <y>383</y>
+     <x>121</x>
+     <y>347</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4584,8 +4584,8 @@ time-series</string>
    <slot>showUTM()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>109</x>
-     <y>274</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4600,8 +4600,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>80</x>
-     <y>158</y>
+     <x>82</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
      <x>107</x>
@@ -4616,8 +4616,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>453</x>
-     <y>146</y>
+     <x>111</x>
+     <y>111</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4632,8 +4632,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>473</x>
-     <y>150</y>
+     <x>110</x>
+     <y>110</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4648,8 +4648,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>77</x>
-     <y>330</y>
+     <x>83</x>
+     <y>308</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4664,8 +4664,8 @@ time-series</string>
    <slot>delineate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>484</x>
-     <y>463</y>
+     <x>111</x>
+     <y>231</y>
     </hint>
     <hint type="destinationlabel">
      <x>459</x>
@@ -4680,8 +4680,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>167</x>
-     <y>248</y>
+     <x>111</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4696,8 +4696,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>104</x>
-     <y>604</y>
+     <x>110</x>
+     <y>582</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4728,8 +4728,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>426</x>
-     <y>521</y>
+     <x>121</x>
+     <y>506</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4760,8 +4760,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>92</x>
-     <y>200</y>
+     <x>90</x>
+     <y>178</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4776,8 +4776,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>448</x>
-     <y>152</y>
+     <x>112</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4792,8 +4792,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>463</x>
-     <y>193</y>
+     <x>112</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4808,8 +4808,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>455</x>
-     <y>235</y>
+     <x>112</x>
+     <y>132</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4824,8 +4824,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>321</x>
-     <y>132</y>
+     <x>337</x>
+     <y>163</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4840,8 +4840,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
-     <y>132</y>
+     <x>355</x>
+     <y>186</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4856,8 +4856,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>325</x>
-     <y>132</y>
+     <x>341</x>
+     <y>209</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4872,8 +4872,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>335</x>
-     <y>132</y>
+     <x>351</x>
+     <y>253</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4952,11 +4952,11 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>285</x>
-     <y>507</y>
+     <x>112</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
-     <x>524</x>
+     <x>516</x>
      <y>441</y>
     </hint>
    </hints>
@@ -4968,11 +4968,11 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>480</x>
-     <y>507</y>
+     <x>112</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
-     <x>526</x>
+     <x>516</x>
      <y>514</y>
     </hint>
    </hints>
@@ -4984,11 +4984,11 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>415</x>
-     <y>309</y>
+     <x>401</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
-     <x>524</x>
+     <x>516</x>
      <y>252</y>
     </hint>
    </hints>
@@ -5000,11 +5000,11 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>356</x>
-     <y>354</y>
+     <x>372</x>
+     <y>211</y>
     </hint>
     <hint type="destinationlabel">
-     <x>523</x>
+     <x>516</x>
      <y>320</y>
     </hint>
    </hints>
@@ -5016,11 +5016,11 @@ time-series</string>
    <slot>changeModelCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>335</x>
-     <y>350</y>
+     <x>112</x>
+     <y>147</y>
     </hint>
     <hint type="destinationlabel">
-     <x>521</x>
+     <x>516</x>
      <y>309</y>
     </hint>
    </hints>

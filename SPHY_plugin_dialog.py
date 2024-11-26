@@ -186,16 +186,23 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # Check if an existing config file is present from the most recent project
         self.currentConfig = configparser.ConfigParser(allow_no_value = True)
         self.settings = QtCore.QSettings()
-        self.currentConfigFileName = self.settings.value("sphyPreProcessPlugin/currentConfig")
+        self.currentConfigFileName = self.settings.value("sphyPlugin/currentConfig")
+        self.currentreptabFileName = self.settings.value("sphyPlugin/currentReptab")
         try:
             self.currentConfig.read(self.currentConfigFileName)
             self.projectDir = os.path.dirname(self.currentConfigFileName) + '/'
+            with open(self.currentreptabFileName, 'r') as f:
+                next(f) # skip headings
+                self.currentReptab = list(csv.reader(f, delimiter=','))
+
+            # self.currentReptab = self.currentreptabFileName
+
             self.currentProject = True
             self.Tab.setEnabled(1)
 
             ## MODEL PART 
 
-            self.sphyLocationPath = self.settings.value("sphyPreProcessPlugin/sphypath")
+            self.sphyLocationPath = self.settings.value("sphyPlugin/sphypath")
             if self.sphyLocationPath is None:
                 self.sphyLocationPath = "E:/amelia/RoSPro/SPHY/sphy_rospro/SPHY-SPHY3.0/" #"./"
             
@@ -822,6 +829,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def updateConfig(self, module, par, value):
         self.currentConfig.set(module, par, str(value))
         self.updateSaveButtons(1)
+
+    def updateRepTab(self): #self,module,par,value):
+        return
         
     #-Update config with area properties
     def updateAreaConfig(self):
@@ -855,7 +865,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 passs
         #-Show the background layers
         else:
-            #raster = iface.addRasterLayer(self.pluginPath + 'NaturalEarthData/HYP_50M_SR_W/HYP_50M_SR_W.tif', 'shaded relief')
 
             # URL template for OpenTopoMap
             url = "https://tile.opentopomap.org/{z}/{x}/{y}.png"
@@ -1861,6 +1870,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # check if a new project needs/can be created based on the criteria tested above    
         if newproject:
             self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "plugin_config_template.cfg"))
+            with open(os.path.join(os.path.dirname(__file__), "config", "reptab_template.csv"), 'r') as f:
+                next(f) # skip headings
+                self.currentReptab = list(csv.reader(f, delimiter=','))
+
             # clear project canvas
             #qgsProject = QgsProject.instance()
             #qgsProject.clear()
@@ -1894,14 +1907,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 # set the new config file
                 self.currentConfigFileName = tempname
                 self.currentConfig.read(self.currentConfigFileName)
-                
-#                 # open the corresponding qgs file
-#                 qgsProjectFileName = ((self.currentConfigFileName).split(".cfg")[0]) + ".qgs"
-#                 qgsProject = QgsProject.instance()
-#                 qgsProject.clear()
-#                 qgsProject.setFileName(qgsProjectFileName)
-#                 qgsProject.read()
-                # save the project
+                self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")               
+                with open(os.path.join(self.currentreptabFileName), 'r') as f:
+                    next(f) # skip headings
+                    self.currentReptab = list(csv.reader(f, delimiter=','))
+
                 self.saveProject()
             
     # Save as project
@@ -1912,20 +1922,32 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             tempname = QtWidgets.QFileDialog.getSaveFileName(self, 'Save current project as', self.projectDir, '*.cfg')[0]
         if tempname:
             self.currentConfigFileName = tempname
+            self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")
             self.saveProject()
             
     # Save the project
     def saveProject(self):
         with open(self.currentConfigFileName, 'w') as f:
             self.currentConfig.write(f)
+
+
+        with open(self.currentreptabFileName, 'w', newline='') as w:
+            writer = csv.writer(w)
+            writer.writerows(self.currentReptab)  # Write all rows     
+
+        # with open(self.currentreptabFileName, 'w') as w:
+        #     self.currentReptab.write(w)
         
 #         if self.currentProject is False:
 #             temp = self.currentConfigFileName
 #             self.sphyLocationPath = temp.split(":")[0] + ":"
 
         
-        self.settings.setValue("sphyPreProcessPlugin/currentConfig", self.currentConfigFileName)
+        self.settings.setValue("sphyplugin/currentConfig", self.currentConfigFileName)
         self.projectDir = os.path.dirname(self.currentConfigFileName[0])
+        self.settings.setValue("sphyplugin/currentReptab", self.currentreptabFileName)
+        self.settings.setValue("sphyplugin/sphypath", self.sphyLocationPath)
+
         
 #         # write the qgs project file
 #         qgsProjectFileName = ((self.currentConfigFileName).split(".cfg")[0]) + ".qgs"
@@ -2255,8 +2277,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             if sender == self.dailyTSSReportCheckBox:
                 if state == QtCore.Qt.Unchecked:
                     self.updateConfig("REPORTING", par + "_tsoutput", "NONE")
+                    self.updateRepTab()
                 else:
                     self.updateConfig("REPORTING", par + "_tsoutput", "D")
+                    self.updateRepTab()
             # else do something with the map reporting (D, M, or Y) checked or unchecked
             else:
                 widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
@@ -2266,11 +2290,13 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     mapitems.remove(repOpt)
                     if mapitems == []:
                         self.updateConfig("REPORTING", par + "_mapoutput", "NONE")
+                        self.updateRepTab()
                         return
                 elif state == QtCore.Qt.Checked:
         
                     if "NONE" in mapitems:
                         self.updateConfig("REPORTING", par + "_mapoutput", repOpt)
+                        self.updateRepTab()
                         return
                     elif repOpt not in mapitems:
                         mapitems.append(repOpt)
@@ -2281,7 +2307,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     else:
                         reportString = reportString + map
                 self.updateConfig("REPORTING", par + "_mapoutput", reportString)
-    
+                self.updateRepTab()
+
+        #self.saveProject() # don't know why but takes long time and crashes QGIS, so this function is not reflected until "Run Model" is pressed and the config is changed
+
     # Function to run the model          
     def runModel(self):
         self.updateDate()
