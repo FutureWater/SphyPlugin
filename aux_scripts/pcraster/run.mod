@@ -1,1 +1,1 @@
-"C:/Users/SPHY-3.0-test/input/stations.map" = nominal("C:/Users/SPHY-3.0-test/input/temp.map")
+"E:/amelia/test_project/input/forcing/Tmin0000.365" = ("E:/amelia/test_project/input/temp.map" + (-0.0065 * "E:/amelia/test_project/input/demDiff.map")) - 273.15

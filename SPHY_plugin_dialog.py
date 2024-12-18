@@ -831,6 +831,45 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateSaveButtons(1)
 
     def updateRepTab(self): #self,module,par,value):
+
+        rows = []
+        # Read and modify the CSV
+        with open(self.currentreptabFileName, mode="r", newline="") as csvfile:
+            r = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONE)
+            rows = list(r)
+
+            for row in rows:
+                #names on the reporting table
+                for key in self.reportDict:
+                    item = self.reportDict[key] # legend name
+                    map = self.currentConfig.get("REPORTING", item + "_mapoutput") 
+                    timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
+                    if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
+                        row[1] = map.replace(',','+')  # Update the 'map' column
+                        row[3] = timeseries
+                
+
+
+            # #names on the reporting table
+            # for key in self.reportDict:
+            #     item = self.reportDict[key] # legend name
+            #     map = self.currentConfig.get("REPORTING", item + "_mapoutput") 
+            #     timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
+
+
+            #     # Modify the specific row
+            #     for row in rows:
+
+            #         if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
+            #             row[1] = map.replace(',','+')  # Update the 'map' column
+            #             row[3] = timeseries
+
+        # Overwrite the same file
+        with open(self.currentreptabFileName, mode="w", newline="") as outfile:
+            writer = csv.writer(outfile)
+            writer.writerows(rows)  # Write all rows back to the file
+
+
         return
         
     #-Update config with area properties
@@ -1871,7 +1910,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         if newproject:
             self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "plugin_config_template.cfg"))
             with open(os.path.join(os.path.dirname(__file__), "config", "reptab_template.csv"), 'r') as f:
-                next(f) # skip headings
+                # next(f) # skip headings
                 self.currentReptab = list(csv.reader(f, delimiter=','))
 
             # clear project canvas
@@ -1907,7 +1946,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 # set the new config file
                 self.currentConfigFileName = tempname
                 self.currentConfig.read(self.currentConfigFileName)
-                self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")               
+                self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1], 'reporting.csv').replace("\\","/")               
                 with open(os.path.join(self.currentreptabFileName), 'r') as f:
                     next(f) # skip headings
                     self.currentReptab = list(csv.reader(f, delimiter=','))
@@ -2277,10 +2316,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             if sender == self.dailyTSSReportCheckBox:
                 if state == QtCore.Qt.Unchecked:
                     self.updateConfig("REPORTING", par + "_tsoutput", "NONE")
-                    self.updateRepTab()
                 else:
                     self.updateConfig("REPORTING", par + "_tsoutput", "D")
-                    self.updateRepTab()
             # else do something with the map reporting (D, M, or Y) checked or unchecked
             else:
                 widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
@@ -2290,13 +2327,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     mapitems.remove(repOpt)
                     if mapitems == []:
                         self.updateConfig("REPORTING", par + "_mapoutput", "NONE")
-                        self.updateRepTab()
                         return
                 elif state == QtCore.Qt.Checked:
         
                     if "NONE" in mapitems:
                         self.updateConfig("REPORTING", par + "_mapoutput", repOpt)
-                        self.updateRepTab()
                         return
                     elif repOpt not in mapitems:
                         mapitems.append(repOpt)
@@ -2307,7 +2342,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     else:
                         reportString = reportString + map
                 self.updateConfig("REPORTING", par + "_mapoutput", reportString)
-                self.updateRepTab()
 
         #self.saveProject() # don't know why but takes long time and crashes QGIS, so this function is not reflected until "Run Model" is pressed and the config is changed
 
@@ -2315,6 +2349,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def runModel(self):
         self.updateDate()
         self.saveProject()
+        self.updateRepTab()
         # clean the modelrunlogtext window
         self.modelRunLogTextEdit.clear()
         # clean the list items from the tss list widget in the visualization tab
@@ -2333,6 +2368,13 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
          
         # copy the project cfg to config to be used with sphy.py
         shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
+
+        # copy the project cfg to config to be used with sphy.py
+        shutil.copy(self.currentreptabFileName, sphydir + "reporting.csv")
+
+        if (os.path.realpath(self.currentreptabFileName) != os.path.realpath((self.inputPath + "\\").replace("\\","/") + "reporting.csv")):
+            # make sure that reporting table is located in the input folder
+            shutil.copy(self.currentreptabFileName, (self.inputPath + "\\").replace("\\","/") + "reporting.csv")
         
         # make a batch file to execute
         f = open(batchfile, "w")
@@ -2407,14 +2449,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.worker = worker
             # --------------------------------------------------------------------------------------------
              
-
-#             self.convertMAP()
-#             self.modelRunLogTextEdit.append("Converting files completed!")
-            
-#             # set the progress bar to 100%
-#             self.modelRunProgressBar.setValue(100)
-#             time.sleep(1)
-#             self.modelRunProgressBar.setValue(0)
 
         # add the daily time-series csv files to the list widget in the visualization tab and enable tab again            
         self.setVisListWidgets()
