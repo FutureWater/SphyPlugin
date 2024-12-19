@@ -2369,13 +2369,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # copy the project cfg to config to be used with sphy.py
         shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
 
-        # copy the project cfg to config to be used with sphy.py
-        shutil.copy(self.currentreptabFileName, sphydir + "reporting.csv")
 
         if (os.path.realpath(self.currentreptabFileName) != os.path.realpath((self.inputPath + "\\").replace("\\","/") + "reporting.csv")):
             # make sure that reporting table is located in the input folder
             shutil.copy(self.currentreptabFileName, (self.inputPath + "\\").replace("\\","/") + "reporting.csv")
-        
+
+            # copy the project reporting to the sphy dir
+            # shutil.copy(self.currentreptabFileName, sphydir + "reporting.csv")
+
         # make a batch file to execute
         f = open(batchfile, "w")
         f.write(disk + "\n")

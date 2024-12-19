@@ -1,1 +1,1 @@
-"E:/amelia/test_project/input/forcing/Tmin0000.365" = ("E:/amelia/test_project/input/temp.map" + (-0.0065 * "E:/amelia/test_project/input/demDiff.map")) - 273.15
+"E:/amelia/SPHY-JS-TI/input/forcing/Tmin0000.031" = ("E:/amelia/SPHY-JS-TI/input/temp.map" + (-0.0065 * "E:/amelia/SPHY-JS-TI/input/demDiff.map")) - 273.15
