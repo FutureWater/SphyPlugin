@@ -204,7 +204,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
             self.sphyLocationPath = self.settings.value("sphyPlugin/sphypath")
             if self.sphyLocationPath is None:
-                self.sphyLocationPath = "E:/amelia/RoSPro/SPHY/sphy_rospro/SPHY-SPHY3.0/" #"./"
+                self.sphyLocationPath = "./"
             
             # -----------
             
@@ -350,9 +350,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         Glaciers tab: fraction maps and degree-day-factors
         """
         # Glacier fraction maps
-        self.selectInitGlacFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER_INIT", "GlacFrac" , "initial glacier fraction", "Input", "Glaciers", 5))
-        self.selectCIFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracCI" , "clean ice covered glacier fraction", "Input", "Glaciers", 5))
-        self.selectDBFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracDB" , "debris-covered glacier fraction", "Input", "Glaciers", 5))
+        # self.selectInitGlacFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER_INIT", "GlacFrac" , "initial glacier fraction", "Input", "Glaciers", 5))
+        # self.selectCIFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracCI" , "clean ice covered glacier fraction", "Input", "Glaciers", 5))
+        # self.selectDBFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracDB" , "debris-covered glacier fraction", "Input", "Glaciers", 5))
+
+        # First block, replacing above code
+        self.selectGlaciersTableButton.clicked.connect(partial(self.updateCsvTable, "GLACIER", "GlacTable", "glaciers csv"))
+        self.selectModelIDButton.clicked.connect(partial(self.updateMap, "GLACIER", "ModelID" , "model ID", "Input", "Glaciers", 5))
+        self.selectGlacIDMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacID" , "glacier ID", "Input", "Glaciers", 5))
+
         # Glacier runoff fraction
         self.glacRoFracSingleRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "GlacF", "glacRoFracDoubleSpinBox"))
         self.glacRoFracMapRadioButton.toggled.connect(partial(self.updateRadioValueMap, "GLACIER", "GlacF", "glacRoFracLineEdit"))
@@ -468,7 +474,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                              "rootSatCondLineEdit": ("SOIL", "RootKsat"), "subFieldCapLineEdit": ("SOIL", "SubFieldMap"),
                              "subSatLineEdit": ("SOIL", "SubSatMap"), "subSatCondLineEdit": ("SOIL", "SubKsat"),
                              "maxCapRiseSpinBox": ("SOILPARS", "CapRiseMax"), "landUseLineEdit": ("LANDUSE", "LandUse"),
-                             "kcTableLineEdit": ("LANDUSE", "CropFac"), "spinupyearSpinBox": ("TIMING", "spinupyears")}
+                             "kcTableLineEdit": ("LANDUSE", "CropFac"), "spinupyearSpinBox": ("TIMING", "spinupyears"),
+                            "initGlacFracLineEdit": ("GLACIER", "glactable"),
+                            "cIFracLineEdit": ("GLACIER", "modelID"), "dBFracLineEdit": ("GLACIER", "glacID"),
+                            "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
+}
                              
                              
                             # Glaciers part to be discussed                             
@@ -522,7 +532,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'Sub_Ksat': 'sub_ksat.map', 'LandUse': 'landuse.map', 'Latitudes': 'latitude.map'}
         #-glacier and routing maps are only created if these modules are turned on. Snow and groundwater modules don't require the creation of maps, but are implemented for possible
         # future developments. The Gui doesn't do anything with these two modules yet.
-        self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Tlapse table': 'tlapse.csv'} #╔{'GlacFrac': 'glacfrac.map', 'GlacFracCI': 'glac_cleanice.map', 'GlacFracDB': 'glac_debris.map'}
+        self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Lapse rates table': 'lapserates.tbl'} #╔{'GlacFrac': 'glacfrac.map', 'GlacFracCI': 'glac_cleanice.map', 'GlacFracDB': 'glac_debris.map'}
         self.routingMaps = {'LDD': 'ldd.map', 'Outlets': 'outlets.map', 'Rivers': 'river.map', 'AccuFlux': 'accuflux.map', 'Sub-basins': 'subbasins.map'}
         self.setModulesDict()
         #-Dictionary for the Meteorological forcing Tab
@@ -1314,26 +1324,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # %% 7. CREATING GLACIER MAPS ------------------------------------------------------------
         print('CREATING GLACIER MAPS')
         if self.currentConfig.getint('PREPOCMODULES', 'glacier') == 1:
-            print('Running glaciers model')
-            processing.run("model:glaciers_model", 
-                           {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
-                            'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
-                            'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
-                            'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
-                            'ferrinoti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ferrinoti_file')),
-                            'model_resolution':self.spatialRes,'model_crs':t_srs,
-                            'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
-                            'glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT',
-                            'intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT',
-                            'debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT',
-                            'modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT',
-                            'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
-            print('Glaciers Module done')
 
-            # It does not work for now
-            # create an instance of the glaciers model class
-            # model = Glaciers_model()
-            # parameters = {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
+            print('Generating Lapse Rates Table..')
+
+            tlapse_path = os.path.dirname(__file__) + '/config/lapserates.tbl'
+            shutil.copy(tlapse_path, os.path.join(self.resultsPath, 'lapserates.tbl'))
+            
+            print('Running glaciers model')
+            # processing.run("model:glaciers_model", 
+            #                {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
             #                 'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
             #                 'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
             #                 'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
@@ -1344,19 +1343,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             #                 'intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT',
             #                 'debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT',
             #                 'modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT',
-            #                 'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'}
-            
-            # # Prepare the context and feedback
-            # context = QgsProcessingContext()
-            # feedback = QgsProcessingFeedback()
+            #                 'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
+            print('Glaciers Module done')
 
-            # # Run the model
-            # try:
-            #     results = model.processAlgorithm(parameters, context, feedback)
-            #     print('Model run successfully!')
-            #     print('Results:', results)
-            # except Exception as e:
-            #     print('Error:', str(e))
                    
         self.initialMapsProgressBar.setValue(100)
         time.sleep(1)
@@ -1749,6 +1738,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateConfig("GENERAL", "endyear", QtCore.QDate.year(enddate))
         self.updateConfig("GENERAL", "endmonth", QtCore.QDate.month(enddate))
         self.updateConfig("GENERAL", "endday", QtCore.QDate.day(enddate))
+
+        self.updateConfig("TIMING", "startyear_timestep1", QtCore.QDate.year(startdate))
+        self.updateConfig("TIMING", "startmonth_timestep1", QtCore.QDate.month(startdate))
+        self.updateConfig("TIMING", "startday_timestep1", QtCore.QDate.day(startdate))
+
         self.saveProject()
         
     # validate start and enddate and set in config        
@@ -2553,6 +2547,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     # update a *.tbl file (e.g. for the crop factors)
     def updateTable(self, module, par, name):
         file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" table", self.inputPath,"*.tbl"))[0]).replace("\\","/")
+        if file:
+            file = os.path.relpath(file, self.inputPath).replace("\\","/")
+            self.updateConfig(module, par, file)
+            self.initGuiConfigMap()
+            self.saveProject()
+
+    # update a *.tbl file (e.g. for the crop factors)
+    def updateCsvTable(self, module, par, name):
+        file = ((QtWidgets.QFileDialog.getOpenFileName(self, "Select the "+name+" table", self.inputPath,"*.csv"))[0]).replace("\\","/")
         if file:
             file = os.path.relpath(file, self.inputPath).replace("\\","/")
             self.updateConfig(module, par, file)

@@ -1496,7 +1496,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>5</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -2935,15 +2935,15 @@ conductivity [mm/d]</string>
          </font>
         </property>
         <property name="title">
-         <string>Glacier fraction settings</string>
+         <string>Glacier settings</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_12">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_65">
            <item>
-            <widget class="QLabel" name="initGlacFracLabel">
+            <widget class="QLabel" name="glaciersTableLabel">
              <property name="text">
-              <string>Initial glacier fraction [-]</string>
+              <string>Glacier CSV table [-]</string>
              </property>
             </widget>
            </item>
@@ -2955,9 +2955,9 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectInitGlacFracMapButton">
+            <widget class="QToolButton" name="selectGlaciersTableButton">
              <property name="text">
-              <string>Select map</string>
+              <string>Select table</string>
              </property>
             </widget>
            </item>
@@ -2966,9 +2966,9 @@ conductivity [mm/d]</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_66">
            <item>
-            <widget class="QLabel" name="cIFracLabel">
+            <widget class="QLabel" name="ModelIDLabel">
              <property name="text">
-              <string>Clean ice glacier fraction [-]</string>
+              <string>Model ID [-]</string>
              </property>
             </widget>
            </item>
@@ -2980,7 +2980,7 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectCIFracMapButton">
+            <widget class="QToolButton" name="selectModelIDButton">
              <property name="text">
               <string>Select map</string>
              </property>
@@ -2991,9 +2991,9 @@ conductivity [mm/d]</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_67">
            <item>
-            <widget class="QLabel" name="dBFracLabel">
+            <widget class="QLabel" name="GlacIDLabel">
              <property name="text">
-              <string>Debris covered glacier fraction [-]</string>
+              <string>Glac ID [-]</string>
              </property>
             </widget>
            </item>
@@ -3005,7 +3005,7 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectDBFracMapButton">
+            <widget class="QToolButton" name="selectGlacIDMapButton">
              <property name="text">
               <string>Select map</string>
              </property>
@@ -4392,8 +4392,8 @@ time-series</string>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>640</y>
+     <x>92</x>
+     <y>662</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4456,8 +4456,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>484</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4504,8 +4504,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>223</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4585,7 +4585,7 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>111</x>
-     <y>211</y>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4632,8 +4632,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>471</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4648,8 +4648,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>308</y>
+     <x>87</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4680,8 +4680,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>168</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4696,8 +4696,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>582</y>
+     <x>114</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4728,8 +4728,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>506</y>
+     <x>426</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4760,8 +4760,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>178</y>
+     <x>92</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4840,8 +4840,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>355</x>
-     <y>186</y>
+     <x>373</x>
+     <y>184</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4856,8 +4856,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>341</x>
-     <y>209</y>
+     <x>359</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4872,8 +4872,8 @@ time-series</string>
    <slot>updateReportCheckBox()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>351</x>
-     <y>253</y>
+     <x>369</x>
+     <y>251</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4921,7 +4921,7 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>50</x>
-     <y>107</y>
+     <y>109</y>
     </hint>
     <hint type="destinationlabel">
      <x>514</x>
@@ -4984,8 +4984,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>401</x>
-     <y>211</y>
+     <x>417</x>
+     <y>302</y>
     </hint>
     <hint type="destinationlabel">
      <x>516</x>
@@ -5000,8 +5000,8 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>211</y>
+     <x>388</x>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
      <x>516</x>
@@ -5032,8 +5032,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>114</y>
+     <x>92</x>
+     <y>112</y>
     </hint>
     <hint type="destinationlabel">
      <x>48</x>
