@@ -1,1 +1,1 @@
-"E:/amelia/SPHY-JS-TI/input/slope.map" = slope("E:/amelia/SPHY-JS-TI/input/dem.map")
+"E:/amelia/SPHY-syrdarya/input/forcing/Tmin0000.181" = ("E:/amelia/SPHY-syrdarya/input/temp.map" + (-0.0065 * "E:/amelia/SPHY-syrdarya/input/demDiff.map")) - 273.15
