@@ -1,18 +1,12 @@
-# This file contains metadata for your plugin. Since 
-# version 2.0 of QGIS this is the proper way to supply 
-# information about a plugin. The old method of 
-# embedding metadata in __init__.py will 
-# is no longer supported since version 2.0.
-
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=SPHY PLUGIN-3.0
+name=SPHY PLUGIN-3.1
 qgisMinimumVersion=3.0
-description=A tool to convert raw data into SPHY model input data
-version=1.0
-author=W. Terink, FutureWater
-email=w.terink@futurewater.nl
+description=A tool to run SPHY Model and create its input files 
+version=3.1
+author= FutureWater
+email= sphy@futurewater.nl
 
 # End of mandatory metadata
 
@@ -24,7 +18,7 @@ email=w.terink@futurewater.nl
 # Tags are comma separated with spaces allowed
 tags=
 
-homepage=http://www.sphy-model.org
+homepage=https://sphymodel.com/
 tracker=
 repository=
 category=Plugins

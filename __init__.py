@@ -1,31 +1,31 @@
-# -*- coding: utf-8 -*-
-# The SPHY model Pre-Processor interface plugin for QGIS:
-# A QGIS plugin that allows the user to create SPHY model input data based on a database. 
+# The Spatial Processes in HYdrology (SPHY) model:
+# A spatially distributed hydrological model 
+# Copyright (C) 2013-2019  FutureWater
+# Email: sphy@futurewater.nl
 #
-# Copyright (C) 2015  Wilco Terink
-# 
+# Authors (alphabetical order):
+# P. Droogers, J. Eekhout, W. Immerzeel, S. Khanal, A. Lutz, G. Simons, W. Terink
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-# Email: w.terink@futurewater.nl OR terinkw@gmail.com
 
 #-Authorship information-###################################################################
-__author__ = "Wilco Terink"
-__copyright__ = "Wilco Terink"
+__author__ = "FutureWater"
+__copyright__ = "FutureWater"
 __license__ = "GPL"
 __version__ = "1.0"
-__email__ = "w.terink@futurewater.nl, terinkw@gmail.com"
-__date__ ='1 January 2017'
+__email__ = "sphy@futurewater.nl"
+__date__ ='1 February 2025'
 ############################################################################################
 """
 /***************************************************************************
