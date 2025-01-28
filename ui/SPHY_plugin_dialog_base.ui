@@ -16,11 +16,12 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>SPHY PLUGIN 3.0</string>
+   <string>SPHY PLUGIN 3.1</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/plugins/SphyPreProcess/images/icon.png</normaloff>:/plugins/SphyPreProcess/images/icon.png</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/plugins/SphyPlugin/images/icon.png</normaloff>
+    <normalon>:/plugins/SphyPlugin/images/icon.png</normalon>:/plugins/SphyPlugin/images/icon.png</iconset>
   </property>
   <widget class="QWidget" name="horizontalLayoutWidget">
    <property name="geometry">
@@ -72,7 +73,7 @@
     </rect>
    </property>
    <property name="currentIndex">
-    <number>1</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -1496,7 +1497,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>5</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">

@@ -19,14 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-#-Authorship information-###################################################################
-__author__ = "FutureWater"
-__copyright__ = "FutureWater"
-__license__ = "GPL"
-__version__ = "1.0"
-__email__ = "sphy@futurewater.nl"
-__date__ ='1 February 2025'
-############################################################################################
+
 
 from __future__ import print_function
 from __future__ import absolute_import
@@ -36,6 +29,14 @@ from builtins import str
 from builtins import range
 from functools import partial
 
+#-Authorship information-###################################################################
+__author__ = "FutureWater"
+__copyright__ = "FutureWater"
+__license__ = "GPL"
+__version__ = "1.0"
+__email__ = "sphy@futurewater.nl"
+__date__ ='1 February 2025'
+############################################################################################
 
 """
 /***************************************************************************
@@ -85,7 +86,7 @@ from SphyPlugin.gui.generated.SPHY_plugin_dialog_base import Ui_SphyPluginDialog
 from SphyPlugin.aux_scripts.spatial_processing import SpatialProcessing
 #-Import forcing processing 
 from SphyPlugin.aux_scripts.forcing import processForcing
-from SphyPlugin.aux_scripts.glaciers import Glaciers_model
+#from SphyPlugin.aux_scripts.glaciers import Glaciers_model
 
 #-Class that allows to drag a rectangle on the map canvas
 class RectangleMapTool(QgsMapToolEmitPoint):
@@ -1385,7 +1386,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             else:
                 self.updateConfig(module, par, 1)
         self.saveProject()
-        self.Tab.setCurrentIndex(3)
+        #self.Tab.setCurrentIndex(3)
         
     #-Function to Delineate basin and create sub-basins and clipped maps
     def delineate(self):

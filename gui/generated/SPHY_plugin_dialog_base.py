@@ -19,7 +19,8 @@ class Ui_SphyPluginDialog(object):
         font.setUnderline(False)
         SphyPluginDialog.setFont(font)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/plugins/SphyPreProcess/images/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/plugins/SphyPlugin/images/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap(":/plugins/SphyPlugin/images/icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         SphyPluginDialog.setWindowIcon(icon)
         self.horizontalLayoutWidget = QtWidgets.QWidget(SphyPluginDialog)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(120, 10, 264, 31))
@@ -1991,9 +1992,9 @@ class Ui_SphyPluginDialog(object):
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(SphyPluginDialog)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         self.Tab.setCurrentIndex(0)
-        self.tab_3.setCurrentIndex(5)
+        self.tab_3.setCurrentIndex(0)
         self.newButton.clicked.connect(SphyPluginDialog.createNewProject) # type: ignore
         self.openButton.clicked.connect(SphyPluginDialog.openProject) # type: ignore
         self.saveAsButton.clicked.connect(SphyPluginDialog.saveAsProject) # type: ignore
@@ -2046,7 +2047,7 @@ class Ui_SphyPluginDialog(object):
 
     def retranslateUi(self, SphyPluginDialog):
         _translate = QtCore.QCoreApplication.translate
-        SphyPluginDialog.setWindowTitle(_translate("SphyPluginDialog", "SPHY PLUGIN 3.0"))
+        SphyPluginDialog.setWindowTitle(_translate("SphyPluginDialog", "SPHY PLUGIN 3.1"))
         self.newButton.setText(_translate("SphyPluginDialog", "New Project"))
         self.openButton.setText(_translate("SphyPluginDialog", "Open project"))
         self.saveAsButton.setText(_translate("SphyPluginDialog", "Save As"))
