@@ -1,1 +1,1 @@
-"E:/amelia/SPHY-syrdarya/input/forcing/Tmin0000.181" = ("E:/amelia/SPHY-syrdarya/input/temp.map" + (-0.0065 * "E:/amelia/SPHY-syrdarya/input/demDiff.map")) - 273.15
+"E:/amelia/SPHY-syrdarya/input/subbasins.map" = subcatchment("E:/amelia/SPHY-syrdarya/input/ldd.map","E:/amelia/SPHY-syrdarya/input/outlets.map")

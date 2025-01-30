@@ -1333,19 +1333,19 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             shutil.copy(tlapse_path, os.path.join(self.resultsPath, 'lapserates.tbl'))
             
             print('Running glaciers model')
-            # processing.run("model:glaciers_model", 
-            #                {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
-            #                 'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
-            #                 'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
-            #                 'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
-            #                 'ferrinoti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ferrinoti_file')),
-            #                 'model_resolution':self.spatialRes,'model_crs':t_srs,
-            #                 'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
-            #                 'glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT',
-            #                 'intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT',
-            #                 'debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT',
-            #                 'modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT',
-            #                 'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
+            processing.run("model:glaciers_model", 
+                           {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
+                            'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
+                            'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
+                            'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
+                            'ferrinoti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ferrinoti_file')),
+                            'model_resolution':self.spatialRes,'model_crs':t_srs,
+                            'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
+                            'glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT',
+                            'intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT',
+                            'debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT',
+                            'modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT',
+                            'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
             print('Glaciers Module done')
 
                    
