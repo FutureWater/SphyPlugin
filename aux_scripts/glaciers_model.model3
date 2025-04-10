@@ -69,7 +69,7 @@
         <Option type="List" name="OPTIONS">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
       </Option>
@@ -109,7 +109,7 @@
         <Option type="List" name="EXTRA">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="INPUT">
@@ -133,7 +133,7 @@
         <Option type="List" name="OPTIONS">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="RESAMPLING">
@@ -147,7 +147,7 @@
             <Option type="int" value="2" name="source"/>
             <Option type="QgsCoordinateReferenceSystem" name="static_value">
               <spatialrefsys nativeFormat="Wkt">
-                <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+                <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
                 <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
                 <srsid>3452</srsid>
                 <srid>4326</srid>
@@ -176,6 +176,118 @@
           <Option type="Map">
             <Option type="QString" value="model_crs" name="parameter_name"/>
             <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="TARGET_RESOLUTION">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
+          </Option>
+        </Option>
+      </Option>
+    </Option>
+    <Option type="Map" name="gdal:warpreproject_2">
+      <Option type="bool" value="true" name="active"/>
+      <Option name="alg_config"/>
+      <Option type="QString" value="gdal:warpreproject" name="alg_id"/>
+      <Option type="QString" value="" name="color"/>
+      <Option type="Map" name="comment">
+        <Option type="QString" value="" name="color"/>
+        <Option type="QString" value="" name="component_description"/>
+        <Option type="double" value="60" name="component_height"/>
+        <Option type="double" value="1852" name="component_pos_x"/>
+        <Option type="double" value="1389" name="component_pos_y"/>
+        <Option type="double" value="100" name="component_width"/>
+        <Option type="bool" value="true" name="outputs_collapsed"/>
+        <Option type="bool" value="true" name="parameters_collapsed"/>
+      </Option>
+      <Option type="QString" value="Reproject Ferrinotti" name="component_description"/>
+      <Option type="double" value="30" name="component_height"/>
+      <Option type="double" value="1731.4642047295108" name="component_pos_x"/>
+      <Option type="double" value="1284.4199330525862" name="component_pos_y"/>
+      <Option type="double" value="200" name="component_width"/>
+      <Option name="dependencies"/>
+      <Option type="QString" value="gdal:warpreproject_2" name="id"/>
+      <Option name="outputs"/>
+      <Option type="bool" value="true" name="outputs_collapsed"/>
+      <Option type="bool" value="true" name="parameters_collapsed"/>
+      <Option type="Map" name="params">
+        <Option type="List" name="DATA_TYPE">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="int" value="0" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="EXTRA">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="INPUT">
+          <Option type="Map">
+            <Option type="QString" value="ferrinoti_tiff" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="MULTITHREADING">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="bool" value="false" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="NODATA">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="OPTIONS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="RESAMPLING">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="int" value="0" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="SOURCE_CRS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="QgsCoordinateReferenceSystem" name="static_value">
+              <spatialrefsys nativeFormat="Wkt">
+                <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+                <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+                <srsid>3452</srsid>
+                <srid>4326</srid>
+                <authid>EPSG:4326</authid>
+                <description>WGS 84</description>
+                <projectionacronym>longlat</projectionacronym>
+                <ellipsoidacronym>EPSG:7030</ellipsoidacronym>
+                <geographicflag>true</geographicflag>
+              </spatialrefsys>
+            </Option>
+          </Option>
+        </Option>
+        <Option type="List" name="TARGET_CRS">
+          <Option type="Map">
+            <Option type="QString" value="model_crs" name="parameter_name"/>
+            <Option type="int" value="0" name="source"/>
+          </Option>
+        </Option>
+        <Option type="List" name="TARGET_EXTENT">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
+          </Option>
+        </Option>
+        <Option type="List" name="TARGET_EXTENT_CRS">
+          <Option type="Map">
+            <Option type="int" value="2" name="source"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="TARGET_RESOLUTION">
@@ -221,7 +333,7 @@
         <Option type="List" name="EXTRA">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="INPUT">
@@ -245,7 +357,7 @@
         <Option type="List" name="OPTIONS">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="RESAMPLING">
@@ -259,7 +371,7 @@
             <Option type="int" value="2" name="source"/>
             <Option type="QgsCoordinateReferenceSystem" name="static_value">
               <spatialrefsys nativeFormat="Wkt">
-                <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+                <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
                 <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
                 <srsid>3452</srsid>
                 <srid>4326</srid>
@@ -651,8 +763,18 @@
           <Option type="double" value="501.0181433836626" name="component_pos_x"/>
           <Option type="double" value="1077.686190231735" name="component_pos_y"/>
           <Option type="double" value="191.76296303095796" name="component_width"/>
-          <Option type="invalid" name="default_value"/>
-          <Option type="bool" value="false" name="mandatory"/>
+          <Option type="Map" name="default_value">
+            <Option type="QString" value="QgsProcessingOutputLayerDefinition" name="class"/>
+            <Option type="Map" name="create_options">
+              <Option type="QString" value="windows-1252" name="fileEncoding"/>
+            </Option>
+            <Option type="Map" name="sink">
+              <Option type="bool" value="true" name="active"/>
+              <Option type="int" value="1" name="type"/>
+              <Option type="QString" value="" name="val"/>
+            </Option>
+          </Option>
+          <Option type="bool" value="true" name="mandatory"/>
           <Option type="QString" value="RGI_Clipped_Reproject_GLAC_ID" name="name"/>
           <Option type="QString" value="OUTPUT" name="output_name"/>
           <Option type="bool" value="true" name="outputs_collapsed"/>
@@ -1156,7 +1278,7 @@
         <Option type="List" name="OVERLAY_FIELDS_PREFIX">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
       </Option>
@@ -1235,7 +1357,7 @@
         <Option type="List" name="OVERLAY_FIELDS_PREFIX">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
       </Option>
@@ -1594,7 +1716,7 @@
         <Option type="List" name="OPERATION">
           <Option type="Map">
             <Option type="int" value="2" name="source"/>
-            <Option type="QString" value="" name="static_value"/>
+            <Option type="invalid" name="static_value"/>
           </Option>
         </Option>
         <Option type="List" name="TARGET_CRS">
@@ -1655,8 +1777,18 @@
           <Option type="double" value="1046.4032227298476" name="component_pos_x"/>
           <Option type="double" value="896.0129937238512" name="component_pos_y"/>
           <Option type="double" value="191.76296303095808" name="component_width"/>
-          <Option type="invalid" name="default_value"/>
-          <Option type="bool" value="false" name="mandatory"/>
+          <Option type="Map" name="default_value">
+            <Option type="QString" value="QgsProcessingOutputLayerDefinition" name="class"/>
+            <Option type="Map" name="create_options">
+              <Option type="QString" value="windows-1252" name="fileEncoding"/>
+            </Option>
+            <Option type="Map" name="sink">
+              <Option type="bool" value="true" name="active"/>
+              <Option type="int" value="1" name="type"/>
+              <Option type="QString" value=" concat(@output_folder,'/mod_id.map')" name="val"/>
+            </Option>
+          </Option>
+          <Option type="bool" value="true" name="mandatory"/>
           <Option type="QString" value="MOD_ID" name="name"/>
           <Option type="QString" value="OUTPUT" name="output_name"/>
           <Option type="bool" value="true" name="outputs_collapsed"/>
@@ -2030,8 +2162,8 @@
       </Option>
       <Option type="QString" value="Zonal statistics ICE_DEPTH" name="component_description"/>
       <Option type="double" value="51.15614966764633" name="component_height"/>
-      <Option type="double" value="1680.044980005357" name="component_pos_x"/>
-      <Option type="double" value="1623.8314828370055" name="component_pos_y"/>
+      <Option type="double" value="1686.044980005357" name="component_pos_x"/>
+      <Option type="double" value="1580.8314828370055" name="component_pos_y"/>
       <Option type="double" value="191.76296303095796" name="component_width"/>
       <Option type="List" name="dependencies">
         <Option type="Map">
@@ -2312,7 +2444,7 @@
     </Option>
     <Option type="QgsCoordinateReferenceSystem" name="model_crs">
       <spatialrefsys nativeFormat="Wkt">
-        <wkt>PROJCRS["Asia_North_Albers_Equal_Area_Conic",BASEGEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4326]],CONVERSION["Asia_North_Albers_Equal_Area_Conic",METHOD["Albers Equal Area",ID["EPSG",9822]],PARAMETER["Latitude of false origin",30,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",95,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",15,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",65,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Not known."],AREA["Asia - North"],BBOX[10,25,85,-175]],ID["ESRI",102025]]</wkt>
+        <wkt>PROJCRS["Asia_North_Albers_Equal_Area_Conic",BASEGEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],MEMBER["World Geodetic System 1984 (G2296)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],ID["EPSG",4326]],CONVERSION["Asia_North_Albers_Equal_Area_Conic",METHOD["Albers Equal Area",ID["EPSG",9822]],PARAMETER["Latitude of false origin",30,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8821]],PARAMETER["Longitude of false origin",95,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8822]],PARAMETER["Latitude of 1st standard parallel",15,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8823]],PARAMETER["Latitude of 2nd standard parallel",65,ANGLEUNIT["degree",0.0174532925199433],ID["EPSG",8824]],PARAMETER["Easting at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8826]],PARAMETER["Northing at false origin",0,LENGTHUNIT["metre",1],ID["EPSG",8827]]],CS[Cartesian,2],AXIS["(E)",east,ORDER[1],LENGTHUNIT["metre",1]],AXIS["(N)",north,ORDER[2],LENGTHUNIT["metre",1]],USAGE[SCOPE["Not known."],AREA["Asia - North"],BBOX[10,25,85,-175]],ID["ESRI",102025]]</wkt>
         <proj4>+proj=aea +lat_0=30 +lon_0=95 +lat_1=15 +lat_2=65 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs</proj4>
         <srsid>27148</srsid>
         <srid>102025</srid>
@@ -2347,7 +2479,7 @@
         </Option>
       </Option>
     </Option>
-    <Option type="QString" value="E:\amelia\SPHY_demo\glaciers_tutorial\qgis_model\outputs" name="output_folder"/>
+    <Option type="QString" value="E:\amelia\SPHY_demo\glaciers_tutorial\qgis_model\outputs2" name="output_folder"/>
     <Option type="QgsProcessingOutputLayerDefinition" name="reproject_rgi">
       <Option type="Map">
         <Option type="Map" name="create_options">
@@ -2601,7 +2733,18 @@
     <Option type="Map" name="mod_id">
       <Option type="bool" value="true" name="create_by_default"/>
       <Option type="int" value="-1" name="data_type"/>
-      <Option type="invalid" name="default"/>
+      <Option type="QgsProcessingOutputLayerDefinition" name="default">
+        <Option type="Map">
+          <Option type="Map" name="create_options">
+            <Option type="QString" value="windows-1252" name="fileEncoding"/>
+          </Option>
+          <Option type="Map" name="sink">
+            <Option type="bool" value="true" name="active"/>
+            <Option type="int" value="1" name="type"/>
+            <Option type="QString" value=" concat(@output_folder,'/mod_id.map')" name="val"/>
+          </Option>
+        </Option>
+      </Option>
       <Option type="invalid" name="defaultGui"/>
       <Option type="QString" value="MOD_ID" name="description"/>
       <Option type="int" value="0" name="flags"/>
@@ -2726,7 +2869,18 @@
     <Option type="Map" name="rgi_clipped_reproject_glac_id">
       <Option type="bool" value="true" name="create_by_default"/>
       <Option type="int" value="-1" name="data_type"/>
-      <Option type="invalid" name="default"/>
+      <Option type="QgsProcessingOutputLayerDefinition" name="default">
+        <Option type="Map">
+          <Option type="Map" name="create_options">
+            <Option type="QString" value="windows-1252" name="fileEncoding"/>
+          </Option>
+          <Option type="Map" name="sink">
+            <Option type="bool" value="true" name="active"/>
+            <Option type="int" value="1" name="type"/>
+            <Option type="QString" value="" name="val"/>
+          </Option>
+        </Option>
+      </Option>
       <Option type="invalid" name="defaultGui"/>
       <Option type="QString" value="RGI_Clipped_Reproject_GLAC_ID" name="description"/>
       <Option type="int" value="0" name="flags"/>
