@@ -177,13 +177,60 @@ class processForcing(object):
                 #-Remove unnecessary files
                 self.removeFiles(self.tempdir, self.outdir)
             self.textLog.append('\nProcessing precipitation from ' + self.dbSource + ' database finished!')
+            
+        elif self.dbSource == 'ERA5Land':
+            self.textLog.append('Processing precipitation from ' + self.dbSource + ' database...\n')
+            for i in range(0, self.timeSteps):
+                daynr = i+1 # required for pcraster extension
+                curdate = self.startDate + datetime.timedelta(days=i)
+                year = str(curdate.year)
+                month = curdate.month
+                if month<10:
+                    month = '0'+str(month)
+                else:
+                    month = str(month)
+                day = curdate.day
+                if day<10:
+                    day = '0'+str(day)
+                else:
+                    day = str(day)
+                commands = []
+                #-command for extracting band and converting to GTiff format
+                com = 'gdal_translate -ot Float32 -of GTiff -b ' + day + ' ' + self.precDBPath + 'ERA5_Land_' +\
+                    year + '_' + month + '_PR.nc ' + self.tempdir + 'temp.tif'
+                commands.append(com)
+                #-command to project, resample, and extract to the correct extent
+                com = 'gdalwarp -s_srs ' + self.dbSrs + ' -t_srs ' + self.t_srs + ' -te ' + \
+                     self.xMin + ' ' + self.yMin + ' ' + self.xMax + ' ' + self.yMax + ' -tr ' + \
+                     self.t_res + ' ' + self.t_res + ' -r bilinear ' + self.tempdir + 'temp.tif ' + \
+                     self.tempdir + 'temp2.tif'
+                commands.append(com)
+                #-command to convert to pcraster map
+                com = 'gdal_translate -of PCRaster -ot Float32 ' + self.tempdir + 'temp2.tif ' + self.tempdir + 'temp.map'
+                commands.append(com)
+                pcrstr = self.pcrExtention(daynr)
+                #- no conversion is required here, ERA5 already in mm/day
+                com = self.pcrasterModelFile('"' + self.outdir + 'prec' + pcrstr + '" = if("' + self.tempdir + 'clone.map","' + self.tempdir + 'temp.map")')
+                commands.append('pcrcalc -f ' + com)
+                self.subProcessing(commands)
+                #-Progress bar
+                self.counter += 1
+                self.progBar.setValue(int(int(self.counter/self.procSteps*100)))
+                #-Text log
+                self.textLog.append('Prec ' + year + '-' + month + '-' + day)
+                #-Remove unnecessary files
+                self.removeFiles(self.tempdir, self.outdir)
+                
+            self.textLog.append('\nProcessing precipitation from ' + self.dbSource + ' database finished!')            
+            
+            
         else:
             self.textLog.append('Error: processing of precipitation from database not possible because database is not found')
         
     #-Create temperature forcing based on the database
     def createTempDB(self):
         #-If the database is from WFDEI (Watch forcing)
-        if self.dbSource == 'WFDEI':
+        if self.dbSource == 'WFDEI' or self.dbSource == 'ERA5Land': 
             self.textLog.append('\nProcessing temperature from ' + self.dbSource + ' database...\n')
             commands = []
             #-Convert the WFDEI dem (NetCDF) to a GeoTiff
@@ -229,8 +276,14 @@ class processForcing(object):
                     self.textLog.append(f + ' ' + year + '-' + month + '-' + day)    
                     commands = []
                     #-command for extracting band and converting to GTiff format
-                    com = 'gdal_translate -ot Float32 -of GTiff -b ' + day + ' ' + forcings[f] + f + '_daily_WFDEI_cl_' +\
-                        year + month + '.nc ' + self.tempdir + 'temp.tif'
+                    if self.dbSource == 'WFDEI':
+                        com = 'gdal_translate -ot Float32 -of GTiff -b ' + day + ' ' + forcings[f] + f + '_daily_WFDEI_cl_' +\
+                            year + month + '.nc ' + self.tempdir + 'temp.tif'
+                    
+                    elif self.dbSource == 'ERA5Land':
+                        com = 'gdal_translate -ot Float32 -of GTiff -b ' + day + ' ' + forcings[f] + f + '_Land_' +\
+                            year + '_' + month + '.nc ' + self.tempdir + 'temp.tif'                    
+                    
                     commands.append(com)
                     #-command to project, resample, and extract to the correct extent
                     com = 'gdalwarp -s_srs ' + self.dbSrs + ' -t_srs ' + self.t_srs + ' -te ' + \
@@ -242,9 +295,17 @@ class processForcing(object):
                     com = 'gdal_translate -of PCRaster -ot Float32 ' + self.tempdir + 'temp2.tif ' + self.tempdir + 'temp.map'
                     commands.append(com)
                     pcrstr = self.pcrExtention(daynr)
-                    #-command to calculate the correct temperature using a lapse rate and the demDiff.map
-                    com = self.pcrasterModelFile('"' + self.outdir + f + pcrstr + '" = ("' + self.tempdir + \
-                        'temp.map" + (-0.0065 * "' + self.tempdir + 'demDiff.map")) - 273.15')
+                    
+                    if self.dbSource == 'WFDEI':
+                        #-command to calculate the correct temperature using a lapse rate and the demDiff.map
+                        com = self.pcrasterModelFile('"' + self.outdir + f + pcrstr + '" = ("' + self.tempdir + \
+                            'temp.map" + (-0.0065 * "' + self.tempdir + 'demDiff.map")) - 273.15')
+                            
+                    elif self.dbSource == 'ERA5Land':
+                        com = self.pcrasterModelFile('"' + self.outdir + f + pcrstr + '" = ("' + self.tempdir + \
+                            'temp.map" )')
+                    
+                                        
                     commands.append('pcrcalc -f ' + com)
                     self.subProcessing(commands)
                     #-Progress bar

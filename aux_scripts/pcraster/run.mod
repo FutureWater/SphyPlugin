@@ -1,1 +1,1 @@
-"E:/amelia/SPHY-syrdarya/input/basin.map" = catchment("E:/amelia/SPHY-syrdarya/input/ldd.map","E:/amelia/SPHY-syrdarya/input/outlets.map")
+"E:/amelia/SPHY-syrdarya/input/forcing/Tmin0000.031" = ("E:/amelia/SPHY-syrdarya/input/temp.map" )
