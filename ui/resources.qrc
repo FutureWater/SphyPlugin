@@ -4,6 +4,9 @@
     <file>../images/icon.png</file>
     <file>../images/select_area.png</file>
     <file>../images/delineation.png</file>
+	<file>../images/timeseres_image_transparent.png</file>
+	<file>../images/delineation_image_transparent.png</file>
+
   </qresource>
 </RCC>
 

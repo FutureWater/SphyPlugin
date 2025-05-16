@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
+    <width>521</width>
     <height>763</height>
    </rect>
   </property>
@@ -102,7 +102,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="tabBarAutoHide">
       <bool>false</bool>
@@ -890,7 +890,7 @@ button to identify the corresponding UTM zone for your model area.</string>
             <rect>
              <x>10</x>
              <y>35</y>
-             <width>124</width>
+             <width>201</width>
              <height>91</height>
             </rect>
            </property>
@@ -944,9 +944,9 @@ button to identify the corresponding UTM zone for your model area.</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>130</y>
+         <y>140</y>
          <width>481</width>
-         <height>251</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -988,7 +988,7 @@ button to identify the corresponding UTM zone for your model area.</string>
          <x>10</x>
          <y>10</y>
          <width>481</width>
-         <height>101</height>
+         <height>131</height>
         </rect>
        </property>
        <property name="title">
@@ -1035,20 +1035,20 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>390</y>
-         <width>461</width>
-         <height>241</height>
+         <x>120</x>
+         <y>310</y>
+         <width>251</width>
+         <height>351</height>
         </rect>
        </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/delineation.png</pixmap>
+        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/delineation_image_transparent.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1136,10 +1136,10 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>370</y>
-         <width>271</width>
-         <height>261</height>
+         <x>130</x>
+         <y>340</y>
+         <width>251</width>
+         <height>321</height>
         </rect>
        </property>
        <property name="font">
@@ -1153,7 +1153,7 @@ button to identify the corresponding UTM zone for your model area.</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/stations.png</pixmap>
+        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/timeseres_image_transparent.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1173,7 +1173,7 @@ button to identify the corresponding UTM zone for your model area.</string>
          <x>10</x>
          <y>10</y>
          <width>491</width>
-         <height>51</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="title">
@@ -1483,7 +1483,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>10</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -2039,142 +2039,6 @@ p, li { white-space: pre-wrap; }
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Rootzone physical maps</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_14">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_36">
-            <item>
-             <widget class="QLabel" name="rootFieldCapMapLabel">
-              <property name="text">
-               <string>Field capacity [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootFieldCapLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootFieldCapMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_37">
-            <item>
-             <widget class="QLabel" name="rootSatMapLabel">
-              <property name="text">
-               <string>Saturated content [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootSatLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootSatMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_39">
-            <item>
-             <widget class="QLabel" name="rootPermWiltMapLabel">
-              <property name="text">
-               <string>Permanent wilting
-point [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootPermWiltLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootPermWiltMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_40">
-            <item>
-             <widget class="QLabel" name="rootWiltMapLabel">
-              <property name="text">
-               <string>Wilting point [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootWiltLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootWiltMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_41">
-            <item>
-             <widget class="QLabel" name="rootSatCondMapLabel">
-              <property name="text">
-               <string>Saturated hydraulic
-conductivity [mm/d]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootSatCondLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootSatCondMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="2" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
@@ -2321,7 +2185,7 @@ conductivity [mm/d]</string>
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
           <string>Subzone physical maps</string>
@@ -2396,6 +2260,142 @@ conductivity [mm/d]</string>
             </item>
             <item>
              <widget class="QToolButton" name="selectSubSatCondMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Rootzone physical maps</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_36">
+            <item>
+             <widget class="QLabel" name="rootFieldCapMapLabel">
+              <property name="text">
+               <string>Field capacity [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootFieldCapLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootFieldCapMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_37">
+            <item>
+             <widget class="QLabel" name="rootSatMapLabel">
+              <property name="text">
+               <string>Saturated content [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootSatLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootSatMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_39">
+            <item>
+             <widget class="QLabel" name="rootPermWiltMapLabel">
+              <property name="text">
+               <string>Permanent wilting
+point [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootPermWiltLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootPermWiltMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_40">
+            <item>
+             <widget class="QLabel" name="rootWiltMapLabel">
+              <property name="text">
+               <string>Wilting point [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootWiltLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootWiltMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_41">
+            <item>
+             <widget class="QLabel" name="rootSatCondMapLabel">
+              <property name="text">
+               <string>Saturated hydraulic
+conductivity [mm/d]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootSatCondLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootSatCondMapButton">
               <property name="text">
                <string>Select map</string>
               </property>
@@ -2851,9 +2851,9 @@ conductivity [mm/d]</string>
       <widget class="QGroupBox" name="glaciersGroupBox">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>30</y>
-         <width>501</width>
+         <x>10</x>
+         <y>10</y>
+         <width>491</width>
          <height>631</height>
         </rect>
        </property>
@@ -2883,7 +2883,7 @@ conductivity [mm/d]</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>70</y>
+          <y>20</y>
           <width>497</width>
           <height>191</height>
          </rect>
@@ -3038,7 +3038,7 @@ conductivity [mm/d]</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>270</y>
+          <y>210</y>
           <width>487</width>
           <height>304</height>
          </rect>
@@ -3212,7 +3212,7 @@ conductivity [mm/d]</string>
             <x>0</x>
             <y>30</y>
             <width>487</width>
-            <height>251</height>
+            <height>281</height>
            </rect>
           </property>
           <property name="font">
@@ -3229,7 +3229,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>20</y>
+             <y>30</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3290,7 +3290,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>90</y>
+             <y>110</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3351,7 +3351,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>170</y>
+             <y>190</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3416,7 +3416,7 @@ conductivity [mm/d]</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>290</y>
+            <y>310</y>
             <width>487</width>
             <height>315</height>
            </rect>
@@ -3920,8 +3920,8 @@ conductivity [mm/d]</string>
       <widget class="QCheckBox" name="mmRepFlagCheckBox">
        <property name="geometry">
         <rect>
-         <x>271</x>
-         <y>190</y>
+         <x>280</x>
+         <y>210</y>
          <width>200</width>
          <height>17</height>
         </rect>
@@ -3938,8 +3938,8 @@ conductivity [mm/d]</string>
         <rect>
          <x>271</x>
          <y>9</y>
-         <width>113</width>
-         <height>163</height>
+         <width>151</width>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -4487,9 +4487,9 @@ conductivity [mm/d]</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>10</y>
+         <y>0</y>
          <width>501</width>
-         <height>181</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -4499,10 +4499,13 @@ conductivity [mm/d]</string>
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Select a time-series from the list
-below and click the button to select
- a point in the map to show the
-time-series</string>
+           <string>Select a time-series from the list below and click the button to select a point in the map to show the time-series</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::PlainText</enum>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -4522,9 +4525,9 @@ time-series</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>210</y>
+         <y>190</y>
          <width>491</width>
-         <height>461</height>
+         <height>481</height>
         </rect>
        </property>
        <property name="title">
@@ -4534,7 +4537,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
+          <y>20</y>
           <width>481</width>
           <height>31</height>
          </rect>
@@ -4542,12 +4545,15 @@ time-series</string>
         <property name="text">
          <string>Select a daily, monthly, or annual map from one of the three lists below, and click the button to show the map.</string>
         </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QGroupBox" name="groupBox_37">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>160</y>
+          <y>200</y>
           <width>481</width>
           <height>121</height>
          </rect>
@@ -4572,7 +4578,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>40</y>
+          <y>70</y>
           <width>481</width>
           <height>121</height>
          </rect>
@@ -4597,7 +4603,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>290</y>
+          <y>330</y>
           <width>481</width>
           <height>121</height>
          </rect>
