@@ -482,12 +482,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
 }
                              
-                             
-                            # Glaciers part to be discussed                             
-                            #  , "initGlacFracLineEdit": ("GLACIER_INIT", "GlacFrac"),
-                            #  "cIFracLineEdit": ("GLACIER", "GlacFracCI"), "dBFracLineEdit": ("GLACIER", "GlacFracDB"),
-                            #  "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
-                           
                            
         
         self.setGui()

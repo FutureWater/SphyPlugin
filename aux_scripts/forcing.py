@@ -233,29 +233,30 @@ class processForcing(object):
         if self.dbSource == 'WFDEI' or self.dbSource == 'ERA5Land': 
             self.textLog.append('\nProcessing temperature from ' + self.dbSource + ' database...\n')
             commands = []
-            #-Convert the WFDEI dem (NetCDF) to a GeoTiff
-            com = 'gdal_translate -of GTiff ' + self.dbDem + ' ' + self.tempdir + 'temp.tif'
-            commands.append(com)
-            self.textLog.append('\nConverting WFDEI dem to GeoTiff')
-            #-Resample the WFDEI dem to the clone projection, extent, and resolution
-            com = 'gdalwarp -r bilinear -ot Float32 -s_srs ' + self.dbSrs + ' -t_srs ' + self.t_srs + \
-                ' -tr ' + self.t_res + ' ' + self.t_res + ' -te ' + self.xMin + ' ' + \
-                self.yMin + ' ' + self.xMax + ' ' + self.yMax + ' ' + self.tempdir + \
-                'temp.tif ' + self.tempdir + 'temp2.tif'
-            commands.append(com)
-            self.textLog.append('\nResampling WFDEI dem to clone resolution, projection, and extent')
-            #-Convert to PCRaster format
-            com = 'gdal_translate -of PCRaster ' + self.tempdir + 'temp2.tif ' + \
-                self.tempdir + 'demWFDEI.map'
-            commands.append(com)
-            self.textLog.append('\nConverting WFDEI dem to pcraster format: demWFDEI.map')
-            #-Difference between model dem and WFDEI dem
-            com = self.pcrasterModelFile('"' + self.tempdir + 'demDiff.map' + '" = "' + self.modelDem + '" - "' + self.tempdir + 'demWFDEI.map"') 
-            commands.append('pcrcalc -f ' + com)
-            self.textLog.append('\nCalculating the difference between the model dem and WFDEI dem: demDiff.map\n')
-            self.subProcessing(commands)
-            #-Remove temporary files
-            self.removeFiles(self.tempdir, self.outdir)
+            if self.dbSource == 'WFDEI':
+                #-Convert the WFDEI dem (NetCDF) to a GeoTiff
+                com = 'gdal_translate -of GTiff ' + self.dbDem + ' ' + self.tempdir + 'temp.tif'
+                commands.append(com)
+                self.textLog.append('\nConverting WFDEI dem to GeoTiff')
+                #-Resample the WFDEI dem to the clone projection, extent, and resolution
+                com = 'gdalwarp -r bilinear -ot Float32 -s_srs ' + self.dbSrs + ' -t_srs ' + self.t_srs + \
+                    ' -tr ' + self.t_res + ' ' + self.t_res + ' -te ' + self.xMin + ' ' + \
+                    self.yMin + ' ' + self.xMax + ' ' + self.yMax + ' ' + self.tempdir + \
+                    'temp.tif ' + self.tempdir + 'temp2.tif'
+                commands.append(com)
+                self.textLog.append('\nResampling WFDEI dem to clone resolution, projection, and extent')
+                #-Convert to PCRaster format
+                com = 'gdal_translate -of PCRaster ' + self.tempdir + 'temp2.tif ' + \
+                    self.tempdir + 'demWFDEI.map'
+                commands.append(com)
+                self.textLog.append('\nConverting WFDEI dem to pcraster format: demWFDEI.map')
+                #-Difference between model dem and WFDEI dem
+                com = self.pcrasterModelFile('"' + self.tempdir + 'demDiff.map' + '" = "' + self.modelDem + '" - "' + self.tempdir + 'demWFDEI.map"') 
+                commands.append('pcrcalc -f ' + com)
+                self.textLog.append('\nCalculating the difference between the model dem and WFDEI dem: demDiff.map\n')
+                self.subProcessing(commands)
+                #-Remove temporary files
+                self.removeFiles(self.tempdir, self.outdir)
             #-Loop over the 3 temperature forcings and create daily maps
             forcings = {'Tair': self.tavgDBPath, 'Tmax': self.tmaxDBPath, 'Tmin': self.tminDBPath}
             for f in forcings:
