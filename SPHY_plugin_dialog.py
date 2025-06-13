@@ -528,7 +528,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'Sub_Ksat': 'sub_ksat.map', 'LandUse': 'landuse.map', 'Latitudes': 'latitude.map'}
         #-glacier and routing maps are only created if these modules are turned on. Snow and groundwater modules don't require the creation of maps, but are implemented for possible
         # future developments. The Gui doesn't do anything with these two modules yet.
-        self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Lapse rates table': 'lapserates.tbl'} #╔{'GlacFrac': 'glacfrac.map', 'GlacFracCI': 'glac_cleanice.map', 'GlacFracDB': 'glac_debris.map'}
+        self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Lapse rates table': 'lapserates.tbl'} 
         self.routingMaps = {'LDD': 'ldd.map', 'Outlets': 'outlets.map', 'Rivers': 'river.map', 'AccuFlux': 'accuflux.map', 'Sub-basins': 'subbasins.map'}
         self.setModulesDict()
         #-Dictionary for the Meteorological forcing Tab
@@ -848,27 +848,12 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 #names on the reporting table
                 for key in self.reportDict:
                     item = self.reportDict[key] # legend name
-                    map = self.currentConfig.get("REPORTING", item + "_mapoutput") 
+                    map_out = self.currentConfig.get("REPORTING", item + "_mapoutput") 
                     timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
                     if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
-                        row[1] = map.replace(',','+')  # Update the 'map' column
+                        row[1] = map_out.replace(',','+')  # Update the 'map' column
                         row[3] = timeseries
                 
-
-
-            # #names on the reporting table
-            # for key in self.reportDict:
-            #     item = self.reportDict[key] # legend name
-            #     map = self.currentConfig.get("REPORTING", item + "_mapoutput") 
-            #     timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
-
-
-            #     # Modify the specific row
-            #     for row in rows:
-
-            #         if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
-            #             row[1] = map.replace(',','+')  # Update the 'map' column
-            #             row[3] = timeseries
 
         # Overwrite the same file
         with open(self.currentreptabFileName, mode="w", newline="") as outfile:
@@ -1326,7 +1311,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             tlapse_path = os.path.dirname(__file__) + '/config/lapserates.tbl'
             shutil.copy(tlapse_path, os.path.join(self.resultsPath, 'lapserates.tbl'))
             
-            print('Running glaciers model')
+            self.processLog1TextEdit.append('Running glaciers model')
+       
             processing.run("model:glaciers_model", 
                            {'clone_map': os.path.join(self.resultsPath, 'clone.map'),
                             'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
@@ -1335,12 +1321,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'ferrinoti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ferrinoti_file')),
                             'model_resolution':self.spatialRes,'model_crs':t_srs,
                             'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
-                            'glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT',
-                            'intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT',
-                            'debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT',
-                            'modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT',
-                            'intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
-            print('Glaciers Module done')
+                            
+                            'rgi_clipped_reproject':'TEMPORARY_OUTPUT','mod_id_raster':'TEMPORARY_OUTPUT','glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT','intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT','debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','reproject_rgi':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT','modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT','intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
+                            
+                            
+            self.processLog1TextEdit.append('Glaciers module completed')
 
                    
         self.initialMapsProgressBar.setValue(100)

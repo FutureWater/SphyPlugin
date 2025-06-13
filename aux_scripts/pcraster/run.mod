@@ -1,1 +1,1 @@
-"E:/amelia/SPHY_demo/test_trisuli_1km/input/forcing/prec0000.254" = if("E:/amelia/SPHY_demo/test_trisuli_1km/input/clone.map","E:/amelia/SPHY_demo/test_trisuli_1km/input/temp.map")
+"E:/amelia/SPHY_demo/test_trisuli_1km/input/forcing/Tmin0000.365" = ("E:/amelia/SPHY_demo/test_trisuli_1km/input/temp.map" )
