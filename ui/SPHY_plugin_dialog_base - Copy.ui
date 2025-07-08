@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>523</width>
-    <height>763</height>
+    <width>512</width>
+    <height>762</height>
    </rect>
   </property>
   <property name="font">
@@ -16,58 +16,19 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>SPHY PLUGIN 3.0</string>
+   <string>SPHY PLUGIN 3.1</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/plugins/SphyPreProcess/images/icon.png</normaloff>:/plugins/SphyPreProcess/images/icon.png</iconset>
+   <iconset resource="resources.qrc">
+    <normaloff>:/plugins/SphyPlugin/images/icon.png</normaloff>
+    <normalon>:/plugins/SphyPlugin/images/icon.png</normalon>:/plugins/SphyPlugin/images/icon.png</iconset>
   </property>
-  <widget class="QWidget" name="horizontalLayoutWidget">
-   <property name="geometry">
-    <rect>
-     <x>120</x>
-     <y>10</y>
-     <width>264</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <layout class="QHBoxLayout" name="horizontalLayout_7">
-    <item>
-     <widget class="QToolButton" name="newButton">
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-        <underline>false</underline>
-       </font>
-      </property>
-      <property name="text">
-       <string>New Project</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="openButton">
-      <property name="text">
-       <string>Open project</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QToolButton" name="saveAsButton">
-      <property name="text">
-       <string>Save As</string>
-      </property>
-     </widget>
-    </item>
-   </layout>
-  </widget>
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>50</y>
-     <width>521</width>
+     <width>511</width>
      <height>711</height>
     </rect>
    </property>
@@ -86,7 +47,7 @@
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>521</width>
+       <width>511</width>
        <height>691</height>
       </rect>
      </property>
@@ -194,20 +155,6 @@
         <bool>true</bool>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_17">
-        <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit">
-          <property name="plainText">
-           <string>Dates in which preprocess inputs will be computed
-</string>
-          </property>
-          <property name="backgroundVisible">
-           <bool>false</bool>
-          </property>
-          <property name="centerOnScroll">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
         <item>
          <widget class="QLabel" name="startDateLabel">
           <property name="text">
@@ -815,7 +762,7 @@ button to identify the corresponding UTM zone for your model area.</string>
          <x>10</x>
          <y>270</y>
          <width>451</width>
-         <height>277</height>
+         <height>309</height>
         </rect>
        </property>
        <property name="title">
@@ -836,13 +783,6 @@ button to identify the corresponding UTM zone for your model area.</string>
          <widget class="QProgressBar" name="initialMapsProgressBar">
           <property name="value">
            <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="createInitialMapsToolButton">
-          <property name="text">
-           <string>Create initial maps</string>
           </property>
          </widget>
         </item>
@@ -903,7 +843,7 @@ button to identify the corresponding UTM zone for your model area.</string>
             <rect>
              <x>10</x>
              <y>35</y>
-             <width>124</width>
+             <width>201</width>
              <height>91</height>
             </rect>
            </property>
@@ -948,6 +888,19 @@ button to identify the corresponding UTM zone for your model area.</string>
         </item>
        </layout>
       </widget>
+      <widget class="QToolButton" name="createInitialMapsToolButton">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>590</y>
+         <width>131</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Create initial maps</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QWidget" name="basinDelineationTab">
       <attribute name="title">
@@ -957,9 +910,9 @@ button to identify the corresponding UTM zone for your model area.</string>
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>130</y>
+         <y>140</y>
          <width>481</width>
-         <height>251</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -1001,7 +954,7 @@ button to identify the corresponding UTM zone for your model area.</string>
          <x>10</x>
          <y>10</y>
          <width>481</width>
-         <height>101</height>
+         <height>131</height>
         </rect>
        </property>
        <property name="title">
@@ -1048,20 +1001,20 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>20</x>
-         <y>390</y>
-         <width>461</width>
-         <height>241</height>
+         <x>120</x>
+         <y>310</y>
+         <width>251</width>
+         <height>351</height>
         </rect>
        </property>
        <property name="autoFillBackground">
-        <bool>true</bool>
+        <bool>false</bool>
        </property>
        <property name="text">
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/delineation.png</pixmap>
+        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/delineation_image_transparent.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1149,10 +1102,10 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>140</x>
-         <y>370</y>
-         <width>271</width>
-         <height>261</height>
+         <x>130</x>
+         <y>340</y>
+         <width>251</width>
+         <height>321</height>
         </rect>
        </property>
        <property name="font">
@@ -1166,7 +1119,7 @@ button to identify the corresponding UTM zone for your model area.</string>
         <string/>
        </property>
        <property name="pixmap">
-        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/stations.png</pixmap>
+        <pixmap resource="resources.qrc">:/plugins/SphyPlugin/images/timeseres_image_transparent.png</pixmap>
        </property>
        <property name="scaledContents">
         <bool>true</bool>
@@ -1186,7 +1139,7 @@ button to identify the corresponding UTM zone for your model area.</string>
          <x>10</x>
          <y>10</y>
          <width>491</width>
-         <height>51</height>
+         <height>61</height>
         </rect>
        </property>
        <property name="title">
@@ -1483,7 +1436,7 @@ button to identify the corresponding UTM zone for your model area.</string>
     <attribute name="title">
      <string>Model</string>
     </attribute>
-    <widget class="QTabWidget" name="tab_3">
+    <widget class="QTabWidget" name="MODEL">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -1491,12 +1444,12 @@ button to identify the corresponding UTM zone for your model area.</string>
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>511</width>
+       <width>501</width>
        <height>681</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1592,63 +1545,109 @@ button to identify the corresponding UTM zone for your model area.</string>
          <property name="title">
           <string>Period of simulation</string>
          </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_85">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_24">
-            <item>
-             <widget class="QLabel" name="label_8">
-              <property name="text">
-               <string>Spin up years</string>
-              </property>
+         <widget class="QWidget" name="layoutWidget">
+          <property name="geometry">
+           <rect>
+            <x>31</x>
+            <y>40</y>
+            <width>411</width>
+            <height>141</height>
+           </rect>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_85">
+           <item>
+            <widget class="QSplitter" name="splitter_2">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <widget class="QWidget" name="layoutWidget">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLabel" name="label_10">
+                 <property name="text">
+                  <string>Timestep 1</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="timestep1DateEdit_m">
+                 <property name="displayFormat">
+                  <string>dd-MMM-yyyy</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
-            </item>
-            <item>
-             <widget class="QSpinBox" name="spinupyearSpinBox"/>
-            </item>
-            <item>
-             <widget class="QLabel" name="startDateLabel_2">
-              <property name="text">
-               <string>Start date</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
+             <widget class="QWidget" name="layoutWidget">
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QLabel" name="startDateLabel_2">
+                 <property name="text">
+                  <string>Start date</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="startDateEdit_m">
+                 <property name="displayFormat">
+                  <string>dd-MMM-yyyy</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="startDateEdit_m">
-              <property name="displayFormat">
-               <string>dd-MMM-yyyy</string>
-              </property>
+             <widget class="QWidget" name="layoutWidget">
+              <layout class="QHBoxLayout" name="horizontalLayout_15">
+               <item>
+                <widget class="QLabel" name="endDateLabel_2">
+                 <property name="text">
+                  <string>End date</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QDateEdit" name="endDateEdit_m">
+                 <property name="displayFormat">
+                  <string>dd-MMM-yyyy</string>
+                 </property>
+                 <property name="date">
+                  <date>
+                   <year>2005</year>
+                   <month>12</month>
+                   <day>31</day>
+                  </date>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="endDateLabel_2">
-              <property name="text">
-               <string>End date</string>
-              </property>
-              <property name="alignment">
-               <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDateEdit" name="endDateEdit_m">
-              <property name="displayFormat">
-               <string>dd-MMM-yyyy</string>
-              </property>
-              <property name="date">
-               <date>
-                <year>2005</year>
-                <month>12</month>
-                <day>31</day>
-               </date>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_24">
+             <item>
+              <widget class="QLabel" name="label_8">
+               <property name="text">
+                <string>Spin up years</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinupyearSpinBox"/>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -1781,32 +1780,6 @@ button to identify the corresponding UTM zone for your model area.</string>
              </widget>
             </item>
            </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QGroupBox" name="coordinateSystemGroupBox_2">
-         <property name="title">
-          <string>Coordinate system</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
-           <widget class="QLabel" name="crsLabel">
-            <property name="text">
-             <string>EPSG:</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="crsSpinBox">
-            <property name="maximum">
-             <number>1000000000</number>
-            </property>
-            <property name="value">
-             <number>4326</number>
-            </property>
-           </widget>
           </item>
          </layout>
         </widget>
@@ -2078,142 +2051,6 @@ p, li { white-space: pre-wrap; }
        <property name="fieldGrowthPolicy">
         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
        </property>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="title">
-          <string>Rootzone physical maps</string>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_14">
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_36">
-            <item>
-             <widget class="QLabel" name="rootFieldCapMapLabel">
-              <property name="text">
-               <string>Field capacity [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootFieldCapLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootFieldCapMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_37">
-            <item>
-             <widget class="QLabel" name="rootSatMapLabel">
-              <property name="text">
-               <string>Saturated content [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootSatLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootSatMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_39">
-            <item>
-             <widget class="QLabel" name="rootPermWiltMapLabel">
-              <property name="text">
-               <string>Permanent wilting
-point [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootPermWiltLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootPermWiltMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_40">
-            <item>
-             <widget class="QLabel" name="rootWiltMapLabel">
-              <property name="text">
-               <string>Wilting point [mm/mm]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootWiltLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootWiltMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_41">
-            <item>
-             <widget class="QLabel" name="rootSatCondMapLabel">
-              <property name="text">
-               <string>Saturated hydraulic
-conductivity [mm/d]</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLineEdit" name="rootSatCondLineEdit">
-              <property name="readOnly">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="selectRootSatCondMapButton">
-              <property name="text">
-               <string>Select map</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="2" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_5">
          <property name="title">
@@ -2360,7 +2197,7 @@ conductivity [mm/d]</string>
          </layout>
         </widget>
        </item>
-       <item row="1" column="0">
+       <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
           <string>Subzone physical maps</string>
@@ -2435,6 +2272,142 @@ conductivity [mm/d]</string>
             </item>
             <item>
              <widget class="QToolButton" name="selectSubSatCondMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>Rootzone physical maps</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_14">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_36">
+            <item>
+             <widget class="QLabel" name="rootFieldCapMapLabel">
+              <property name="text">
+               <string>Field capacity [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootFieldCapLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootFieldCapMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_37">
+            <item>
+             <widget class="QLabel" name="rootSatMapLabel">
+              <property name="text">
+               <string>Saturated content [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootSatLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootSatMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_39">
+            <item>
+             <widget class="QLabel" name="rootPermWiltMapLabel">
+              <property name="text">
+               <string>Permanent wilting
+point [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootPermWiltLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootPermWiltMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_40">
+            <item>
+             <widget class="QLabel" name="rootWiltMapLabel">
+              <property name="text">
+               <string>Wilting point [mm/mm]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootWiltLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootWiltMapButton">
+              <property name="text">
+               <string>Select map</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_41">
+            <item>
+             <widget class="QLabel" name="rootSatCondMapLabel">
+              <property name="text">
+               <string>Saturated hydraulic
+conductivity [mm/d]</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLineEdit" name="rootSatCondLineEdit">
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="selectRootSatCondMapButton">
               <property name="text">
                <string>Select map</string>
               </property>
@@ -2890,9 +2863,9 @@ conductivity [mm/d]</string>
       <widget class="QGroupBox" name="glaciersGroupBox">
        <property name="geometry">
         <rect>
-         <x>0</x>
-         <y>30</y>
-         <width>501</width>
+         <x>10</x>
+         <y>10</y>
+         <width>491</width>
          <height>631</height>
         </rect>
        </property>
@@ -2922,7 +2895,7 @@ conductivity [mm/d]</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>70</y>
+          <y>20</y>
           <width>497</width>
           <height>191</height>
          </rect>
@@ -2935,15 +2908,15 @@ conductivity [mm/d]</string>
          </font>
         </property>
         <property name="title">
-         <string>Glacier fraction settings</string>
+         <string>Glacier settings</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_12">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_65">
            <item>
-            <widget class="QLabel" name="initGlacFracLabel">
+            <widget class="QLabel" name="glaciersTableLabel">
              <property name="text">
-              <string>Initial glacier fraction [-]</string>
+              <string>Glacier CSV table [-]</string>
              </property>
             </widget>
            </item>
@@ -2955,9 +2928,9 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectInitGlacFracMapButton">
+            <widget class="QToolButton" name="selectGlaciersTableButton">
              <property name="text">
-              <string>Select map</string>
+              <string>Select table</string>
              </property>
             </widget>
            </item>
@@ -2966,9 +2939,9 @@ conductivity [mm/d]</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_66">
            <item>
-            <widget class="QLabel" name="cIFracLabel">
+            <widget class="QLabel" name="ModelIDLabel">
              <property name="text">
-              <string>Clean ice glacier fraction [-]</string>
+              <string>Model ID [-]</string>
              </property>
             </widget>
            </item>
@@ -2980,7 +2953,7 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectCIFracMapButton">
+            <widget class="QToolButton" name="selectModelIDButton">
              <property name="text">
               <string>Select map</string>
              </property>
@@ -2991,9 +2964,9 @@ conductivity [mm/d]</string>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_67">
            <item>
-            <widget class="QLabel" name="dBFracLabel">
+            <widget class="QLabel" name="GlacIDLabel">
              <property name="text">
-              <string>Debris covered glacier fraction [-]</string>
+              <string>Glac ID [-]</string>
              </property>
             </widget>
            </item>
@@ -3005,7 +2978,7 @@ conductivity [mm/d]</string>
             </widget>
            </item>
            <item>
-            <widget class="QToolButton" name="selectDBFracMapButton">
+            <widget class="QToolButton" name="selectGlacIDMapButton">
              <property name="text">
               <string>Select map</string>
              </property>
@@ -3077,7 +3050,7 @@ conductivity [mm/d]</string>
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>270</y>
+          <y>210</y>
           <width>487</width>
           <height>304</height>
          </rect>
@@ -3251,7 +3224,7 @@ conductivity [mm/d]</string>
             <x>0</x>
             <y>30</y>
             <width>487</width>
-            <height>251</height>
+            <height>281</height>
            </rect>
           </property>
           <property name="font">
@@ -3268,7 +3241,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>20</y>
+             <y>30</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3329,7 +3302,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>90</y>
+             <y>110</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3390,7 +3363,7 @@ conductivity [mm/d]</string>
            <property name="geometry">
             <rect>
              <x>10</x>
-             <y>170</y>
+             <y>190</y>
              <width>467</width>
              <height>71</height>
             </rect>
@@ -3455,7 +3428,7 @@ conductivity [mm/d]</string>
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>290</y>
+            <y>310</y>
             <width>487</width>
             <height>315</height>
            </rect>
@@ -3946,100 +3919,49 @@ conductivity [mm/d]</string>
       <attribute name="title">
        <string>Report options</string>
       </attribute>
-      <widget class="QListWidget" name="reportListWidget">
+      <widget class="QGroupBox" name="groupBox_39">
        <property name="geometry">
         <rect>
-         <x>9</x>
-         <y>9</y>
-         <width>256</width>
-         <height>401</height>
-        </rect>
-       </property>
-      </widget>
-      <widget class="QCheckBox" name="mmRepFlagCheckBox">
-       <property name="geometry">
-        <rect>
-         <x>271</x>
-         <y>190</y>
-         <width>200</width>
-         <height>17</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>Report mm fluxes for upstream area</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="modelReportGroupBox">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>271</x>
-         <y>9</y>
-         <width>113</width>
-         <height>163</height>
+         <x>20</x>
+         <y>20</y>
+         <width>241</width>
+         <height>141</height>
         </rect>
        </property>
        <property name="title">
-        <string>Model output settings:</string>
+        <string>Select your preferred reporting option</string>
        </property>
-       <layout class="QVBoxLayout" name="verticalLayout_28">
-        <item>
-         <layout class="QGridLayout" name="reportLayout">
-          <item row="0" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_29">
-            <item>
-             <widget class="QLabel" name="mapLabel">
-              <property name="text">
-               <string>Map-series output</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="dailyMapReportCheckBox">
-              <property name="text">
-               <string>Daily</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="monthlyMapReportCheckBox">
-              <property name="text">
-               <string>Monthly</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="annualMapReportCheckBox">
-              <property name="text">
-               <string>Annual</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <layout class="QVBoxLayout" name="verticalLayout_30">
-            <item>
-             <widget class="QLabel" name="tssLabel">
-              <property name="text">
-               <string>Time-series output</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QCheckBox" name="dailyTSSReportCheckBox">
-              <property name="text">
-               <string>Daily</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </item>
-       </layout>
+       <widget class="QSplitter" name="splitter">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>30</y>
+          <width>122</width>
+          <height>63</height>
+         </rect>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <widget class="QRadioButton" name="basicReportingRadioButton">
+         <property name="text">
+          <string>Basic Reporting</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="AdvancedReportingRadioButton">
+         <property name="text">
+          <string>Advanced Reporting</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="CustomReportingRadioButton">
+         <property name="text">
+          <string>Custom Reporting</string>
+         </property>
+        </widget>
+       </widget>
       </widget>
      </widget>
      <widget class="QWidget" name="runModelTab">
@@ -4069,7 +3991,7 @@ conductivity [mm/d]</string>
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>0</red>
-               <green>85</green>
+               <green>0</green>
                <blue>0</blue>
               </color>
              </brush>
@@ -4077,9 +3999,135 @@ conductivity [mm/d]</string>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>85</green>
+               <red>255</red>
+               <green>255</green>
                <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>170</red>
+               <green>170</green>
+               <blue>170</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -4089,7 +4137,7 @@ conductivity [mm/d]</string>
              <brush brushstyle="SolidPattern">
               <color alpha="255">
                <red>0</red>
-               <green>85</green>
+               <green>0</green>
                <blue>0</blue>
               </color>
              </brush>
@@ -4097,9 +4145,135 @@ conductivity [mm/d]</string>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>85</green>
+               <red>255</red>
+               <green>255</green>
                <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>170</red>
+               <green>170</green>
+               <blue>170</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -4108,18 +4282,144 @@ conductivity [mm/d]</string>
             <colorrole role="WindowText">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>120</red>
-               <green>120</green>
-               <blue>120</blue>
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
               </color>
              </brush>
             </colorrole>
             <colorrole role="Button">
              <brush brushstyle="SolidPattern">
               <color alpha="255">
-               <red>0</red>
-               <green>85</green>
+               <red>255</red>
+               <green>255</green>
                <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Light">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Midlight">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Dark">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Mid">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>170</red>
+               <green>170</green>
+               <blue>170</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Text">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="BrightText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ButtonText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>127</red>
+               <green>127</green>
+               <blue>127</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Base">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Window">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="Shadow">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="AlternateBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>255</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipBase">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>255</red>
+               <green>255</green>
+               <blue>220</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="ToolTipText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="255">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
+              </color>
+             </brush>
+            </colorrole>
+            <colorrole role="PlaceholderText">
+             <brush brushstyle="SolidPattern">
+              <color alpha="128">
+               <red>0</red>
+               <green>0</green>
+               <blue>0</blue>
               </color>
              </brush>
             </colorrole>
@@ -4148,9 +4448,9 @@ conductivity [mm/d]</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>10</y>
+         <y>0</y>
          <width>501</width>
-         <height>181</height>
+         <height>191</height>
         </rect>
        </property>
        <property name="title">
@@ -4160,10 +4460,13 @@ conductivity [mm/d]</string>
         <item>
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Select a time-series from the list
-below and click the button to select
- a point in the map to show the
-time-series</string>
+           <string>Select a time-series from the list below and click the button to select a point in the map to show the time-series</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::PlainText</enum>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
@@ -4183,9 +4486,9 @@ time-series</string>
        <property name="geometry">
         <rect>
          <x>0</x>
-         <y>210</y>
+         <y>190</y>
          <width>491</width>
-         <height>461</height>
+         <height>481</height>
         </rect>
        </property>
        <property name="title">
@@ -4195,7 +4498,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>10</y>
+          <y>20</y>
           <width>481</width>
           <height>31</height>
          </rect>
@@ -4203,12 +4506,15 @@ time-series</string>
         <property name="text">
          <string>Select a daily, monthly, or annual map from one of the three lists below, and click the button to show the map.</string>
         </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
        </widget>
        <widget class="QGroupBox" name="groupBox_37">
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>160</y>
+          <y>200</y>
           <width>481</width>
           <height>121</height>
          </rect>
@@ -4233,7 +4539,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>40</y>
+          <y>70</y>
           <width>481</width>
           <height>121</height>
          </rect>
@@ -4258,7 +4564,7 @@ time-series</string>
         <property name="geometry">
          <rect>
           <x>10</x>
-          <y>290</y>
+          <y>330</y>
           <width>481</width>
           <height>121</height>
          </rect>
@@ -4283,6 +4589,52 @@ time-series</string>
      </widget>
     </widget>
    </widget>
+  </widget>
+  <widget class="QToolButton" name="saveAsButton">
+   <property name="geometry">
+    <rect>
+     <x>318</x>
+     <y>16</y>
+     <width>52</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Save As</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="openButton">
+   <property name="geometry">
+    <rect>
+     <x>223</x>
+     <y>16</y>
+     <width>76</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Open project</string>
+   </property>
+  </widget>
+  <widget class="QToolButton" name="newButton">
+   <property name="geometry">
+    <rect>
+     <x>133</x>
+     <y>16</y>
+     <width>71</width>
+     <height>19</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <weight>50</weight>
+     <bold>false</bold>
+     <underline>false</underline>
+    </font>
+   </property>
+   <property name="text">
+    <string>New Project</string>
+   </property>
   </widget>
  </widget>
  <resources>
@@ -4344,8 +4696,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>211</y>
+     <x>490</x>
+     <y>248</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4360,8 +4712,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>347</y>
+     <x>480</x>
+     <y>410</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4376,8 +4728,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>364</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>408</x>
@@ -4392,8 +4744,8 @@ time-series</string>
    <slot>createForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>88</x>
-     <y>640</y>
+     <x>92</x>
+     <y>662</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4408,8 +4760,8 @@ time-series</string>
    <slot>createInitMaps()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>371</y>
+     <x>118</x>
+     <y>702</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4424,8 +4776,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>78</x>
-     <y>111</y>
+     <x>94</x>
+     <y>148</y>
     </hint>
     <hint type="destinationlabel">
      <x>10</x>
@@ -4440,8 +4792,8 @@ time-series</string>
    <slot>createStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>112</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>398</x>
@@ -4456,8 +4808,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>484</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4472,8 +4824,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>111</y>
+     <x>119</x>
+     <y>222</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
@@ -4488,8 +4840,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>211</y>
+     <x>490</x>
+     <y>274</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4504,8 +4856,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>223</x>
+     <y>250</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4520,8 +4872,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>85</x>
-     <y>147</y>
+     <x>91</x>
+     <y>182</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4536,8 +4888,8 @@ time-series</string>
    <slot>updateStations()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>456</x>
+     <y>169</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4552,8 +4904,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>127</x>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4568,8 +4920,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>347</y>
+     <x>480</x>
+     <y>384</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4585,7 +4937,7 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>111</x>
-     <y>211</y>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4616,8 +4968,8 @@ time-series</string>
    <slot>updateDelineation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>111</y>
+     <x>451</x>
+     <y>160</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4632,8 +4984,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>110</y>
+     <x>471</x>
+     <y>150</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4648,8 +5000,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>83</x>
-     <y>308</y>
+     <x>87</x>
+     <y>330</y>
     </hint>
     <hint type="destinationlabel">
      <x>4</x>
@@ -4664,8 +5016,8 @@ time-series</string>
    <slot>delineate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>231</y>
+     <x>482</x>
+     <y>411</y>
     </hint>
     <hint type="destinationlabel">
      <x>459</x>
@@ -4680,8 +5032,8 @@ time-series</string>
    <slot>changeCRS()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>111</x>
-     <y>211</y>
+     <x>168</x>
+     <y>254</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -4696,8 +5048,8 @@ time-series</string>
    <slot>showBackground()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>110</x>
-     <y>582</y>
+     <x>114</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -4728,8 +5080,8 @@ time-series</string>
    <slot>recreateArea()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>121</x>
-     <y>506</y>
+     <x>426</x>
+     <y>521</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4760,8 +5112,8 @@ time-series</string>
    <slot>updateForcing()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>90</x>
-     <y>178</y>
+     <x>92</x>
+     <y>200</y>
     </hint>
     <hint type="destinationlabel">
      <x>0</x>
@@ -4776,8 +5128,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>132</y>
+     <x>471</x>
+     <y>164</y>
     </hint>
     <hint type="destinationlabel">
      <x>485</x>
@@ -4792,8 +5144,8 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>132</y>
+     <x>474</x>
+     <y>223</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
@@ -4808,108 +5160,12 @@ time-series</string>
    <slot>updatePath()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>132</y>
+     <x>474</x>
+     <y>281</y>
     </hint>
     <hint type="destinationlabel">
      <x>502</x>
      <y>160</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dailyMapReportCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateReportCheckBox()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>337</x>
-     <y>163</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>178</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>monthlyMapReportCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateReportCheckBox()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>355</x>
-     <y>186</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>annualMapReportCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateReportCheckBox()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>341</x>
-     <y>209</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>276</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>dailyTSSReportCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateReportCheckBox()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>351</x>
-     <y>253</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>341</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>mmRepFlagCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>updateReportCheckBox()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>282</x>
-     <y>287</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>415</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>reportListWidget</sender>
-   <signal>itemSelectionChanged()</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>setReportGui()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>99</x>
-     <y>220</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>514</x>
-     <y>529</y>
     </hint>
    </hints>
   </connection>
@@ -4921,10 +5177,10 @@ time-series</string>
    <hints>
     <hint type="sourcelabel">
      <x>50</x>
-     <y>107</y>
+     <y>114</y>
     </hint>
     <hint type="destinationlabel">
-     <x>514</x>
+     <x>511</x>
      <y>157</y>
     </hint>
    </hints>
@@ -4936,11 +5192,11 @@ time-series</string>
    <slot>showTimeSeries()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>103</x>
-     <y>133</y>
+     <x>119</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
-     <x>514</x>
+     <x>511</x>
      <y>599</y>
     </hint>
    </hints>
@@ -4952,11 +5208,11 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>137</y>
+     <x>246</x>
+     <y>439</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>511</x>
      <y>441</y>
     </hint>
    </hints>
@@ -4968,11 +5224,11 @@ time-series</string>
    <slot>updateDateModel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>112</x>
-     <y>137</y>
+     <x>246</x>
+     <y>488</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>511</x>
      <y>514</y>
     </hint>
    </hints>
@@ -4984,11 +5240,11 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>401</x>
-     <y>211</y>
+     <x>433</x>
+     <y>287</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>511</x>
      <y>252</y>
     </hint>
    </hints>
@@ -5000,28 +5256,12 @@ time-series</string>
    <slot>updateDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>372</x>
-     <y>211</y>
+     <x>388</x>
+     <y>352</y>
     </hint>
     <hint type="destinationlabel">
-     <x>516</x>
+     <x>511</x>
      <y>320</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>crsSpinBox</sender>
-   <signal>valueChanged(int)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>changeModelCRS()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>112</x>
-     <y>147</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>516</x>
-     <y>309</y>
     </hint>
    </hints>
   </connection>
@@ -5032,8 +5272,8 @@ time-series</string>
    <slot>updateModules()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>114</y>
+     <x>92</x>
+     <y>112</y>
     </hint>
     <hint type="destinationlabel">
      <x>48</x>
@@ -5054,6 +5294,70 @@ time-series</string>
     <hint type="destinationlabel">
      <x>58</x>
      <y>28</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>basicReportingRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>copyReportingTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>87</x>
+     <y>160</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>614</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>AdvancedReportingRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>copyReportingTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>112</x>
+     <y>183</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>656</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CustomReportingRadioButton</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>copyReportingTable()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>52</x>
+     <y>206</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>692</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>timestep1DateEdit_m</sender>
+   <signal>dateChanged(QDate)</signal>
+   <receiver>SphyPluginDialog</receiver>
+   <slot>updateDateModel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>203</x>
+     <y>376</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>518</x>
+     <y>352</y>
     </hint>
    </hints>
   </connection>
@@ -5090,5 +5394,6 @@ time-series</string>
   <slot>showOutputMap()</slot>
   <slot>updateDateModel()</slot>
   <slot>changeModelCRS()</slot>
+  <slot>copyReportingTable()</slot>
  </slots>
 </ui>

@@ -189,13 +189,13 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.currentConfig = configparser.ConfigParser(allow_no_value = True)
         self.settings = QtCore.QSettings()
         self.currentConfigFileName = self.settings.value("sphyPlugin/currentConfig")
-        self.currentreptabFileName = self.settings.value("sphyPlugin/currentReptab")
+        # self.currentreptabFileName = self.settings.value("sphyPlugin/currentReptab")
         try:
             self.currentConfig.read(self.currentConfigFileName)
             self.projectDir = os.path.dirname(self.currentConfigFileName) + '/'
-            with open(self.currentreptabFileName, 'r') as f:
-                next(f) # skip headings
-                self.currentReptab = list(csv.reader(f, delimiter=','))
+            # with open(self.currentreptabFileName, 'r') as f:
+            #     next(f) # skip headings
+            #     self.currentReptab = list(csv.reader(f, delimiter=','))
 
             # self.currentReptab = self.currentreptabFileName
 
@@ -479,7 +479,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                              "kcTableLineEdit": ("LANDUSE", "CropFac"), "spinupyearSpinBox": ("TIMING", "spinupyears"),
                             "initGlacFracLineEdit": ("GLACIER", "glactable"),
                             "cIFracLineEdit": ("GLACIER", "modelID"), "dBFracLineEdit": ("GLACIER", "glacID"),
-                            "flowDirLineEdit": ("ROUTING", "flowdir"), "mmRepFlagCheckBox": ("REPORTING", "mm_rep_FLAG")
+                            "flowDirLineEdit": ("ROUTING", "flowdir")
 }
                              
                            
@@ -537,25 +537,25 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         ## MODEL PART
 
-        # set the dictionary for the reporting options
-        self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
-                           "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
-                           "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
-                           "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
-                           "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-                           "Routed total runoff [m3/s]": "qallratot"}
+        # # set the dictionary for the reporting options
+        # self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
+        #                    "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
+        #                    "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
+        #                    "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
+        #                    "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
+        #                    "Routed total runoff [m3/s]": "qallratot"}
         
-        items = self.reportDict.keys()
-        # check if items already exist. If items already exist, then items don't need to be added again
-        if self.reportListWidget.item(0) is None:
-            self.reportListWidget.addItems(items)
-            self.reportListWidget.sortItems()
-        # set the first item in the list as being the current item
-        self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
-        self.setReportGui() 
+        # items = self.reportDict.keys()
+        # # check if items already exist. If items already exist, then items don't need to be added again
+        # if self.reportListWidget.item(0) is None:
+        #     self.reportListWidget.addItems(items)
+        #     self.reportListWidget.sortItems()
+        # # set the first item in the list as being the current item
+        # self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
+        # self.setReportGui() 
 
-        # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
-        self.setOutputDict()
+        # # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
+        # self.setOutputDict()
         
         # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
         self.setVisListWidgets()
@@ -836,29 +836,29 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.currentConfig.set(module, par, str(value))
         self.updateSaveButtons(1)
 
-    def updateRepTab(self): #self,module,par,value):
+    # def updateRepTab(self): #self,module,par,value):
 
-        rows = []
-        # Read and modify the CSV
-        with open(self.currentreptabFileName, mode="r", newline="") as csvfile:
-            r = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONE)
-            rows = list(r)
+    #     rows = []
+    #     # Read and modify the CSV
+    #     with open(self.currentreptabFileName, mode="r", newline="") as csvfile:
+    #         r = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONE)
+    #         rows = list(r)
 
-            for row in rows:
-                #names on the reporting table
-                for key in self.reportDict:
-                    item = self.reportDict[key] # legend name
-                    map_out = self.currentConfig.get("REPORTING", item + "_mapoutput") 
-                    timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
-                    if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
-                        row[1] = map_out.replace(',','+')  # Update the 'map' column
-                        row[3] = timeseries
+    #         for row in rows:
+    #             #names on the reporting table
+    #             for key in self.reportDict:
+    #                 item = self.reportDict[key] # legend name
+    #                 map_out = self.currentConfig.get("REPORTING", item + "_mapoutput") 
+    #                 timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
+    #                 if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
+    #                     row[1] = map_out.replace(',','+')  # Update the 'map' column
+    #                     row[3] = timeseries
                 
 
-        # Overwrite the same file
-        with open(self.currentreptabFileName, mode="w", newline="") as outfile:
-            writer = csv.writer(outfile)
-            writer.writerows(rows)  # Write all rows back to the file
+        # # Overwrite the same file
+        # with open(self.currentreptabFileName, mode="w", newline="") as outfile:
+        #     writer = csv.writer(outfile)
+        #     writer.writerows(rows)  # Write all rows back to the file
 
 
         return
@@ -1112,6 +1112,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         for k in self.glacierMaps:
             self.deleteLayer(os.path.join(self.resultsPath, self.glacierMaps[k]), 'raster')
 
+
         #-remove temporary tiffs from results dir
         fi = glob.glob(os.path.join(self.resultsPath, 'temp*'))
         for f in fi:
@@ -1322,7 +1323,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'model_resolution':self.spatialRes,'model_crs':t_srs,
                             'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
                             
-                            'rgi_clipped_reproject':'TEMPORARY_OUTPUT','mod_id_raster':'TEMPORARY_OUTPUT','glaciers':'TEMPORARY_OUTPUT','rgi_clipped_reproject_glac_id':'TEMPORARY_OUTPUT','intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT','debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','reproject_rgi':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT','modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT','intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
+                            'rgi_clipped_reproject':'TEMPORARY_OUTPUT','mod_id_raster':'TEMPORARY_OUTPUT','glac_id_raster':'TEMPORARY_OUTPUT','glaciers':'TEMPORARY_OUTPUT','glac_id':'TEMPORARY_OUTPUT','intersection_glaciers_uid':'TEMPORARY_OUTPUT','ice_depth':'TEMPORARY_OUTPUT','debris':'TEMPORARY_OUTPUT','frac_glac':'TEMPORARY_OUTPUT','reproject_rgi':'TEMPORARY_OUTPUT','mod_id':'TEMPORARY_OUTPUT','modid_int_glacid':'TEMPORARY_OUTPUT','u_id':'TEMPORARY_OUTPUT','modid_int_glacid_inclmodh':'TEMPORARY_OUTPUT','intersection_glaciers_uid_hglac':'TEMPORARY_OUTPUT','debris_geom':'TEMPORARY_OUTPUT'})
                             
                             
             self.processLog1TextEdit.append('Glaciers module completed')
@@ -1564,6 +1565,22 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         for f in fi:
             os.remove(f)
     
+    def copyReportingTable(self):
+        sender = self.sender()
+        senderName = sender.objectName()
+        if senderName == 'basicReportingRadioButton':
+            reptable_path = os.path.dirname(__file__) + '/config/basic_reporting.csv'
+            shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
+
+        elif senderName == 'AdvancedReportingRadioButton':
+            reptable_path = os.path.dirname(__file__) + '/config/advanced_reporting.csv'
+            shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
+
+        elif senderName == 'CustomReportingRadioButton':
+            reptable_path = os.path.dirname(__file__) + '/config/custom_reporting.csv'
+            shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
+        
+
     #-Function to update the forcing settings
     def updateForcing(self, state):
         sender = self.sender()
@@ -1720,9 +1737,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateConfig("GENERAL", "endmonth", QtCore.QDate.month(enddate))
         self.updateConfig("GENERAL", "endday", QtCore.QDate.day(enddate))
 
-        self.updateConfig("TIMING", "startyear_timestep1", QtCore.QDate.year(startdate))
-        self.updateConfig("TIMING", "startmonth_timestep1", QtCore.QDate.month(startdate))
-        self.updateConfig("TIMING", "startday_timestep1", QtCore.QDate.day(startdate))
+        # self.updateConfig("TIMING", "startyear_timestep1", QtCore.QDate.year(startdate))
+        # self.updateConfig("TIMING", "startmonth_timestep1", QtCore.QDate.month(startdate))
+        # self.updateConfig("TIMING", "startday_timestep1", QtCore.QDate.day(startdate))
 
         self.saveProject()
         
@@ -1733,9 +1750,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # validate if simulation settings are ok
         startdatem = self.startDateEdit_m.date()
         enddatem = self.endDateEdit_m.date()
+        timestep1datem = self.timestep1DateEdit_m.date()
         
         self.startdatem = datetime.date(QtCore.QDate.year(startdatem),QtCore.QDate.month(startdatem),QtCore.QDate.day(startdatem))
         self.enddatem = datetime.date(QtCore.QDate.year(enddatem),QtCore.QDate.month(enddatem),QtCore.QDate.day(enddatem))
+        self.timestep1datem = datetime.date(QtCore.QDate.year(timestep1datem),QtCore.QDate.month(timestep1datem),QtCore.QDate.day(timestep1datem))
 
         if startdatem >= enddatem:
             QtWidgets.QMessageBox.warning(self, "Date error", "End date should be larger than start date")
@@ -1743,14 +1762,34 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 enddatem = QtCore.QDate(startdatem).addDays(1)
                 self.endDateEdit_m.setDate(enddatem)
             else:
-                startdatem = QtCore.QDate(enddatem).addDays(-1)
+                # startdatem = QtCore.QDate(enddatem).addDays(-1)
+                # self.startDateEdit_m.setDate(startdatem)
+                enddatem = QtCore.QDate(startdatem).addDays(1)
+                self.endDateEdit_m.setDate(enddatem)
+
+
+        if timestep1datem > startdatem:
+            QtWidgets.QMessageBox.warning(self, "Date error", "Start date should be larger than timestep 1")
+            if self.sender().objectName() == "startDateEdit_m":
+                startdatem = QtCore.QDate(timestep1datem).addDays(1)
                 self.startDateEdit_m.setDate(startdatem)
+            # else:
+            #     timestep1datem = QtCore.QDate(startdatem).addDays(-1)
+            #     self.timestep1DateEdit_m.setDate(timestep1datem)
+
         self.updateConfig("TIMING", "startyear", QtCore.QDate.year(startdatem))
         self.updateConfig("TIMING", "startmonth", QtCore.QDate.month(startdatem))
         self.updateConfig("TIMING", "startday", QtCore.QDate.day(startdatem))
         self.updateConfig("TIMING", "endyear", QtCore.QDate.year(enddatem))
         self.updateConfig("TIMING", "endmonth", QtCore.QDate.month(enddatem))
         self.updateConfig("TIMING", "endday", QtCore.QDate.day(enddatem))
+
+        self.updateConfig("TIMING", "startyear_timestep1", QtCore.QDate.year(timestep1datem))
+        self.updateConfig("TIMING", "startmonth_timestep1", QtCore.QDate.month(timestep1datem))
+        self.updateConfig("TIMING", "startday_timestep1", QtCore.QDate.day(timestep1datem))
+
+
+
         self.timeSteps = int((self.enddatem - self.startdatem).days + 1) 
         self.saveProject()
 
@@ -1884,9 +1923,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # check if a new project needs/can be created based on the criteria tested above    
         if newproject:
             self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "plugin_config_template.cfg"))
-            with open(os.path.join(os.path.dirname(__file__), "config", "reptab_template.csv"), 'r') as f:
-                # next(f) # skip headings
-                self.currentReptab = list(csv.reader(f, delimiter=','))
+            # with open(os.path.join(os.path.dirname(__file__), "config", "reptab_template.csv"), 'r') as f:
+            #     # next(f) # skip headings
+            #     self.currentReptab = list(csv.reader(f, delimiter=','))
 
             # clear project canvas
             #qgsProject = QgsProject.instance()
@@ -1921,10 +1960,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 # set the new config file
                 self.currentConfigFileName = tempname
                 self.currentConfig.read(self.currentConfigFileName)
-                self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1], 'reporting.csv').replace("\\","/")               
-                with open(os.path.join(self.currentreptabFileName), 'r') as f:
-                    next(f) # skip headings
-                    self.currentReptab = list(csv.reader(f, delimiter=','))
+                # self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1], 'reporting.csv').replace("\\","/")               
+                # with open(os.path.join(self.currentreptabFileName), 'r') as f:
+                #     next(f) # skip headings
+                #     self.currentReptab = list(csv.reader(f, delimiter=','))
 
                 self.saveProject()
             
@@ -1936,7 +1975,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             tempname = QtWidgets.QFileDialog.getSaveFileName(self, 'Save current project as', self.projectDir, '*.cfg')[0]
         if tempname:
             self.currentConfigFileName = tempname
-            self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")
+            # self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")
             self.saveProject()
             
     # Save the project
@@ -1945,9 +1984,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             self.currentConfig.write(f)
 
 
-        with open(self.currentreptabFileName, 'w', newline='') as w:
-            writer = csv.writer(w)
-            writer.writerows(self.currentReptab)  # Write all rows     
+        # with open(self.currentreptabFileName, 'w', newline='') as w:
+        #     writer = csv.writer(w)
+        #     writer.writerows(self.currentReptab)  # Write all rows     
 
         # with open(self.currentreptabFileName, 'w') as w:
         #     self.currentReptab.write(w)
@@ -1959,7 +1998,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         
         self.settings.setValue("sphyplugin/currentConfig", self.currentConfigFileName)
         self.projectDir = os.path.dirname(self.currentConfigFileName[0])
-        self.settings.setValue("sphyplugin/currentReptab", self.currentreptabFileName)
+        # self.settings.setValue("sphyplugin/currentReptab", self.currentreptabFileName)
         self.settings.setValue("sphyplugin/sphypath", self.sphyLocationPath)
 
         
@@ -2086,7 +2125,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     except:
                         pass
                     try:
-                        legend = self.outputFileNameDict[shortfile]
+                        legend = shortfile #self.outputFileNameDict[shortfile]
                         self.timeSeriesListWidget.addItem(legend[0])
                     except:
                         pass
@@ -2094,7 +2133,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     shortfile = file.split(".map")[0]
                     shortfile = shortfile.split("_")
                     try:
-                        legend = self.outputFileNameDict[shortfile[0]][0]
+                        legend = shortfile #self.outputFileNameDict[shortfile[0]][0]
                         if len(shortfile[1]) == 4: # it concerns an annual map
                             self.yMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
                         elif len(shortfile[1]) == 7: # it concerns a monthly map)
@@ -2324,7 +2363,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def runModel(self):
         self.updateDate()
         self.saveProject()
-        self.updateRepTab()
+        # self.updateRepTab()
         # clean the modelrunlogtext window
         self.modelRunLogTextEdit.clear()
         # clean the list items from the tss list widget in the visualization tab
@@ -2345,9 +2384,9 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
 
 
-        if (os.path.realpath(self.currentreptabFileName) != os.path.realpath((self.inputPath + "\\").replace("\\","/") + "reporting.csv")):
-            # make sure that reporting table is located in the input folder
-            shutil.copy(self.currentreptabFileName, (self.inputPath + "\\").replace("\\","/") + "reporting.csv")
+        # if (os.path.realpath(self.currentreptabFileName) != os.path.realpath((self.inputPath + "\\").replace("\\","/") + "reporting.csv")):
+        #     # make sure that reporting table is located in the input folder
+        #     shutil.copy(self.currentreptabFileName, (self.inputPath + "\\").replace("\\","/") + "reporting.csv")
 
             # copy the project reporting to the sphy dir
             # shutil.copy(self.currentreptabFileName, sphydir + "reporting.csv")
