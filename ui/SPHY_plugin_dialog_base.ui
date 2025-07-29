@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
-    <height>762</height>
+    <width>506</width>
+    <height>753</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -1464,7 +1464,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>8</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1701,7 +1701,7 @@ button to identify the corresponding UTM zone for your model area.</string>
             <item>
              <widget class="QLabel" name="demMapLabel">
               <property name="text">
-               <string>DEM map [MASL]</string>
+               <string>DEM map [AMSL]</string>
               </property>
              </widget>
             </item>
@@ -3937,60 +3937,65 @@ conductivity [mm/d]</string>
       <widget class="QGroupBox" name="groupBox_39">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>20</y>
-         <width>241</width>
+         <width>321</width>
          <height>141</height>
         </rect>
        </property>
        <property name="title">
-        <string>Select your preferred reporting option</string>
+        <string/>
        </property>
-       <widget class="QSplitter" name="splitter">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>122</width>
-          <height>63</height>
+          <x>20</x>
+          <y>10</y>
+          <width>291</width>
+          <height>91</height>
          </rect>
         </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <widget class="QRadioButton" name="basicReportingRadioButton">
-         <property name="text">
-          <string>Basic Reporting</string>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="AdvancedReportingRadioButton">
-         <property name="text">
-          <string>Advanced Reporting</string>
-         </property>
-         <property name="autoRepeat">
-          <bool>false</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="CustomReportingRadioButton">
-         <property name="text">
-          <string>Custom Reporting</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-         <property name="autoRepeat">
-          <bool>false</bool>
-         </property>
-         <property name="autoExclusive">
-          <bool>true</bool>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <item>
+          <widget class="QRadioButton" name="radioButton">
+           <property name="text">
+            <string>Select your preferred reporting option</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="basicReportingRadioButton">
+           <property name="text">
+            <string>Basic Reporting</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="CustomReportingRadioButton">
+           <property name="text">
+            <string>Custom Reporting</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
@@ -4643,7 +4648,7 @@ conductivity [mm/d]</string>
     </rect>
    </property>
    <property name="text">
-    <string>Open project</string>
+    <string>Open Project</string>
    </property>
   </widget>
   <widget class="QToolButton" name="newButton">
@@ -5340,22 +5345,6 @@ conductivity [mm/d]</string>
     <hint type="destinationlabel">
      <x>511</x>
      <y>614</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>AdvancedReportingRadioButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>copyReportingTable()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>112</x>
-     <y>183</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>511</x>
-     <y>656</y>
     </hint>
    </hints>
   </connection>

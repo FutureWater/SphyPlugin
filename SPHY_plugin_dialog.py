@@ -455,6 +455,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.showMMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Monthly", 1))
         self.showYMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Annual", 0))
 
+
+
         
     #-Initialize the GUI
     def initGuiConfigMap(self):
@@ -537,14 +539,19 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         ## MODEL PART
 
-        # # set the dictionary for the reporting options
-        # self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
-        #                    "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
-        #                    "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
-        #                    "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
-        #                    "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
-        #                    "Routed total runoff [m3/s]": "qallratot"}
+        # set the dictionary for the reporting options
+        self.reportDict = {"Precipitation [mm]": "totprec", "Rainfall [mm]": "totrainf", "ETp [mm]": "totetpotf", "ETa [mm]": "totetactf", "Snow [mm]": "totsnowf", "Snow melt [mm]": "totsnowmeltf",
+                           "Glacier melt [mm]": "totglacmeltf", "Surface runoff [mm]": "totrootrf", "Rootzone drainage [mm]": "totrootdf", "Rootzone percolation [mm]": "totrootpf",
+                           "Subzone percolation [mm]": "totsubpf", "Capillary rise [mm]": "totcaprf", "Glacier percolation [mm]": "totglacpercf", "Groundwater recharge [mm]": "totgwrechargef",
+                           "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
+                           "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
+                           "Routed total runoff [m3/s]": "qallratot"}
         
+
+
+
+
+
         # items = self.reportDict.keys()
         # # check if items already exist. If items already exist, then items don't need to be added again
         # if self.reportListWidget.item(0) is None:
@@ -835,31 +842,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def updateConfig(self, module, par, value):
         self.currentConfig.set(module, par, str(value))
         self.updateSaveButtons(1)
-
-    # def updateRepTab(self): #self,module,par,value):
-
-    #     rows = []
-    #     # Read and modify the CSV
-    #     with open(self.currentreptabFileName, mode="r", newline="") as csvfile:
-    #         r = csv.reader(csvfile, delimiter=',', quoting=csv.QUOTE_NONE)
-    #         rows = list(r)
-
-    #         for row in rows:
-    #             #names on the reporting table
-    #             for key in self.reportDict:
-    #                 item = self.reportDict[key] # legend name
-    #                 map_out = self.currentConfig.get("REPORTING", item + "_mapoutput") 
-    #                 timeseries = self.currentConfig.get("REPORTING", item + "_tsoutput") 
-    #                 if row[0].lower() == item:  # Check if the 'name' column matches 'prec'
-    #                     row[1] = map_out.replace(',','+')  # Update the 'map' column
-    #                     row[3] = timeseries
-                
-
-        # # Overwrite the same file
-        # with open(self.currentreptabFileName, mode="w", newline="") as outfile:
-        #     writer = csv.writer(outfile)
-        #     writer.writerows(rows)  # Write all rows back to the file
-
 
         return
         
@@ -1572,10 +1554,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             reptable_path = os.path.dirname(__file__) + '/config/basic_reporting.csv'
             shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
 
-        elif senderName == 'AdvancedReportingRadioButton':
-            reptable_path = os.path.dirname(__file__) + '/config/advanced_reporting.csv'
-            shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
-
         elif senderName == 'CustomReportingRadioButton':
             reptable_path = os.path.dirname(__file__) + '/config/custom_reporting.csv'
             shutil.copy(reptable_path, os.path.join(self.resultsPath, 'reporting.csv'))
@@ -1960,11 +1938,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 # set the new config file
                 self.currentConfigFileName = tempname
                 self.currentConfig.read(self.currentConfigFileName)
-                # self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1], 'reporting.csv').replace("\\","/")               
-                # with open(os.path.join(self.currentreptabFileName), 'r') as f:
-                #     next(f) # skip headings
-                #     self.currentReptab = list(csv.reader(f, delimiter=','))
-
                 self.saveProject()
             
     # Save as project
@@ -1975,7 +1948,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             tempname = QtWidgets.QFileDialog.getSaveFileName(self, 'Save current project as', self.projectDir, '*.cfg')[0]
         if tempname:
             self.currentConfigFileName = tempname
-            # self.currentreptabFileName = os.path.join(tempname.split('/')[0],'/',*tempname.split('/')[1:-1],'reporting.csv').replace("\\","/")
             self.saveProject()
             
     # Save the project
@@ -2026,87 +1998,65 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
 
     ############################################ MODEL functions ################################################################################################
-
-    # Initialize the Reporting options in the GUI based on the config file reporting settings    
-    def setReportGui(self):
-        widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
-        item = self.reportListWidget.currentItem()
-        key = item.text()
-        par = self.reportDict[key]
-        tssoutput = (self.currentConfig.get("REPORTING", par + "_tsoutput")).split(",")
-        mapitems = self.currentConfig.get("REPORTING", par + "_mapoutput").split(",")
-
-        # update the map reporting checkboxes
-        for w in widgets:
-            w.setChecked(0)
-        for map in mapitems:
-            if map == "D":
-                self.dailyMapReportCheckBox.setChecked(1)
-            elif map == "M":
-                self.monthlyMapReportCheckBox.setChecked(1)
-            elif map == "Y":
-                self.annualMapReportCheckBox.setChecked(1)
-        # update the tss reporting checkbox
-        if tssoutput[0] == "D":
-            self.dailyTSSReportCheckBox.setChecked(1)
-        else:
-            self.dailyTSSReportCheckBox.setChecked(0)
-        
+  
     def setOutputDict(self):
-        self.outputFileNameDict = {}
-        self.outputLegendDict = {}
-        for key in self.reportDict:
-            item = self.reportDict[key] # legend name
-            fname = self.currentConfig.get("REPORTING", item + "_fname") # filename
-            mapoutput = self.currentConfig.get("REPORTING", item + "_mapoutput") # mapoutput
-            tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # tsoutput
-            # continue with next loop item if no reporting is done for this item
-            if mapoutput == "NONE" and tsoutput == "NONE":
-                continue
+
+        self.outputFileNameDict = self.reportDict
+        self.outputLegendDict = self.reportDict
+        # self.outputFileNameDict = {}
+        # self.outputLegendDict = {}
+        # for key in self.reportDict:
+        #     item = self.reportDict[key] # legend name
+        #     fname = self.currentConfig.get("REPORTING", item + "_fname") # filename
+        #     mapoutput = self.currentConfig.get("REPORTING", item + "_mapoutput") # mapoutput
+        #     tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # tsoutput
+        #     # continue with next loop item if no reporting is done for this item
+        #     if mapoutput == "NONE" and tsoutput == "NONE":
+        #         continue
             
-            self.outputFileNameDict.setdefault(fname, [])
-            self.outputFileNameDict[fname].append(key)
-            self.outputLegendDict.setdefault(key, [])
-            self.outputLegendDict[key].append(fname)
-            if "m3/s" in key:
-                 # append a flag of 1 that indicates that it needs to be converted for the M and Y maps
-                self.outputFileNameDict[fname].append(1)
-                self.outputLegendDict[key].append(1)
-        if self.currentConfig.getint("REPORTING", "mm_rep_flag") == 0: # if no reporting of sub-basin average mm fluxes is required then they don't need to be added to the dictionary
-            return
-        # add the subbasin average tss files to the dictionaries
-        self.outputFileNameDict.setdefault("ETaSubBasinTSS", [])
-        self.outputFileNameDict["ETaSubBasinTSS"].append("Basin avg. ETa [mm]")
-        self.outputFileNameDict.setdefault("PrecSubBasinTSS", [])
-        self.outputFileNameDict["PrecSubBasinTSS"].append("Basin avg. precipitation [mm]")
-        self.outputFileNameDict.setdefault("GMeltSubBasinTSS", [])
-        self.outputFileNameDict["GMeltSubBasinTSS"].append("Basin avg. glacier melt [mm]")
-        self.outputFileNameDict.setdefault("QSNOWSubBasinTSS", [])
-        self.outputFileNameDict["QSNOWSubBasinTSS"].append("Basin avg. snow runoff [mm]")
-        self.outputFileNameDict.setdefault("QRAINSubBasinTSS", [])
-        self.outputFileNameDict["QRAINSubBasinTSS"].append("Basin avg. rain runoff [mm]")
-        self.outputFileNameDict.setdefault("QGLACSubBasinTSS", [])
-        self.outputFileNameDict["QGLACSubBasinTSS"].append("Basin avg. glacier runoff [mm]")
-        self.outputFileNameDict.setdefault("QBASFSubBasinTSS", [])
-        self.outputFileNameDict["QBASFSubBasinTSS"].append("Basin avg. baseflow runoff [mm]")
-        self.outputFileNameDict.setdefault("QTOTSubBasinTSS", [])
-        self.outputFileNameDict["QTOTSubBasinTSS"].append("Basin avg. total runoff [mm]")
-        self.outputLegendDict.setdefault("Basin avg. ETa [mm]", [])
-        self.outputLegendDict["Basin avg. ETa [mm]"].append("ETaSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. precipitation [mm]", [])
-        self.outputLegendDict["Basin avg. precipitation [mm]"].append("PrecSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. glacier melt [mm]", [])
-        self.outputLegendDict["Basin avg. glacier melt [mm]"].append("GMeltSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. snow runoff [mm]", [])
-        self.outputLegendDict["Basin avg. snow runoff [mm]"].append("QSNOWSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. rain runoff [mm]", [])
-        self.outputLegendDict["Basin avg. rain runoff [mm]"].append("QRAINSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. glacier runoff [mm]", [])
-        self.outputLegendDict["Basin avg. glacier runoff [mm]"].append("QGLACSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. baseflow runoff [mm]", [])
-        self.outputLegendDict["Basin avg. baseflow runoff [mm]"].append("QBASFSubBasinTSS")
-        self.outputLegendDict.setdefault("Basin avg. total runoff [mm]", [])
-        self.outputLegendDict["Basin avg. total runoff [mm]"].append("QTOTSubBasinTSS")
+        #     self.outputFileNameDict.setdefault(fname, [])
+        #     self.outputFileNameDict[fname].append(key)
+        #     self.outputLegendDict.setdefault(key, [])
+        #     self.outputLegendDict[key].append(fname)
+        #     if "m3/s" in key:
+        #          # append a flag of 1 that indicates that it needs to be converted for the M and Y maps
+        #         self.outputFileNameDict[fname].append(1)
+        #         self.outputLegendDict[key].append(1)
+        # if self.currentConfig.getint("REPORTING", "mm_rep_flag") == 0: # if no reporting of sub-basin average mm fluxes is required then they don't need to be added to the dictionary
+        #     return
+        # # add the subbasin average tss files to the dictionaries
+        # self.outputFileNameDict.setdefault("ETaSubBasinTSS", [])
+        # self.outputFileNameDict["ETaSubBasinTSS"].append("Basin avg. ETa [mm]")
+        # self.outputFileNameDict.setdefault("PrecSubBasinTSS", [])
+        # self.outputFileNameDict["PrecSubBasinTSS"].append("Basin avg. precipitation [mm]")
+        # self.outputFileNameDict.setdefault("GMeltSubBasinTSS", [])
+        # self.outputFileNameDict["GMeltSubBasinTSS"].append("Basin avg. glacier melt [mm]")
+        # self.outputFileNameDict.setdefault("QSNOWSubBasinTSS", [])
+        # self.outputFileNameDict["QSNOWSubBasinTSS"].append("Basin avg. snow runoff [mm]")
+        # self.outputFileNameDict.setdefault("QRAINSubBasinTSS", [])
+        # self.outputFileNameDict["QRAINSubBasinTSS"].append("Basin avg. rain runoff [mm]")
+        # self.outputFileNameDict.setdefault("QGLACSubBasinTSS", [])
+        # self.outputFileNameDict["QGLACSubBasinTSS"].append("Basin avg. glacier runoff [mm]")
+        # self.outputFileNameDict.setdefault("QBASFSubBasinTSS", [])
+        # self.outputFileNameDict["QBASFSubBasinTSS"].append("Basin avg. baseflow runoff [mm]")
+        # self.outputFileNameDict.setdefault("QTOTSubBasinTSS", [])
+        # self.outputFileNameDict["QTOTSubBasinTSS"].append("Basin avg. total runoff [mm]")
+        # self.outputLegendDict.setdefault("Basin avg. ETa [mm]", [])
+        # self.outputLegendDict["Basin avg. ETa [mm]"].append("ETaSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. precipitation [mm]", [])
+        # self.outputLegendDict["Basin avg. precipitation [mm]"].append("PrecSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. glacier melt [mm]", [])
+        # self.outputLegendDict["Basin avg. glacier melt [mm]"].append("GMeltSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. snow runoff [mm]", [])
+        # self.outputLegendDict["Basin avg. snow runoff [mm]"].append("QSNOWSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. rain runoff [mm]", [])
+        # self.outputLegendDict["Basin avg. rain runoff [mm]"].append("QRAINSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. glacier runoff [mm]", [])
+        # self.outputLegendDict["Basin avg. glacier runoff [mm]"].append("QGLACSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. baseflow runoff [mm]", [])
+        # self.outputLegendDict["Basin avg. baseflow runoff [mm]"].append("QBASFSubBasinTSS")
+        # self.outputLegendDict.setdefault("Basin avg. total runoff [mm]", [])
+        # self.outputLegendDict["Basin avg. total runoff [mm]"].append("QTOTSubBasinTSS")
         
         
     # function to add the daily time-series csv files and spatial maps to the visualization tab list widgets
@@ -2125,15 +2075,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     except:
                         pass
                     try:
-                        legend = shortfile #self.outputFileNameDict[shortfile]
-                        self.timeSeriesListWidget.addItem(legend[0])
+                        legend = shortfile # self.outputFileNameDict[shortfile]
+                        self.timeSeriesListWidget.addItem(legend)
                     except:
                         pass
                 elif file.endswith('.map'):
                     shortfile = file.split(".map")[0]
                     shortfile = shortfile.split("_")
                     try:
-                        legend = shortfile #self.outputFileNameDict[shortfile[0]][0]
+                        legend = self.outputFileNameDict[shortfile[0]][0]
                         if len(shortfile[1]) == 4: # it concerns an annual map
                             self.yMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
                         elif len(shortfile[1]) == 7: # it concerns a monthly map)
@@ -2206,15 +2156,15 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 break
 
         if station_id is None:
-            QMessageBox.information(None, "Time Series Viewer", "Could not determine station ID.")
+            QtWidgets.QMessageBox.information(None, "Time Series Viewer", "Could not determine station ID.")
             return
 
         # Plot the time series from the CSV
         legenditem = self.timeSeriesListWidget.currentItem().text()  # Adjust if needed
-        filename = self.outputLegendDict.get(legenditem, [None])[0]
+        filename = legenditem #self.outputLegendDict.get(legenditem, [None])[0]
 
         if not filename:
-            QMessageBox.information(None, "Time Series Viewer", "No file associated with the selected legend item.")
+            QtWidgets.QMessageBox.information(None, "Time Series Viewer", "No file associated with the selected legend item.")
             return
 
         if "SubBasinTSS" in filename:
@@ -2311,54 +2261,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateSaveButtons(1)             
 
         
-       
-    # Update the reporting options in the config file depending on the checkboxes that are
-    # checked or unchecked in the Gui
-    def updateReportCheckBox(self, state):
-        sender = self.sender()
-        # if mm RepFlagCheckbox is checked or unchecked:
-        if sender == self.mmRepFlagCheckBox:
-            if state == QtCore.Qt.Unchecked:
-                self.updateConfig("REPORTING", "mm_rep_FLAG", 0)
-            else:
-                self.updateConfig("REPORTING", "mm_rep_FLAG", 1)
-        else:
-            item = self.reportListWidget.currentItem()
-            key = item.text()
-            par = self.reportDict[key]
-            # if mm dailyTSSReportCheckbox is checked or unchecked:    
-            if sender == self.dailyTSSReportCheckBox:
-                if state == QtCore.Qt.Unchecked:
-                    self.updateConfig("REPORTING", par + "_tsoutput", "NONE")
-                else:
-                    self.updateConfig("REPORTING", par + "_tsoutput", "D")
-            # else do something with the map reporting (D, M, or Y) checked or unchecked
-            else:
-                widgets = {self.dailyMapReportCheckBox: "D", self.monthlyMapReportCheckBox: "M", self.annualMapReportCheckBox: "Y"}
-                repOpt = widgets[sender]
-                mapitems = (self.currentConfig.get("REPORTING", par + "_mapoutput")).split(",")
-                if state == QtCore.Qt.Unchecked and repOpt in mapitems:
-                    mapitems.remove(repOpt)
-                    if mapitems == []:
-                        self.updateConfig("REPORTING", par + "_mapoutput", "NONE")
-                        return
-                elif state == QtCore.Qt.Checked:
-        
-                    if "NONE" in mapitems:
-                        self.updateConfig("REPORTING", par + "_mapoutput", repOpt)
-                        return
-                    elif repOpt not in mapitems:
-                        mapitems.append(repOpt)
-                reportString = ""
-                for map in mapitems:
-                    if map is not mapitems[-1]:
-                        reportString = reportString + map + ","
-                    else:
-                        reportString = reportString + map
-                self.updateConfig("REPORTING", par + "_mapoutput", reportString)
-
-        #self.saveProject() # don't know why but takes long time and crashes QGIS, so this function is not reflected until "Run Model" is pressed and the config is changed
-
+    
     # Function to run the model          
     def runModel(self):
         self.updateDate()
@@ -2371,7 +2274,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # disable the visualization tab during model run
         self.tab.setEnabled(10)
         # create the most recent output dictionary based on the reporting settings
-        #self.setOutputDict()
+        self.setOutputDict()
 
         
         # set the batchfile settings
@@ -2383,13 +2286,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # copy the project cfg to config to be used with sphy.py
         shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
 
-
-        # if (os.path.realpath(self.currentreptabFileName) != os.path.realpath((self.inputPath + "\\").replace("\\","/") + "reporting.csv")):
-        #     # make sure that reporting table is located in the input folder
-        #     shutil.copy(self.currentreptabFileName, (self.inputPath + "\\").replace("\\","/") + "reporting.csv")
-
-            # copy the project reporting to the sphy dir
-            # shutil.copy(self.currentreptabFileName, sphydir + "reporting.csv")
 
         # make a batch file to execute
         f = open(batchfile, "w")
@@ -2720,7 +2616,7 @@ class ModelWorker(QtCore.QObject):
                     # or if the user cancels the model run
                     if "Traceback" in line or self.killed:
                         self.process = None
-                        break
+                        # break deleting because I wanna print the error in the dialog 
                     #self.progBar.emit(int(progress_count / int(str(self.steps)) * 100))
                     #self.modelRunProgressBar.setValue(int(progress_count / int(str(self.steps)) * 100)) not working
                     self.cmdProgress.emit(line)
@@ -2730,7 +2626,6 @@ class ModelWorker(QtCore.QObject):
             # forward the exception upstream
             error_message = traceback.format_exc()
             self.error.emit(e, error_message)  # Convert `e` to string for compatibility
-            #self.error.emit(e, traceback.format_exc())
 
         finally: 
             self.finished.emit(self.process)
@@ -2747,6 +2642,7 @@ class ModelWorker(QtCore.QObject):
 
 # Class for converting maps in a worker thread
 class convertMapWorker(QtCore.QObject):
+
     def __init__(self, date, ts, outpath, outputFileNameDict):
         QtCore.QObject.__init__(self)
         self.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
@@ -2755,6 +2651,21 @@ class convertMapWorker(QtCore.QObject):
         self.timeSteps = ts
         self.outputPath = outpath
         self.outputFileNameDict = outputFileNameDict
+
+        self.reportVariables = [
+        "filename", "wbal",
+        "TotS", "RainS", "SnowS", "GlacS", "BaseS",
+        "Prec", "PrecF", "PrecEF", "LAI", "IntF", "Rain", "RainF",
+        "ETr", "ETrF", "ETp", "ETpF", "ETa", "ETaF",
+        "Pws", "Snow", "SnowF", "SMel", "SMelF", "Gmel", "GMelF",
+        "Infil", "Rootr", "Rootd", "Rootp", "Subd", "Subp", "Capr", "Seep",
+        "Glacp", "Gwre", "Gwl", "Rainr", "Snowr", "Glacr", "Baser", "Totr",
+        "Canop", "SnowS", "Rootw", "Subw", "GrndW",
+        "SSTot", "RRTot", "RDTot", "RTot", "STot", "GTot", "BTot", "QAll",
+        "DetRn", "DetRun", "SDpFld", "STrans", "Sdep", "SdYld", "SdFlux", "TC"
+    ]
+        
+
     def run(self):
         process = None
         outpath = (self.outputPath).replace("\\","/")
@@ -2798,7 +2709,7 @@ class convertMapWorker(QtCore.QObject):
                     hund = nr[2:5]
                     pcrext = ''+thous+'.'+hund
                 # loop over the output file name dictionary to check if file exists
-                for key in self.outputFileNameDict:
+                for key in self.reportVariables:
                     files = glob.glob(outpath + key + "*" + pcrext)
                     if files:
                         for f in files:
@@ -2839,7 +2750,6 @@ class convertMapWorker(QtCore.QObject):
             # forward the exception upstream
             error_message = traceback.format_exc()
             self.error.emit(e, error_message)  # Convert `e` to string for compatibility
-            #self.error.emit(e, traceback.format_exc())
 
         finally: 
             self.finished.emit(process)
