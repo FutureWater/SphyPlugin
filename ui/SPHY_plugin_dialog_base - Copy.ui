@@ -2,13 +2,28 @@
 <ui version="4.0">
  <class>SphyPluginDialog</class>
  <widget class="QDialog" name="SphyPluginDialog">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>512</width>
-    <height>762</height>
+    <width>506</width>
+    <height>753</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>510</width>
+    <height>762</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -62,7 +77,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="tabBarAutoHide">
       <bool>false</bool>
@@ -1001,10 +1016,10 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label">
        <property name="geometry">
         <rect>
-         <x>120</x>
-         <y>310</y>
-         <width>251</width>
-         <height>351</height>
+         <x>130</x>
+         <y>330</y>
+         <width>221</width>
+         <height>311</height>
         </rect>
        </property>
        <property name="autoFillBackground">
@@ -1102,10 +1117,10 @@ button to identify the corresponding UTM zone for your model area.</string>
       <widget class="QLabel" name="label_2">
        <property name="geometry">
         <rect>
-         <x>130</x>
-         <y>340</y>
-         <width>251</width>
-         <height>321</height>
+         <x>170</x>
+         <y>370</y>
+         <width>181</width>
+         <height>281</height>
         </rect>
        </property>
        <property name="font">
@@ -1449,7 +1464,7 @@ button to identify the corresponding UTM zone for your model area.</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>7</number>
      </property>
      <widget class="QWidget" name="generalSettingsTab">
       <attribute name="title">
@@ -1686,7 +1701,7 @@ button to identify the corresponding UTM zone for your model area.</string>
             <item>
              <widget class="QLabel" name="demMapLabel">
               <property name="text">
-               <string>DEM map [MASL]</string>
+               <string>DEM map [AMSL]</string>
               </property>
              </widget>
             </item>
@@ -2863,7 +2878,7 @@ conductivity [mm/d]</string>
       <widget class="QGroupBox" name="glaciersGroupBox">
        <property name="geometry">
         <rect>
-         <x>10</x>
+         <x>0</x>
          <y>10</y>
          <width>491</width>
          <height>631</height>
@@ -3457,29 +3472,6 @@ conductivity [mm/d]</string>
            </property>
            <layout class="QHBoxLayout" name="horizontalLayout_87">
             <item>
-             <widget class="QLabel" name="tcritLabel">
-              <property name="text">
-               <string>Tcrit</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QDoubleSpinBox" name="tcritDoubleSpinBox">
-              <property name="minimum">
-               <double>-100.000000000000000</double>
-              </property>
-              <property name="maximum">
-               <double>100.000000000000000</double>
-              </property>
-              <property name="singleStep">
-               <double>0.500000000000000</double>
-              </property>
-              <property name="value">
-               <double>2.000000000000000</double>
-              </property>
-             </widget>
-            </item>
-            <item>
              <layout class="QHBoxLayout" name="horizontalLayout_88">
               <item>
                <widget class="QRadioButton" name="DDFSSingleRadioButton">
@@ -3532,6 +3524,38 @@ conductivity [mm/d]</string>
              </layout>
             </item>
            </layout>
+          </widget>
+          <widget class="QSplitter" name="splitter">
+           <property name="geometry">
+            <rect>
+             <x>20</x>
+             <y>110</y>
+             <width>84</width>
+             <height>23</height>
+            </rect>
+           </property>
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <widget class="QLabel" name="tcritLabel">
+            <property name="text">
+             <string>Tcrit</string>
+            </property>
+           </widget>
+           <widget class="QDoubleSpinBox" name="tcritDoubleSpinBox">
+            <property name="minimum">
+             <double>-100.000000000000000</double>
+            </property>
+            <property name="maximum">
+             <double>100.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.500000000000000</double>
+            </property>
+            <property name="value">
+             <double>2.000000000000000</double>
+            </property>
+           </widget>
           </widget>
          </widget>
         </widget>
@@ -3922,45 +3946,65 @@ conductivity [mm/d]</string>
       <widget class="QGroupBox" name="groupBox_39">
        <property name="geometry">
         <rect>
-         <x>20</x>
+         <x>10</x>
          <y>20</y>
-         <width>241</width>
+         <width>321</width>
          <height>141</height>
         </rect>
        </property>
        <property name="title">
-        <string>Select your preferred reporting option</string>
+        <string/>
        </property>
-       <widget class="QSplitter" name="splitter">
+       <widget class="QWidget" name="layoutWidget">
         <property name="geometry">
          <rect>
-          <x>10</x>
-          <y>30</y>
-          <width>122</width>
-          <height>63</height>
+          <x>20</x>
+          <y>10</y>
+          <width>291</width>
+          <height>91</height>
          </rect>
         </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <widget class="QRadioButton" name="basicReportingRadioButton">
-         <property name="text">
-          <string>Basic Reporting</string>
-         </property>
-         <property name="checked">
-          <bool>true</bool>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="AdvancedReportingRadioButton">
-         <property name="text">
-          <string>Advanced Reporting</string>
-         </property>
-        </widget>
-        <widget class="QRadioButton" name="CustomReportingRadioButton">
-         <property name="text">
-          <string>Custom Reporting</string>
-         </property>
-        </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_21">
+         <item>
+          <widget class="QRadioButton" name="radioButton">
+           <property name="text">
+            <string>Select your preferred reporting option</string>
+           </property>
+           <property name="checked">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="basicReportingRadioButton">
+           <property name="text">
+            <string>Basic Reporting</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QRadioButton" name="CustomReportingRadioButton">
+           <property name="text">
+            <string>Custom Reporting</string>
+           </property>
+           <property name="checked">
+            <bool>false</bool>
+           </property>
+           <property name="autoRepeat">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>
@@ -3969,19 +4013,6 @@ conductivity [mm/d]</string>
        <string>Run Model</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_10">
-       <item row="3" column="0" colspan="2">
-        <widget class="QProgressBar" name="modelRunProgressBar">
-         <property name="value">
-          <number>0</number>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <layout class="QVBoxLayout" name="verticalLayout_32"/>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QTextEdit" name="modelRunLogTextEdit"/>
-       </item>
        <item row="1" column="0">
         <widget class="QPushButton" name="runModelButton">
          <property name="palette">
@@ -4431,12 +4462,18 @@ conductivity [mm/d]</string>
          </property>
         </widget>
        </item>
+       <item row="0" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout_32"/>
+       </item>
        <item row="1" column="1">
         <widget class="QPushButton" name="cancelModelRunButton">
          <property name="text">
           <string>Cancel model run</string>
          </property>
         </widget>
+       </item>
+       <item row="2" column="0" colspan="2">
+        <widget class="QTextEdit" name="modelRunLogTextEdit"/>
        </item>
       </layout>
      </widget>
@@ -4613,7 +4650,7 @@ conductivity [mm/d]</string>
     </rect>
    </property>
    <property name="text">
-    <string>Open project</string>
+    <string>Open Project</string>
    </property>
   </widget>
   <widget class="QToolButton" name="newButton">
@@ -5310,22 +5347,6 @@ conductivity [mm/d]</string>
     <hint type="destinationlabel">
      <x>511</x>
      <y>614</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>AdvancedReportingRadioButton</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>SphyPluginDialog</receiver>
-   <slot>copyReportingTable()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>112</x>
-     <y>183</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>511</x>
-     <y>656</y>
     </hint>
    </hints>
   </connection>

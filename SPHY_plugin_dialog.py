@@ -2083,7 +2083,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     shortfile = file.split(".map")[0]
                     shortfile = shortfile.split("_")
                     try:
-                        legend = self.outputFileNameDict[shortfile[0]][0]
+                        legend = shortfile[0] #self.outputFileNameDict[shortfile[0]][0]
                         if len(shortfile[1]) == 4: # it concerns an annual map
                             self.yMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
                         elif len(shortfile[1]) == 7: # it concerns a monthly map)
@@ -2212,7 +2212,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             legendtext = self.yMapSeriesListWidget.currentItem().text()
         legenditem = legendtext.split(", ")[0]
         date = legendtext.split(", ")[1]
-        filename = self.outputLegendDict[legenditem][0]
+        filename = legenditem #self.outputLegendDict[legenditem][0]
         filename = "%s%s%s%s" %(filename, "_", date, ".map")
 
         layer = QgsRasterLayer(self.outputPath + filename, legendtext)
@@ -2309,8 +2309,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         worker.error.connect(self.WorkerError)
         worker.cmdProgress.connect(self.modelWorkerListener)
         
-        # progressbar
-        worker.progBar.connect(self.modelRunProgressBar.setValue)
+
 
         thread.started.connect(worker.run)
         thread.start()
@@ -2328,8 +2327,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             - model input or parameters are missing/incorrect, or\n\
             - environmental settings are incorrect, or\n\
             a combination of these reasons.")
-            # set the progress bar to 0%
-            self.modelRunProgressBar.setValue(0)
+
         else:
             self.modelRunLogTextEdit.append("Model run was succesfully!")
             
@@ -2384,14 +2382,12 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.thread.wait()
         if finished:
             self.modelRunLogTextEdit.append("Converting model output maps completed!")
-            self.modelRunProgressBar.setValue(100)
         else:
             self.modelRunLogTextEdit.append("Converting model output maps unsuccessfully!!")
 
         self.setVisListWidgets()
         self.tab.setEnabled(10)
         time.sleep(1)
-        self.modelRunProgressBar.setValue(0)
     
     # function that is used to convert the tss to a more suitable csv file, containing only a date column, and
     # data column for each location    
@@ -2617,8 +2613,7 @@ class ModelWorker(QtCore.QObject):
                     if "Traceback" in line or self.killed:
                         self.process = None
                         # break deleting because I wanna print the error in the dialog 
-                    #self.progBar.emit(int(progress_count / int(str(self.steps)) * 100))
-                    #self.modelRunProgressBar.setValue(int(progress_count / int(str(self.steps)) * 100)) not working
+
                     self.cmdProgress.emit(line)
  
         except Exception as e:

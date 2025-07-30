@@ -47,10 +47,10 @@ class processForcing(object):
         self.outdir = os.path.join(resultsdir, 'forcing/')
         if not os.path.isdir(self.outdir):
             os.mkdir(self.outdir)
-        else: #-remove old forcing files
-            f = glob.glob(self.outdir + '*' )
-            for fi in f:
-                os.remove(fi)
+        # else: #-remove old forcing files
+        #     f = glob.glob(self.outdir + '*' )
+        #     for fi in f:
+        #         os.remove(fi)
             
         #-Directory for temporary files
         self.tempdir = resultsdir
