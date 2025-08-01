@@ -25,7 +25,7 @@ __copyright__ = "FutureWater"
 __license__ = "GPL"
 __version__ = "1.0"
 __email__ = "sphy@futurewater.nl"
-__date__ ='1 February 2025'
+__date__ ='1 August 2025'
 ############################################################################################
 
 """
@@ -34,10 +34,10 @@ __date__ ='1 February 2025'
                                  A QGIS plugin
  A tool to convert raw data into SPHY model input data
                               -------------------
-        begin                : 2015-06-23
+        begin                : 2025-08-01
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by Wilco Terink
-        email                : w.terink@futurewater.nl
+        copyright            : FutureWater
+        email                : info@futurewater.nl
  ***************************************************************************/
 
 """

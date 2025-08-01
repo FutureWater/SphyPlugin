@@ -1,6 +1,5 @@
 # The Spatial Processes in HYdrology (SPHY) model:
 # A spatially distributed hydrological model 
-# Copyright (C) 2013-2019  FutureWater
 # Email: sphy@futurewater.nl
 #
 # Authors (alphabetical order):
@@ -22,12 +21,7 @@
 #-Authorship information-###################################################################
 from builtins import str
 from builtins import object
-__author__ = "Wilco Terink"
-__copyright__ = "Wilco Terink"
-__license__ = "GPL"
-__version__ = "1.0"
-__email__ = "w.terink@futurewater.nl, terinkw@gmail.com"
-__date__ ='1 January 2017'
+
 ############################################################################################
 
 import os

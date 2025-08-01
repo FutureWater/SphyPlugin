@@ -1,6 +1,5 @@
 # The Spatial Processes in HYdrology (SPHY) model:
 # A spatially distributed hydrological model 
-# Copyright (C) 2013-2019  FutureWater
 # Email: sphy@futurewater.nl
 #
 # Authors (alphabetical order):
@@ -35,7 +34,7 @@ __copyright__ = "FutureWater"
 __license__ = "GPL"
 __version__ = "1.0"
 __email__ = "sphy@futurewater.nl"
-__date__ ='1 February 2025'
+__date__ ='1 August 2025'
 ############################################################################################
 
 """
@@ -44,10 +43,10 @@ __date__ ='1 February 2025'
                                  A QGIS plugin
  A tool to convert raw data into SPHY model input data
                              -------------------
-        begin                : 2015-06-23
+        begin                : 2025-08-21
         git sha              : $Format:%H$
-        copyright            : (C) 2015 by Wilco Terink
-        email                : w.terink@futurewater.nl
+        copyright            : (C) Futurewater
+        email                : info@futurewater.nl
  ***************************************************************************/
 
 """
@@ -86,7 +85,6 @@ from SphyPlugin.gui.generated.SPHY_plugin_dialog_base import Ui_SphyPluginDialog
 from SphyPlugin.aux_scripts.spatial_processing import SpatialProcessing
 #-Import forcing processing 
 from SphyPlugin.aux_scripts.forcing import processForcing
-#from SphyPlugin.aux_scripts.glaciers import Glaciers_model
 
 #-Class that allows to drag a rectangle on the map canvas
 class RectangleMapTool(QgsMapToolEmitPoint):
@@ -193,11 +191,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         try:
             self.currentConfig.read(self.currentConfigFileName)
             self.projectDir = os.path.dirname(self.currentConfigFileName) + '/'
-            # with open(self.currentreptabFileName, 'r') as f:
-            #     next(f) # skip headings
-            #     self.currentReptab = list(csv.reader(f, delimiter=','))
-
-            # self.currentReptab = self.currentreptabFileName
 
             self.currentProject = True
             self.Tab.setEnabled(1)
@@ -351,10 +344,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         """
         Glaciers tab: fraction maps and degree-day-factors
         """
-        # Glacier fraction maps
-        # self.selectInitGlacFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER_INIT", "GlacFrac" , "initial glacier fraction", "Input", "Glaciers", 5))
-        # self.selectCIFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracCI" , "clean ice covered glacier fraction", "Input", "Glaciers", 5))
-        # self.selectDBFracMapButton.clicked.connect(partial(self.updateMap, "GLACIER", "GlacFracDB" , "debris-covered glacier fraction", "Input", "Glaciers", 5))
 
         # First block, replacing above code
         self.selectGlaciersTableButton.clicked.connect(partial(self.updateCsvTable, "GLACIER", "GlacTable", "glaciers csv"))
@@ -455,9 +444,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.showMMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Monthly", 1))
         self.showYMapSeriesButton.clicked.connect(partial(self.showOutputMap, "Annual", 0))
 
-
-
-        
     #-Initialize the GUI
     def initGuiConfigMap(self):
         #####-Dictionary for General settings Tab and Basin delineation Tab
@@ -528,8 +514,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.generalMaps = {'DEM': 'dem.map', 'Slope': 'slope.map', 'Root_field': 'root_field.map', 'Root_sat': 'root_sat.map',\
                             'Root_dry': 'root_dry.map', 'Root_wilt': 'root_wilt.map', 'Root_Ksat': 'root_ksat.map', 'Sub_field': 'sub_field.map', 'Sub_sat': 'sub_sat.map',\
                             'Sub_Ksat': 'sub_ksat.map', 'LandUse': 'landuse.map', 'Latitudes': 'latitude.map'}
-        #-glacier and routing maps are only created if these modules are turned on. Snow and groundwater modules don't require the creation of maps, but are implemented for possible
-        # future developments. The Gui doesn't do anything with these two modules yet.
+        #-glacier and routing maps are only created if these modules are turned on. 
         self.glacierMaps = {'Glaciers Table': 'glaciers.csv','Lapse rates table': 'lapserates.tbl'} 
         self.routingMaps = {'LDD': 'ldd.map', 'Outlets': 'outlets.map', 'Rivers': 'river.map', 'AccuFlux': 'accuflux.map', 'Sub-basins': 'subbasins.map'}
         self.setModulesDict()
@@ -546,23 +531,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                            "Rain runoff [mm]": "totrainrf", "Snow runoff [mm]": "totsnowrf","Glacier runoff [mm]": "totglacrf", "Baseflow runoff [mm]": "totbaserf", "Total runoff [mm]": "totrf",
                            "Routed rain runoff [m3/s]": "rainratot", "Routed snow runoff [m3/s]": "snowratot", "Routed glacier runoff [m3/s]": "glacratot", "Routed baseflow runoff [m3/s]": "baseratot",
                            "Routed total runoff [m3/s]": "qallratot"}
-        
-
-
-
-
-
-        # items = self.reportDict.keys()
-        # # check if items already exist. If items already exist, then items don't need to be added again
-        # if self.reportListWidget.item(0) is None:
-        #     self.reportListWidget.addItems(items)
-        #     self.reportListWidget.sortItems()
-        # # set the first item in the list as being the current item
-        # self.reportListWidget.setCurrentItem(self.reportListWidget.item(0))
-        # self.setReportGui() 
-
-        # # Make two dictionaries: 1) keys = filename, items = legend name. 2) keys = legend name, items = filename
-        # self.setOutputDict()
         
         # Add the daily time-series csv files and spatial maps to the visualization tab list widgets
         self.setVisListWidgets()
@@ -1301,7 +1269,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
                             'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
                             'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
-                            'ferrinoti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ferrinoti_file')),
+                            'farinotti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'farinotti_file')),
                             'model_resolution':self.spatialRes,'model_crs':t_srs,
                             'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
                             
@@ -1695,8 +1663,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
     # validate start and enddate and set in config        
     def updateDate(self):
-#         if self.exitDate: # don't execute this function if GUI is initialized during new project or open project creation.
-#             return
         # validate if simulation settings are ok
         startdate = self.startDateEdit.date()
         enddate = self.endDateEdit.date()
@@ -1715,16 +1681,10 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.updateConfig("GENERAL", "endmonth", QtCore.QDate.month(enddate))
         self.updateConfig("GENERAL", "endday", QtCore.QDate.day(enddate))
 
-        # self.updateConfig("TIMING", "startyear_timestep1", QtCore.QDate.year(startdate))
-        # self.updateConfig("TIMING", "startmonth_timestep1", QtCore.QDate.month(startdate))
-        # self.updateConfig("TIMING", "startday_timestep1", QtCore.QDate.day(startdate))
-
         self.saveProject()
         
     # validate start and enddate and set in config        
     def updateDateModel(self):
-#         if self.exitDate: # don't execute this function if GUI is initialized during new project or open project creation.
-#             return
         # validate if simulation settings are ok
         startdatem = self.startDateEdit_m.date()
         enddatem = self.endDateEdit_m.date()
@@ -1740,8 +1700,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                 enddatem = QtCore.QDate(startdatem).addDays(1)
                 self.endDateEdit_m.setDate(enddatem)
             else:
-                # startdatem = QtCore.QDate(enddatem).addDays(-1)
-                # self.startDateEdit_m.setDate(startdatem)
                 enddatem = QtCore.QDate(startdatem).addDays(1)
                 self.endDateEdit_m.setDate(enddatem)
 
@@ -1751,9 +1709,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             if self.sender().objectName() == "startDateEdit_m":
                 startdatem = QtCore.QDate(timestep1datem).addDays(1)
                 self.startDateEdit_m.setDate(startdatem)
-            # else:
-            #     timestep1datem = QtCore.QDate(startdatem).addDays(-1)
-            #     self.timestep1DateEdit_m.setDate(timestep1datem)
 
         self.updateConfig("TIMING", "startyear", QtCore.QDate.year(startdatem))
         self.updateConfig("TIMING", "startmonth", QtCore.QDate.month(startdatem))
@@ -1901,13 +1856,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         # check if a new project needs/can be created based on the criteria tested above    
         if newproject:
             self.currentConfig.read(os.path.join(os.path.dirname(__file__), "config", "plugin_config_template.cfg"))
-            # with open(os.path.join(os.path.dirname(__file__), "config", "reptab_template.csv"), 'r') as f:
-            #     # next(f) # skip headings
-            #     self.currentReptab = list(csv.reader(f, delimiter=','))
-
-            # clear project canvas
-            #qgsProject = QgsProject.instance()
-            #qgsProject.clear()
             # save as new project
             self.saveAsProject("new")
             self.Tab.setCurrentIndex(0)
@@ -1955,31 +1903,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         with open(self.currentConfigFileName, 'w') as f:
             self.currentConfig.write(f)
 
-
-        # with open(self.currentreptabFileName, 'w', newline='') as w:
-        #     writer = csv.writer(w)
-        #     writer.writerows(self.currentReptab)  # Write all rows     
-
-        # with open(self.currentreptabFileName, 'w') as w:
-        #     self.currentReptab.write(w)
-        
-#         if self.currentProject is False:
-#             temp = self.currentConfigFileName
-#             self.sphyLocationPath = temp.split(":")[0] + ":"
-
         
         self.settings.setValue("sphyplugin/currentConfig", self.currentConfigFileName)
         self.projectDir = os.path.dirname(self.currentConfigFileName[0])
         # self.settings.setValue("sphyplugin/currentReptab", self.currentreptabFileName)
         self.settings.setValue("sphyplugin/sphypath", self.sphyLocationPath)
-
-        
-#         # write the qgs project file
-#         qgsProjectFileName = ((self.currentConfigFileName).split(".cfg")[0]) + ".qgs"
-#         qgsProject = QgsProject.instance()
-#         qgsProject.setFileName(qgsProjectFileName)
-#         qgsProject.write()
-#         self.settings.setValue("sphyplugin/qgsProjectFileName", qgsProjectFileName.replace("\\","/"))
         
         # update tab, project settings, and gui
         self.currentProject = True
@@ -1993,9 +1921,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def updateSaveButtons(self, flag):
         if self.currentProject:
             self.saveAsButton.setEnabled(1)
-#             self.saveButton.setEnabled(flag) 
-
-
 
     ############################################ MODEL functions ################################################################################################
   
@@ -2003,62 +1928,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
 
         self.outputFileNameDict = self.reportDict
         self.outputLegendDict = self.reportDict
-        # self.outputFileNameDict = {}
-        # self.outputLegendDict = {}
-        # for key in self.reportDict:
-        #     item = self.reportDict[key] # legend name
-        #     fname = self.currentConfig.get("REPORTING", item + "_fname") # filename
-        #     mapoutput = self.currentConfig.get("REPORTING", item + "_mapoutput") # mapoutput
-        #     tsoutput = self.currentConfig.get("REPORTING", item + "_tsoutput") # tsoutput
-        #     # continue with next loop item if no reporting is done for this item
-        #     if mapoutput == "NONE" and tsoutput == "NONE":
-        #         continue
-            
-        #     self.outputFileNameDict.setdefault(fname, [])
-        #     self.outputFileNameDict[fname].append(key)
-        #     self.outputLegendDict.setdefault(key, [])
-        #     self.outputLegendDict[key].append(fname)
-        #     if "m3/s" in key:
-        #          # append a flag of 1 that indicates that it needs to be converted for the M and Y maps
-        #         self.outputFileNameDict[fname].append(1)
-        #         self.outputLegendDict[key].append(1)
-        # if self.currentConfig.getint("REPORTING", "mm_rep_flag") == 0: # if no reporting of sub-basin average mm fluxes is required then they don't need to be added to the dictionary
-        #     return
-        # # add the subbasin average tss files to the dictionaries
-        # self.outputFileNameDict.setdefault("ETaSubBasinTSS", [])
-        # self.outputFileNameDict["ETaSubBasinTSS"].append("Basin avg. ETa [mm]")
-        # self.outputFileNameDict.setdefault("PrecSubBasinTSS", [])
-        # self.outputFileNameDict["PrecSubBasinTSS"].append("Basin avg. precipitation [mm]")
-        # self.outputFileNameDict.setdefault("GMeltSubBasinTSS", [])
-        # self.outputFileNameDict["GMeltSubBasinTSS"].append("Basin avg. glacier melt [mm]")
-        # self.outputFileNameDict.setdefault("QSNOWSubBasinTSS", [])
-        # self.outputFileNameDict["QSNOWSubBasinTSS"].append("Basin avg. snow runoff [mm]")
-        # self.outputFileNameDict.setdefault("QRAINSubBasinTSS", [])
-        # self.outputFileNameDict["QRAINSubBasinTSS"].append("Basin avg. rain runoff [mm]")
-        # self.outputFileNameDict.setdefault("QGLACSubBasinTSS", [])
-        # self.outputFileNameDict["QGLACSubBasinTSS"].append("Basin avg. glacier runoff [mm]")
-        # self.outputFileNameDict.setdefault("QBASFSubBasinTSS", [])
-        # self.outputFileNameDict["QBASFSubBasinTSS"].append("Basin avg. baseflow runoff [mm]")
-        # self.outputFileNameDict.setdefault("QTOTSubBasinTSS", [])
-        # self.outputFileNameDict["QTOTSubBasinTSS"].append("Basin avg. total runoff [mm]")
-        # self.outputLegendDict.setdefault("Basin avg. ETa [mm]", [])
-        # self.outputLegendDict["Basin avg. ETa [mm]"].append("ETaSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. precipitation [mm]", [])
-        # self.outputLegendDict["Basin avg. precipitation [mm]"].append("PrecSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. glacier melt [mm]", [])
-        # self.outputLegendDict["Basin avg. glacier melt [mm]"].append("GMeltSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. snow runoff [mm]", [])
-        # self.outputLegendDict["Basin avg. snow runoff [mm]"].append("QSNOWSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. rain runoff [mm]", [])
-        # self.outputLegendDict["Basin avg. rain runoff [mm]"].append("QRAINSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. glacier runoff [mm]", [])
-        # self.outputLegendDict["Basin avg. glacier runoff [mm]"].append("QGLACSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. baseflow runoff [mm]", [])
-        # self.outputLegendDict["Basin avg. baseflow runoff [mm]"].append("QBASFSubBasinTSS")
-        # self.outputLegendDict.setdefault("Basin avg. total runoff [mm]", [])
-        # self.outputLegendDict["Basin avg. total runoff [mm]"].append("QTOTSubBasinTSS")
-        
-        
+             
     # function to add the daily time-series csv files and spatial maps to the visualization tab list widgets
     def setVisListWidgets(self):  
         self.timeSeriesListWidget.clear()
@@ -2266,17 +2136,14 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
     def runModel(self):
         self.updateDate()
         self.saveProject()
-        # self.updateRepTab()
         # clean the modelrunlogtext window
         self.modelRunLogTextEdit.clear()
         # clean the list items from the tss list widget in the visualization tab
-        #self.timeSeriesListWidget.clear()
         # disable the visualization tab during model run
         self.tab.setEnabled(10)
         # create the most recent output dictionary based on the reporting settings
         self.setOutputDict()
-
-        
+ 
         # set the batchfile settings
         disk = (self.sphyLocationPath).split(":")[0] + ":"
         sphydir = self.sphyLocationPath + "/"
@@ -2285,7 +2152,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
          
         # copy the project cfg to config to be used with sphy.py
         shutil.copy(self.currentConfigFileName, sphydir + "sphy_config.cfg")
-
 
         # make a batch file to execute
         f = open(batchfile, "w")
@@ -2309,8 +2175,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         worker.error.connect(self.WorkerError)
         worker.cmdProgress.connect(self.modelWorkerListener)
         
-
-
         thread.started.connect(worker.run)
         thread.start()
         self.thread = thread
@@ -2331,7 +2195,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         else:
             self.modelRunLogTextEdit.append("Model run was succesfully!")
             
-            # Commented by me ---------------------------
             # Loop over the TSS and map output files, and convert and rename them to a more suitable format and add them to the correspoding
             # list widget in the visualize tab
             self.modelRunLogTextEdit.append("Converting Time-series TSS files...")
@@ -2356,8 +2219,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             thread.start()
             self.thread = thread
             self.worker = worker
-            # --------------------------------------------------------------------------------------------
-             
+            # --------------------------------------------------------------------------------------------   
 
         # add the daily time-series csv files to the list widget in the visualization tab and enable tab again            
         self.setVisListWidgets()
@@ -2508,23 +2370,11 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
             group_exists = False
             layer_exists = False
             if point:
-                #locationsfile = (self.inputPath).replace("\\","/") + "locations.shp"
                 locationsfile = (self.sphyLocationPath).replace("\\","/") + "/stations.shp"
-                #processing.run("saga:gridvaluestopoints", file, None, True, 0,locationsfile)
                 
                 layer = QgsVectorLayer(locationsfile, layername, "ogr")
-                # set the correct IDs in the first column, and finally remove the fourth column
-                # layer.startEditing()
-                # iter = layer.getFeatures()
-                # for feature in iter:
-                #     feature[0] = feature[3]
-                #     layer.updateFeature(feature)
-                # layer.deleteAttribute(3)
-                # layer.commitChanges()
             else:
                 layer = QgsRasterLayer(file, layername)
-#                 layer.setDrawingStyle("SingleBandPseudoColor")
-#                 layer.ColorShadingAlgorithm(QgsRasterLayer.ColorRampShader)
                 
             # set the layer CRS
             layer.setCrs(QgsCoordinateReferenceSystem(self.userCRS))

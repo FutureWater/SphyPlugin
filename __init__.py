@@ -1,6 +1,5 @@
 # The Spatial Processes in HYdrology (SPHY) model:
 # A spatially distributed hydrological model 
-# Copyright (C) 2013-2019  FutureWater
 # Email: sphy@futurewater.nl
 #
 # Authors (alphabetical order):
@@ -25,7 +24,7 @@ __copyright__ = "FutureWater"
 __license__ = "GPL"
 __version__ = "1.0"
 __email__ = "sphy@futurewater.nl"
-__date__ ='1 February 2025'
+__date__ ='1 August 2025'
 ############################################################################################
 """
 /***************************************************************************
@@ -33,8 +32,8 @@ __date__ ='1 February 2025'
                                  A QGIS plugin
  A tool to convert raw data into SPHY model input data
                              -------------------
-        begin                : 2015-06-23
-        copyright            : (C) 2015 by Wilco Terink
+        begin                : 2025-08-01
+        copyright            : FutureWater
         email                : w.terink@futurewater.nl
         git sha              : $Format:%H$
  ***************************************************************************/
