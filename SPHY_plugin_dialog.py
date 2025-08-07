@@ -187,7 +187,6 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
         self.currentConfig = configparser.ConfigParser(allow_no_value = True)
         self.settings = QtCore.QSettings()
         self.currentConfigFileName = self.settings.value("sphyPlugin/currentConfig")
-        # self.currentreptabFileName = self.settings.value("sphyPlugin/currentReptab")
         try:
             self.currentConfig.read(self.currentConfigFileName)
             self.projectDir = os.path.dirname(self.currentConfigFileName) + '/'
