@@ -1944,15 +1944,16 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                     except:
                         pass
                     try:
-                        legend = shortfile # self.outputFileNameDict[shortfile]
-                        self.timeSeriesListWidget.addItem(legend)
+                        legend = shortfile 
+                        if 'glacTable' not in legend:
+                            self.timeSeriesListWidget.addItem(legend)
                     except:
                         pass
                 elif file.endswith('.map'):
                     shortfile = file.split(".map")[0]
                     shortfile = shortfile.split("_")
                     try:
-                        legend = shortfile[0] #self.outputFileNameDict[shortfile[0]][0]
+                        legend = shortfile[0] 
                         if len(shortfile[1]) == 4: # it concerns an annual map
                             self.yMapSeriesListWidget.addItem(legend + ", " + shortfile[1])
                         elif len(shortfile[1]) == 7: # it concerns a monthly map)
