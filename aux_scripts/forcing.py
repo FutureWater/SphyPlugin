@@ -258,7 +258,7 @@ class processForcing(object):
                 #-Remove temporary files
                 self.removeFiles(self.tempdir, self.outdir)
             #-Loop over the 3 temperature forcings and create daily maps
-            forcings = {'Tair': self.tavgDBPath, 'Tmax': self.tmaxDBPath, 'Tmin': self.tminDBPath}
+            forcings = {'tair': self.tavgDBPath, 'tmax': self.tmaxDBPath, 'tmin': self.tminDBPath}
             for f in forcings:
                 for i in range(0, self.timeSteps):
                     daynr = i+1 # required for pcraster extension

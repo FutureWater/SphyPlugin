@@ -1,1 +1,1 @@
-"E:/SPHY-master/input/forcing/Tmin0000.152" = ("E:/SPHY-master/input/temp.map" )
+"E:/SPHY-master/input/slope.map" = slope("E:/SPHY-master/input/dem.map")

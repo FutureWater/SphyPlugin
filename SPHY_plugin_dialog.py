@@ -1276,6 +1276,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             
                             
             self.processLog1TextEdit.append('Glaciers module completed')
+            self.addCanvasLayer(os.path.join(self.resultsPath, 'GLAC_ID.map'), 'GLAC_ID', 'raster')
+
 
                    
         self.initialMapsProgressBar.setValue(100)
