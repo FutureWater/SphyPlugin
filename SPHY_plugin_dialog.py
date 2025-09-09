@@ -1268,7 +1268,7 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                             'rgi_shapefile':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'rgi_file')),
                             'debris_tiff': os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'debris_file')),
                             'dem':os.path.join(self.databasePath, self.databaseConfig.get('DEM', 'file')),
-                            'farinotti_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'farinotti_file')),
+                            'ice_thickness_tiff':os.path.join(self.databasePath, self.databaseConfig.get('GLACIER', 'ice_thickness_file')),
                             'model_resolution':self.spatialRes,'model_crs':t_srs,
                             'finer_resolution':self.spatialRes/10,'output_folder':self.resultsPath,
                             

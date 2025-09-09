@@ -1,1 +1,1 @@
-"E:/SPHY-master/input/slope.map" = slope("E:/SPHY-master/input/dem.map")
+"E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/subbasins.map" = subcatchment("E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/ldd.map","E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/outlets.map")
