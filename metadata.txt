@@ -1,12 +1,12 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=SPHY PLUGIN-3.1
+name=SPHY
 qgisMinimumVersion=3.0
-description=A tool to run SPHY Model and create its input files 
+description=A QGIS plugin for preprocessing input data and running simulations for the Spatial Processes in Hydrology (SPHY) model
 version=3.1
-author= FutureWater
-email= sphy@futurewater.nl
+author=FutureWater
+email=sphy@futurewater.nl
 
 # End of mandatory metadata
 
@@ -16,11 +16,11 @@ email= sphy@futurewater.nl
 # changelog=
 
 # Tags are comma separated with spaces allowed
-tags=
+tags=hydrology,climatechange,cryosphere,sphy,waterresources,model,preprocessor
 
 homepage=https://sphymodel.com/
-tracker=
-repository=
+tracker=https://github.com/FutureWater/SphyPlugin/issues
+repository=https://github.com/FutureWater/SphyPlugin
 category=Plugins
 icon=images/icon.png
 # experimental flag
