@@ -1,1 +1,1 @@
-"E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/subbasins.map" = subcatchment("E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/ldd.map","E:/amelia/SPHY_demo/test_trisuli_1km/output_glactest/outlets.map")
+"E:/SPHY/input/forcing/tmin0000.090" = ("E:/SPHY/input/temp.map" )

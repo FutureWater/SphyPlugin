@@ -77,7 +77,8 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 
-
+config_geom = processing.ProcessingConfig
+config_geom.setSettingValue('FILTER_INVALID_GEOMETRIES', 1)
 
 from SphyPlugin.gui.generated.SPHY_plugin_dialog_base import Ui_SphyPluginDialog
 
@@ -455,8 +456,8 @@ class SphyPluginDialog(QtWidgets.QDialog, Ui_SphyPluginDialog):
                              "endDateEdit_m": ("TIMING", ("endyear", "endmonth", "endday")), "cloneMapLineEdit": ('GENERAL', "mask"),
                              "demMapLineEdit": ('GENERAL',"dem"), "slopeMapLineEdit": ('GENERAL', "slope"),
                              "subbasinMapLineEdit": ('GENERAL', "sub"), "stationsMapLineEdit": ('GENERAL', "locations"),
-                             "precMapSeriesLineEdit": ("CLIMATE", "Prec"), "avgTempMapSeriesLineEdit": ("CLIMATE", "Tair"),
-                             "maxTempMapSeriesLineEdit": ("ETREF", "Tmax"), "minTempMapSeriesLineEdit": ("ETREF", "Tmin"),
+                             "precMapSeriesLineEdit": ("CLIMATE", "Prec"), "avgTempMapSeriesLineEdit": ("CLIMATE", "tair"),
+                             "maxTempMapSeriesLineEdit": ("ETREF", "tmax"), "minTempMapSeriesLineEdit": ("ETREF", "tmin"),
                              "latitudeZonesMapLineEdit": ("ETREF", "Lat"), "solarConstantDoubleSpinBox": ("ETREF", "Gsc"),
                              "rootFieldCapLineEdit": ("SOIL", "RootFieldMap"), "rootSatLineEdit": ("SOIL", "RootSatMap"),
                              "rootPermWiltLineEdit": ("SOIL", "RootDryMap"), "rootWiltLineEdit": ("SOIL", "RootWiltMap"),
