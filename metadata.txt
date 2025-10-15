@@ -1,31 +1,14 @@
-# This file should be included when you package your plugin.# Mandatory items:
-
 [general]
 name=SPHY
-qgisMinimumVersion=3.0
-description=A QGIS plugin for preprocessing input data and running simulations for the Spatial Processes in Hydrology (SPHY) model
-version=3.1
-author=FutureWater
 email=sphy@futurewater.nl
-
-# End of mandatory metadata
-
-# Recommended items:
-
-# Uncomment the following line and add your changelog:
-# changelog=
-
-# Tags are comma separated with spaces allowed
-tags=hydrology,climatechange,cryosphere,sphy,waterresources,model,preprocessor
-
-homepage=https://sphymodel.com/
+author=FutureWater
+qgisMinimumVersion=3.0
+description=A QGIS plugin for preprocessing input data and running simulations for the Spatial Processes in Hydrology (SPHY) model. 
+about=This plugin provides a preprocessing and model simulation environment for the Spatial Processes in Hydrology (SPHY) model within QGIS. It allows users to prepare input datasets, configure model parameters, run hydrological simulations, and visualize outputs through a graphical interface. The SPHY QGIS plugin integrates all essential steps of model setup including catchment delineation, parameterization, forcing data preparation, and a simulation environment to run the model and analyse and export results. 	Note that not all core functionalities of SPHY are available in the QGIS plugin. The full version is available on GitHub.
+version=version 3.1
 tracker=https://github.com/FutureWater/SphyPlugin/issues
 repository=https://github.com/FutureWater/SphyPlugin
+homepage=https://sphymodel.com/
 category=Plugins
+tags=hydrology,climatechange,cryosphere,sphy,waterresources,model,preprocessor
 icon=images/icon.png
-# experimental flag
-experimental=True
-
-# deprecated flag (applies to the whole plugin, not just a single version)
-deprecated=False
-
