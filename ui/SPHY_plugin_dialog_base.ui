@@ -9,15 +9,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>506</width>
+    <width>510</width>
     <height>762</height>
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+   <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="maximumSize">
    <size>
@@ -29,6 +35,9 @@
    <font>
     <underline>false</underline>
    </font>
+  </property>
+  <property name="cursor">
+   <cursorShape>ArrowCursor</cursorShape>
   </property>
   <property name="windowTitle">
    <string>SPHY PLUGIN 3.1</string>
@@ -77,7 +86,7 @@
       <bool>false</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="tabBarAutoHide">
       <bool>false</bool>
@@ -106,6 +115,12 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QLabel" name="databaseLabel">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Database</string>
             </property>
@@ -113,6 +128,12 @@
           </item>
           <item>
            <widget class="QLineEdit" name="databaseLineEdit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="readOnly">
              <bool>true</bool>
             </property>
@@ -120,6 +141,12 @@
           </item>
           <item>
            <widget class="QToolButton" name="databaseFolderButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>Select database folder</string>
             </property>
@@ -4748,51 +4775,45 @@ conductivity [mm/d]</string>
     </widget>
    </widget>
   </widget>
-  <widget class="QToolButton" name="saveAsButton">
-   <property name="geometry">
-    <rect>
-     <x>318</x>
-     <y>16</y>
-     <width>52</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Save As</string>
-   </property>
-  </widget>
-  <widget class="QToolButton" name="openButton">
-   <property name="geometry">
-    <rect>
-     <x>223</x>
-     <y>16</y>
-     <width>76</width>
-     <height>19</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Open Project</string>
-   </property>
-  </widget>
-  <widget class="QToolButton" name="newButton">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>133</x>
      <y>16</y>
-     <width>71</width>
-     <height>19</height>
+     <width>213</width>
+     <height>21</height>
     </rect>
    </property>
-   <property name="font">
-    <font>
-     <weight>50</weight>
-     <bold>false</bold>
-     <underline>false</underline>
-    </font>
-   </property>
-   <property name="text">
-    <string>New Project</string>
-   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_103">
+    <item>
+     <widget class="QToolButton" name="newButton">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="text">
+       <string>New Project</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QToolButton" name="openButton">
+      <property name="text">
+       <string>Open Project</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QToolButton" name="saveAsButton">
+      <property name="text">
+       <string>Save As</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources>
